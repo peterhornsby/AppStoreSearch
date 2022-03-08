@@ -11,6 +11,11 @@ iTunes Search API can be used to query data on iTunes Store which includes music
 iTunes Search API can be used to query data on iTunes Store which includes music, podcasts and apps. Since it’s a search API, at a minimum a search term needs to be passed as a parameter for this API to return results.
 For example this query will return all the apps (software) that match search query “IBM”: https://itunes.apple.com/search?term=ibm&entity=software&limit=200
 Please refer to the following url for more details on this API: https://developer.apple.com/library/archive/documentation/AudioVideo/ Conceptual/ iTuneSearchAPI/index.html
+
+### API Docs
+https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/Searching.html#//apple_ref/doc/uid/TP40017632-CH5-SW1
+
+
 The iOS App
 Write a native iOS app in Swift or Objective-C which has the following features:
 1. User should be able to enter the search term to look for apps (software)
