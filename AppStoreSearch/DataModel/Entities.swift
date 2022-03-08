@@ -18,4 +18,11 @@ public class AppEntity: NSManagedObject {
     @NSManaged public var category: String
     @NSManaged public var price: String
     @NSManaged public var size: String
+    
+    
+    func isFree() -> Bool {
+        // pjh: need to handle trash values
+        guard price == "0.00" else { return false }
+        return true
+    }
 }

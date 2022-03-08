@@ -141,8 +141,8 @@
 		2BD342A027D801C20042F33F /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				2BD342A127D801F10042F33F /* DataModel.swift */,
 				2BD342A327D8033E0042F33F /* AppStoreSearch.xcdatamodeld */,
+				2BD342A127D801F10042F33F /* DataModel.swift */,
 				2BD342A627D807130042F33F /* Entities.swift */,
 			);
 			path = DataModel;

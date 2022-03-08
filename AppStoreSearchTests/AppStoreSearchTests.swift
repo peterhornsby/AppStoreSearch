@@ -105,6 +105,38 @@ class AppStoreSearchTests: XCTestCase {
         
     }
     
+    func testModelValidateAppEntityFreePrice() throws {
+        let name = "Cool App"
+        let descripton = "App Description - text"
+        let category = "App category"
+        let price = "0.00"
+        let size = "8783872"
+        
+        let appEntity = DataModel.makeAppEntity(name,
+                                                descripton,
+                                                category,
+                                                price,
+                                                size)
+        
+        XCTAssertEqual(appEntity?.isFree(), true)
+    }
+    
+    func testModelValidateAppEntityCostToPrice() throws {
+        let name = "Cool App"
+        let descripton = "App Description - text"
+        let category = "App category"
+        let price = "7.06"
+        let size = "8783872"
+        
+        let appEntity = DataModel.makeAppEntity(name,
+                                                descripton,
+                                                category,
+                                                price,
+                                                size)
+        
+        XCTAssertEqual(appEntity?.isFree(), false)
+    }
+    
 
     
 
