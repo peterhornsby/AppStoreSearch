@@ -50,6 +50,7 @@
 		2BD3428D27D7FD8C0042F33F /* AppStoreSearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreSearchUITests.swift; sourceTree = "<group>"; };
 		2BD3428F27D7FD8C0042F33F /* AppStoreSearchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreSearchUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2BD3429C27D7FE0B0042F33F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2BD3429F27D800D20042F33F /* appstore-http-response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "appstore-http-response.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				2BD3429C27D7FE0B0042F33F /* README.md */,
+				2BD3429F27D800D20042F33F /* appstore-http-response.json */,
 				2BD3426B27D7FD8B0042F33F /* AppStoreSearch */,
 				2BD3428227D7FD8C0042F33F /* AppStoreSearchTests */,
 				2BD3428C27D7FD8C0042F33F /* AppStoreSearchUITests */,
