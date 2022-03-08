@@ -53,6 +53,60 @@ class AppStoreSearchTests: XCTestCase {
         XCTAssertNil(appEntity)
         
     }
+    
+    func testModelValidateAppEntityBadAppDesciption() throws {
+        let name = "Cool App"
+        let descripton = ""
+        let category = "App Category"
+        let price = "7.00"
+        let size = "8783872"
+        
+        let appEntity = DataModel.makeAppEntity(name,
+                                                descripton,
+                                                category,
+                                                price,
+                                                size)
+        
+        XCTAssertNil(appEntity)
+        
+    }
+    
+    func testModelValidateAppEntityBadCatgory() throws {
+        let name = "Cool App"
+        let descripton = "App Description - text"
+        let category = ""
+        let price = "7.00"
+        let size = "8783872"
+        
+        let appEntity = DataModel.makeAppEntity(name,
+                                                descripton,
+                                                category,
+                                                price,
+                                                size)
+        
+        XCTAssertNil(appEntity)
+        
+    }
+    
+    func testModelValidateAppEntityBadPrice() throws {
+        let name = "Cool App"
+        let descripton = "App Description - text"
+        let category = "App category"
+        let price = ""
+        let size = "8783872"
+        
+        let appEntity = DataModel.makeAppEntity(name,
+                                                descripton,
+                                                category,
+                                                price,
+                                                size)
+        
+        XCTAssertNil(appEntity)
+        
+    }
+    
+
+    
 
 //    func testPerformanceExample() throws {
 //        // This is an example of a performance test case.
