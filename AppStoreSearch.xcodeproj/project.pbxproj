@@ -111,12 +111,9 @@
 		2BD3426B27D7FD8B0042F33F /* AppStoreSearch */ = {
 			isa = PBXGroup;
 			children = (
-				2BD342AA27D823BA0042F33F /* ApplicationErrorCodes.swift */,
+				2BD342AC27D82FC40042F33F /* application */,
 				2BD342A827D822880042F33F /* Service */,
 				2BD342A027D801C20042F33F /* DataModel */,
-				2BD3426C27D7FD8B0042F33F /* AppDelegate.swift */,
-				2BD3426E27D7FD8B0042F33F /* SceneDelegate.swift */,
-				2BD3427027D7FD8B0042F33F /* ViewController.swift */,
 				2BD3427227D7FD8B0042F33F /* Main.storyboard */,
 				2BD3427527D7FD8C0042F33F /* Assets.xcassets */,
 				2BD3427727D7FD8C0042F33F /* LaunchScreen.storyboard */,
@@ -157,6 +154,17 @@
 			children = (
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		2BD342AC27D82FC40042F33F /* application */ = {
+			isa = PBXGroup;
+			children = (
+				2BD3426C27D7FD8B0042F33F /* AppDelegate.swift */,
+				2BD3426E27D7FD8B0042F33F /* SceneDelegate.swift */,
+				2BD342AA27D823BA0042F33F /* ApplicationErrorCodes.swift */,
+				2BD3427027D7FD8B0042F33F /* ViewController.swift */,
+			);
+			path = application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
