@@ -67,7 +67,7 @@ class DataModelTests: XCTestCase {
     
     
     
-
+    
     func testIsValidNameForAppEntity() throws {
         XCTAssertTrue(DataModel.isAppEntityValid(appEntity))
         

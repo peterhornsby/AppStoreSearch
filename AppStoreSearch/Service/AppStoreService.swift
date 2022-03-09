@@ -52,6 +52,7 @@ struct AppStoreService {
                         if let dict = item as? [String: Any] {
                             if let entity = makeAppEntity(dict) {
                                 appEntities.append(entity)
+                                FileSystemService.saveJSONResponse(source: dict, path: entity.id.uuidString)
                             } else {
                                 // pjh: decide if should throw error here
                                 print("NO ENTITY CREATED")
