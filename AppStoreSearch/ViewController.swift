@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    fileprivate var datasource: [AppEntity] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
