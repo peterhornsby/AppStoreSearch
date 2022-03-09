@@ -35,23 +35,34 @@ each app’s details, including app name, app icon, description, all screen shot
 The app wil lbe based of the MVC design pattern. There will be a data model for handling search queries and a view controller for handling the UI. Note that in Apple's UIKit that the view and controller are somewhat more coupled than the design pattern.
 
 
-#### Data Model
+### Data Model
 A simple model that can be queried for apps in Apple's App Store. The data model will require storage for screenshots and logos
 
 I will start with the model and write unit tests and use TDD.
 
 **Tasks**
-- Model definition, basic setup
-- Define data structure 
+- Model definition, basic setup ✅
+- Define data structure ✅ (will iterate)
 - write unit tests for search query string
-- wire up Model to UI
+- wire up Model to UI ✅
  
 
 
+### AppStore Service
+This a network service(http) that will make the actual http GET request. The data model will provide a url encoded item tso that this service can build the http GET request and process the response. There is the requirement to display ALL screenshots! Suggest it is broken down into a device list first so that we don't overload UI fetching images. It is also possibble to do thumbnails first.
+
+**Contraints:**
+- reachablity
+- lost connection
+- time out
+- multiple Asset requests
 
 
-
-
+**Tasks**
+- AppStore Service definition
+- URLSession setup, will use the default for first pass
+- Define service return values
+- query builder method
 
 
 
