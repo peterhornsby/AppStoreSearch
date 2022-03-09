@@ -18,23 +18,23 @@ struct DataModel {
     static let persistence = PersistenceController()
     
     
-    static func queryForApps(term: String?, handle: ([AppEntity], String) -> ()) -> (code:Int, message:String) {
+    static func queryForApps(term: String?, handle: ([AppEntity], String) -> ()) -> (code:ApplicationErrorType, message:String) {
         var message = "Search term is nil"
         guard let text = term else {
             handle([], message)
-            return (code: nilStringErrorCode, message: message)
+            return (code: .nilStringErrorCode, message: message)
         }
         
         guard text.isEmpty == false else {
             message = "Search term is empty"
             handle([], message)
-            return (code: emptyStringErrorCode, message: message)
+            return (code: .emptyStringErrorCode, message: message)
         }
         
         guard let encoded = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
             message = "Search term could not be url encoded!"
             handle([], message)
-            return (code: urlEncodingErrorCode, message: message)
+            return (code: .urlEncodingErrorCode, message: message)
         }
         
         logger.info("text: \(encoded)")
@@ -43,7 +43,7 @@ struct DataModel {
         
         message = "request made to AppStore service"
         handle([], message)
-        return (code: okayNoErrorCode, message: message)
+        return (code: .okayNoErrorCode, message: message)
 
     }
     

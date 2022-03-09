@@ -20,6 +20,7 @@
 		2BD342A527D8033E0042F33F /* AppStoreSearch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342A327D8033E0042F33F /* AppStoreSearch.xcdatamodeld */; };
 		2BD342A727D807130042F33F /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342A627D807130042F33F /* Entities.swift */; };
 		2BD342AB27D823BA0042F33F /* ApplicationErrorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342AA27D823BA0042F33F /* ApplicationErrorCodes.swift */; };
+		2BD342AE27D835200042F33F /* AppStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342AD27D835200042F33F /* AppStoreService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		2BD342A427D8033E0042F33F /* AppStoreSearch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppStoreSearch.xcdatamodel; sourceTree = "<group>"; };
 		2BD342A627D807130042F33F /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		2BD342AA27D823BA0042F33F /* ApplicationErrorCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationErrorCodes.swift; sourceTree = "<group>"; };
+		2BD342AD27D835200042F33F /* AppStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 		2BD342A827D822880042F33F /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				2BD342AD27D835200042F33F /* AppStoreService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				2BD3426D27D7FD8B0042F33F /* AppDelegate.swift in Sources */,
 				2BD3426F27D7FD8B0042F33F /* SceneDelegate.swift in Sources */,
 				2BD342AB27D823BA0042F33F /* ApplicationErrorCodes.swift in Sources */,
+				2BD342AE27D835200042F33F /* AppStoreService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

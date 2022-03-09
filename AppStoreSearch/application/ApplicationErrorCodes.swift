@@ -7,15 +7,18 @@
 
 import Foundation
 
-// application Errors
-let okayNoErrorCode = 0
-let emptyStringErrorCode = 1
-let nilStringErrorCode = 2
-let urlEncodingErrorCode = 3
 
-
-// Network Errors
-let http200OKErrorCode = 200
-let networkUnreachableErrorCode = 50
-let networkLossConnectiveEerorCode = 51
+enum ApplicationErrorType {
+    
+    // application Errors
+    case okayNoErrorCode
+    case emptyStringErrorCode
+    case nilStringErrorCode
+    case urlEncodingErrorCode
+    // Network Errors
+    case http200OKErrorCode
+    case networkUnreachableErrorCode
+    case networkLossConnectiveErrorCode
+    case appStoreServiceErrorCode
+}
 
