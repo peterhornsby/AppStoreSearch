@@ -67,7 +67,7 @@ This a network service(http) that will make the actual http GET request. The dat
 - handle timeout
 
 
-### FileIO Service
+### FileSystem Service
 This service handles file system requests. In our case the will a background service that wil lhelp with saving json responses to file and saving screenshots once they have been downloaded. 
 
 **Contraints:**
