@@ -117,7 +117,7 @@ class AppStoreSearchTests: XCTestCase {
     }
     
     func testModelValidateAppEntityBadPrice() throws {
-        let name = "Cool App"
+        let name = "Cool App Number 1"
         let descripton = "App Description - text"
         let category = "App category"
         let price = ""
@@ -134,7 +134,7 @@ class AppStoreSearchTests: XCTestCase {
     }
     
     func testModelValidateAppEntityFreePrice() throws {
-        let name = "Cool App"
+        let name = "Cool App Number 2"
         let descripton = "App Description - text"
         let category = "App category"
         let price = "0.00"
@@ -150,7 +150,7 @@ class AppStoreSearchTests: XCTestCase {
     }
     
     func testModelValidateAppEntityCostToPrice() throws {
-        let name = "Cool App"
+        let name = "Cool App Number 3"
         let descripton = "App Description - text"
         let category = "App category"
         let price = "7.06"
