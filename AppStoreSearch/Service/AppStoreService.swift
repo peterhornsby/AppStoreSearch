@@ -8,9 +8,6 @@
 import Foundation
 import os.log
 
-let numberOfResultsPerQuery = 1
-
-
 struct AppStoreServiceError: Error {
 
     enum ErrorType {
@@ -27,7 +24,12 @@ struct AppStoreServiceError: Error {
 
 
 struct AppStoreService {
-    static func queryStore(term: String, limit: Int = 0) async throws -> (apps:[AppEntity], code: ApplicationErrorType) {
+    
+    
+    static var numberOfResultsPerQuery = 25
+    
+    static func queryStore(term: String, limit: Int = 0, makeAppEntity: ([String: Any]) -> AppEntity?) async throws -> (apps:[AppEntity], code: ApplicationErrorType) {
+        var appEntities: [AppEntity] = []
         var limitToUse = limit
         if limit <= 0 {
             limitToUse = numberOfResultsPerQuery
@@ -41,17 +43,23 @@ struct AppStoreService {
         Logger().info("AppStoreService: will use query: \(url.absoluteString)")
         
         let (rawData, rawResponse) = try await URLSession.shared.data(from: url)
-
+        
         do {
             let json = try JSONSerialization.jsonObject(with: rawData, options: [])
             if let dictionary = json as? [String: Any] {
                 if let items = dictionary["results"] as? [Any] {
-                    for item in items {
-                        print("item: \(item)")
+                    for item in items  {
+                        if let dict = item as? [String: Any] {
+                            if let entity = makeAppEntity(dict) {
+                                appEntities.append(entity)
+                            } else {
+                                // pjh: decide if should throw error here
+                                print("NO ENTITY CREATED")
+                            }
+                        }
                     }
                 }
             }
-            
             
         } catch {
             let message = "AppStoreService: failed decode HTTP response"
@@ -60,7 +68,7 @@ struct AppStoreService {
         
         
         
-        return (apps:[], code: .okayNoErrorCode)
+        return (apps:appEntities, code: .okayNoErrorCode)
     }
     
     // pjh: would like to pass in limit from UI but will default to a value here for now

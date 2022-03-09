@@ -20,5 +20,8 @@ enum ApplicationErrorType {
     case networkUnreachableErrorCode
     case networkLossConnectiveErrorCode
     case appStoreServiceErrorCode
+    // AppStore Service
+    case searchTermIsEmptyErrorCode
+    case searchTermIsNilErrorCode
 }
 

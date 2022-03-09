@@ -18,26 +18,26 @@ struct DataModel {
     static let persistence = PersistenceController()
     
     
-    static func queryForApps(term: String?, handle: ([AppEntity], String) -> ()) -> (code:ApplicationErrorType, message:String) {
+    static func queryForApps(term: String?, handle: @escaping([AppEntity], ApplicationErrorType) -> ()) -> (code:ApplicationErrorType, message:String) {
         var message = "Search term is nil"
         guard let text = term else {
-            handle([], message)
+            handle([], .searchTermIsNilErrorCode)
             return (code: .nilStringErrorCode, message: message)
         }
         
         guard text.isEmpty == false else {
             message = "Search term is empty"
-            handle([], message)
+            handle([], .searchTermIsEmptyErrorCode)
             return (code: .emptyStringErrorCode, message: message)
         }
         
         guard let encoded = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
             message = "Search term could not be url encoded!"
-            handle([], message)
+            handle([], .urlEncodingErrorCode)
             return (code: .urlEncodingErrorCode, message: message)
         }
         
-        logger.info("text: \(encoded)")
+        logger.info("Query term is: \(encoded)")
         logger.info("Data Model will Attempt to build http query and pass to network service")
         
         
@@ -46,20 +46,64 @@ struct DataModel {
         // pjh: call site for AppStore Service
         Task {
             do {
-                let appEntities = try await AppStoreService.queryStore(term: encoded)
-                print("appEntites count == \(appEntities.0.count)")
+                let results = try await AppStoreService.queryStore(term: encoded, makeAppEntity: DataModel.makeAppEntity)
+                handle(results.apps, .okayNoErrorCode)
+                print("appEntites count == \(results.apps.count)")
                 
             } catch {
                 print("AppStore Service Failed: \(error)")
             }
         }
         
-        
         return (code: .okayNoErrorCode, message: message)
-
     }
     
-
+    static func makeAppEntity(dictionary: [String: Any]) -> AppEntity? {
+        let viewContext = persistence.container.viewContext
+        let appEntity = AppEntity(context: viewContext)
+        for key in dictionary.keys {
+            if key == "description" {
+                if let text = dictionary["description"] as? String {
+                    appEntity.appDescription = text
+                }
+            } else if key == "trackName" {
+                if let text = dictionary["trackName"] as? String {
+                    appEntity.name = text
+                }
+            } else if key == "primaryGenreName" {
+                if let text = dictionary["primaryGenreName"] as? String {
+                    appEntity.category = text
+                }
+            } else if key == "price" {
+                if let number = dictionary["price"] as? Double {
+                    appEntity.price = "\(number)"
+                }
+            } else if key == "version" {
+                if let text = dictionary["version"] as? String {
+                    appEntity.version = text
+                }
+            } else if key == "artistName" {
+                if let text = dictionary["artistName"] as? String {
+                    appEntity.developer = text
+                }
+            } else if key == "fileSizeBytes" {
+                if let text = dictionary["fileSizeBytes"] as? String {
+                    appEntity.size = text
+                }
+            } else if key == "artworkUrl512" {
+                if let text = dictionary["artworkUrl512"] as? String {
+                    appEntity.artworkURL = text
+                }
+            }
+        }
+        
+        guard appEntity.isValid() == true else { return nil }
+        appEntity.id = UUID()
+        persistence.save()
+        return appEntity
+    }
+    
+    // pjh: non production
     static func makeAppEntity(_ name: String,
                               _ appDescription: String,
                               _ category: String,
@@ -76,14 +120,14 @@ struct DataModel {
         
         let viewContext = persistence.container.viewContext
         let appEntity = AppEntity(context: viewContext)
-        
-        appEntity.id = UUID()
         appEntity.name = name
         appEntity.appDescription = appDescription
         appEntity.category = category
         appEntity.price = price
         appEntity.size = size
         
+        guard appEntity.isValid() == true else { return nil }
+        appEntity.id = UUID()
         persistence.save()
         return appEntity
     }
