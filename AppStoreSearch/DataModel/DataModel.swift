@@ -16,6 +16,37 @@ struct DataModel {
     
     // A singleton for our entire app to use
     static let persistence = PersistenceController()
+    
+    
+    static func queryForApps(term: String?, handle: ([AppEntity], String) -> ()) -> (code:Int, message:String) {
+        var message = "Search term is nil"
+        guard let text = term else {
+            handle([], message)
+            return (code: nilStringErrorCode, message: message)
+        }
+        
+        guard text.isEmpty == false else {
+            message = "Search term is empty"
+            handle([], message)
+            return (code: emptyStringErrorCode, message: message)
+        }
+        
+        guard let encoded = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            message = "Search term could not be url encoded!"
+            handle([], message)
+            return (code: urlEncodingErrorCode, message: message)
+        }
+        
+        logger.info("text: \(encoded)")
+        logger.info("Data Model will Attempt to build http query and pass to network service")
+        
+        
+        message = "request made to AppStore service"
+        handle([], message)
+        return (code: okayNoErrorCode, message: message)
+
+    }
+    
 
     static func makeAppEntity(_ name: String,
                               _ appDescription: String,

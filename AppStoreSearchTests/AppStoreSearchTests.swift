@@ -18,6 +18,34 @@ class AppStoreSearchTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
+    func testQueryForAppsWithValidString() throws {
+        let result = DataModel.queryForApps(term: "IBM") {
+            (appEntities, _) -> () in
+            print("appEntities count: \(appEntities.count)")
+        }
+        
+        XCTAssertEqual(result.code, okayNoErrorCode)
+    }
+    
+    
+    
+    func testQueryForAppsWithEmptyString() throws {
+        let result = DataModel.queryForApps(term: "") {
+            (appEntities, _) -> () in
+            print("appEntities count: \(appEntities.count)")
+        }
+        
+        XCTAssertEqual(result.code, emptyStringErrorCode)
+    }
+    
+    func testQueryForAppsWithNilString() throws {
+        let result = DataModel.queryForApps(term: nil) {
+            (appEntities, _) -> () in
+            print("appEntities count: \(appEntities.count)")
+        }
+        
+        XCTAssertEqual(result.code, nilStringErrorCode)
+    }
     
     func testModelValidateAppEntityGoodParameters() throws {
         let name = "Cool App"

@@ -8,14 +8,14 @@
 import Foundation
 
 // application Errors
-let OkayNoErrorCode = 0
-let EmptyStringErrorCode = 1
+let okayNoErrorCode = 0
+let emptyStringErrorCode = 1
 let nilStringErrorCode = 2
-let URLEncodingErrorCode = 3
+let urlEncodingErrorCode = 3
 
 
 // Network Errors
-let Http200OKErrorCode = 200
-let NetworkUnreachableErrorCode = 50
-let NetworkLossConnectiveEerorCode = 51
+let http200OKErrorCode = 200
+let networkUnreachableErrorCode = 50
+let networkLossConnectiveEerorCode = 51
 
