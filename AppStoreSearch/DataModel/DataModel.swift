@@ -58,6 +58,7 @@ struct DataModel {
         return (code: .okayNoErrorCode, message: message)
     }
     
+    // pjh: used by AppStoreSearch service json -> coredata
     static func makeAppEntity(dictionary: [String: Any]) -> AppEntity? {
         let viewContext = persistence.container.viewContext
         let appEntity = AppEntity(context: viewContext)
@@ -113,7 +114,8 @@ struct DataModel {
         guard validateAppEntityParameters(name,
                                           appDescription,
                                           category,
-                                          price, size) == true else {
+                                          price,
+                                          size) == true else {
             logger.error("\(#function) - error: AppEntity parameters failed validation.")
             return nil
         }
@@ -125,8 +127,7 @@ struct DataModel {
         appEntity.category = category
         appEntity.price = price
         appEntity.size = size
-        
-        guard appEntity.isValid() == true else { return nil }
+
         appEntity.id = UUID()
         persistence.save()
         return appEntity

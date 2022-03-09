@@ -18,13 +18,6 @@ class AppStoreSearchTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    func testAppStoreServiceQueryForAppsFromDataModel() throws {
-        let term = "IBM"
-        let result = DataModel.queryForApps(term: term, handle: {_, _ in })
-        
-        
-        XCTAssertEqual(result.code, .okayNoErrorCode)
-    }
     
     func testQueryForAppsWithValidString() throws {
         let result = DataModel.queryForApps(term: "IBM") {

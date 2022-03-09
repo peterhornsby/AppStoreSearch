@@ -21,6 +21,7 @@
 		2BD342A727D807130042F33F /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342A627D807130042F33F /* Entities.swift */; };
 		2BD342AB27D823BA0042F33F /* ApplicationErrorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342AA27D823BA0042F33F /* ApplicationErrorCodes.swift */; };
 		2BD342AE27D835200042F33F /* AppStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342AD27D835200042F33F /* AppStoreService.swift */; };
+		2BD342B227D915560042F33F /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342B127D915560042F33F /* DataModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		2BD342A627D807130042F33F /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
 		2BD342AA27D823BA0042F33F /* ApplicationErrorCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationErrorCodes.swift; sourceTree = "<group>"; };
 		2BD342AD27D835200042F33F /* AppStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreService.swift; sourceTree = "<group>"; };
+		2BD342B127D915560042F33F /* DataModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				2BD3428327D7FD8C0042F33F /* AppStoreSearchTests.swift */,
+				2BD342B127D915560042F33F /* DataModelTests.swift */,
 			);
 			path = AppStoreSearchTests;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BD3428427D7FD8C0042F33F /* AppStoreSearchTests.swift in Sources */,
+				2BD342B227D915560042F33F /* DataModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
