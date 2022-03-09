@@ -20,9 +20,7 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // pjh: testing ONLY
-        DataModel.queryForApps(term: "IBM", handle: {_, _ in })
+    
     }
 }
 

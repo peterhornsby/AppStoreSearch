@@ -6,6 +6,9 @@
 //
 
 import XCTest
+import CoreData
+import os.log
+
 @testable import AppStoreSearch
 
 class AppStoreSearchTests: XCTestCase {
@@ -19,10 +22,10 @@ class AppStoreSearchTests: XCTestCase {
     }
 
     
-    func testModelValidateAppEntityGoodParameters() throws {
+    func tesAppEntityGoodParameters() throws {
         
         let source: [String : Any] = [
-            "trackName": "Cool App",
+            "trackName": "Cool App 1",
             "version": "7.7.0",
             "artistName": "pjh",
             "description": "App Description - text",
@@ -40,7 +43,7 @@ class AppStoreSearchTests: XCTestCase {
     }
     
 
-    func testModelValidateAppEntityBadName() throws {
+    func testAppEntityBadName() throws {
         let source: [String : Any] = [
             "trackName": "",
             "version": "7.7.0",
@@ -59,9 +62,9 @@ class AppStoreSearchTests: XCTestCase {
 
     }
 
-    func testModelValidateAppEntityBadAppDesciption() throws {
+    func testAppEntityBadAppDesciption() throws {
         let source: [String : Any] = [
-            "trackName": "Cool App",
+            "trackName": "Cool App 2",
             "version": "7.7.0",
             "artistName": "pjh",
             "description": "",
@@ -75,9 +78,9 @@ class AppStoreSearchTests: XCTestCase {
         XCTAssertNil(appEntity)
     }
 
-    func testModelValidateAppEntityBadCatgory() throws {
+    func testAppEntityBadCatgory() throws {
         let source: [String : Any] = [
-            "trackName": "Cool App",
+            "trackName": "Cool App 3",
             "version": "7.7.0",
             "artistName": "pjh",
             "description": "App Description - text",
@@ -92,9 +95,9 @@ class AppStoreSearchTests: XCTestCase {
         XCTAssertNil(appEntity)
     }
 
-    func testModelValidateAppEntityBadPrice() throws {
+    func testAppEntityBadPrice() throws {
         let source: [String : Any] = [
-            "trackName": "Cool App",
+            "trackName": "Cool App 4",
             "version": "7.7.0",
             "artistName": "pjh",
             "description": "App Description - text",
@@ -108,9 +111,9 @@ class AppStoreSearchTests: XCTestCase {
         XCTAssertNil(appEntity)
     }
 
-    func testModelValidateAppEntityFreePrice() throws {
+    func testAppEntityFreePrice() throws {
         let source: [String : Any] = [
-            "trackName": "Cool App",
+            "trackName": "Cool App 5",
             "version": "7.7.0",
             "artistName": "pjh",
             "description": "App Description - text",
@@ -124,9 +127,9 @@ class AppStoreSearchTests: XCTestCase {
         XCTAssertEqual(appEntity?.isFree(), true)
     }
 
-    func testModelValidateAppEntityCostToPrice() throws {
+    func testAppEntityCostToPrice() throws {
         let source: [String : Any] = [
-            "trackName": "Cool App",
+            "trackName": "Cool App 6",
             "version": "7.7.0",
             "artistName": "pjh",
             "description": "App Description - text",

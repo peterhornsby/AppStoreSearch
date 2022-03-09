@@ -29,17 +29,4 @@ public class AppEntity: NSManagedObject {
         guard number == 0.0  else { return false }
         return true
     }
-    
-    func isValid() -> Bool {
-        guard name.isEmpty == false,
-              version.isEmpty == false,
-              developer.isEmpty == false,
-              appDescription.isEmpty == false,
-              category.isEmpty == false,
-              price.isEmpty == false,
-              size.isEmpty == false,
-              artworkURL.isEmpty == false else { return false }
-        
-        return true
-    }
 }

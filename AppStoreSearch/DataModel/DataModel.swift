@@ -16,9 +16,9 @@ struct DataModel {
     
     // A singleton for our entire app to use
     static let persistence = PersistenceController()
+    static let viewContext = persistence.container.viewContext
     
     static func makeAppEntityFromSource(_ dictionary: [String: Any]) -> AppEntity? {
-        let viewContext = persistence.container.viewContext
         let appEntity = AppEntity(context: viewContext)
         for key in dictionary.keys {
             if key == "description" {
@@ -56,9 +56,8 @@ struct DataModel {
             }
         }
         
-        guard appEntity.isValid() == true else { return nil }
+        guard isAppEntityValid(appEntity) == true else { return nil }
         appEntity.id = UUID()
-        DataModel.persistence.save()
         return appEntity
     }
     
@@ -92,6 +91,7 @@ struct DataModel {
         Task {
             do {
                 let results = try await AppStoreService.queryStore(term: encoded, makeAppEntity: DataModel.makeAppEntityFromSource)
+                persistence.save()
                 handle(results.apps, .okayNoErrorCode)
                 print("appEntites count == \(results.apps.count)")
                 
@@ -103,6 +103,19 @@ struct DataModel {
         return (code: .okayNoErrorCode, message: message)
     }
     
+    static func isAppEntityValid(_ entity: AppEntity?) -> Bool {
+        guard entity?.name.isEmpty == false,
+              entity?.version.isEmpty == false,
+              entity?.developer.isEmpty == false,
+              entity?.appDescription.isEmpty == false,
+              entity?.category.isEmpty == false,
+              entity?.price.isEmpty == false,
+              entity?.size.isEmpty == false,
+              entity?.artworkURL.isEmpty == false else { return false }
+        
+        return true
+    }
+    
 }
 
 
@@ -112,7 +125,7 @@ struct DataModel {
 struct PersistenceController {
 
     // Storage for Core Data
-    let container: NSPersistentContainer
+    let container = NSPersistentContainer(name: "AppStoreSearch")
 
     // A test configuration for SwiftUI previews
     static var preview: PersistenceController = {
@@ -124,8 +137,6 @@ struct PersistenceController {
     // An initializer to load Core Data, optionally able
     // to use an in-memory store.
     fileprivate init(inMemory: Bool = false) {
-
-        container = NSPersistentContainer(name: "AppStoreSearch")
 
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
