@@ -48,6 +48,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="AppStore Search" id="gTF-ss-tOg"/>
+                    <connections>
+                        <outlet property="AppsListView" destination="GdI-4V-MOR" id="hvW-vy-UGL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
