@@ -13,7 +13,7 @@
 		2BD3427427D7FD8B0042F33F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BD3427227D7FD8B0042F33F /* Main.storyboard */; };
 		2BD3427627D7FD8C0042F33F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BD3427527D7FD8C0042F33F /* Assets.xcassets */; };
 		2BD3427927D7FD8C0042F33F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BD3427727D7FD8C0042F33F /* LaunchScreen.storyboard */; };
-		2BD3428427D7FD8C0042F33F /* AppStoreSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD3428327D7FD8C0042F33F /* AppStoreSearchTests.swift */; };
+		2BD3428427D7FD8C0042F33F /* AppEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD3428327D7FD8C0042F33F /* AppEntityTests.swift */; };
 		2BD3428E27D7FD8C0042F33F /* AppStoreSearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD3428D27D7FD8C0042F33F /* AppStoreSearchUITests.swift */; };
 		2BD3429027D7FD8C0042F33F /* AppStoreSearchUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD3428F27D7FD8C0042F33F /* AppStoreSearchUITestsLaunchTests.swift */; };
 		2BD342A227D801F10042F33F /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342A127D801F10042F33F /* DataModel.swift */; };
@@ -51,7 +51,7 @@
 		2BD3427827D7FD8C0042F33F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BD3427A27D7FD8C0042F33F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BD3427F27D7FD8C0042F33F /* AppStoreSearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppStoreSearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BD3428327D7FD8C0042F33F /* AppStoreSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreSearchTests.swift; sourceTree = "<group>"; };
+		2BD3428327D7FD8C0042F33F /* AppEntityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntityTests.swift; sourceTree = "<group>"; };
 		2BD3428927D7FD8C0042F33F /* AppStoreSearchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppStoreSearchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BD3428D27D7FD8C0042F33F /* AppStoreSearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreSearchUITests.swift; sourceTree = "<group>"; };
 		2BD3428F27D7FD8C0042F33F /* AppStoreSearchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreSearchUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 		2BD3428227D7FD8C0042F33F /* AppStoreSearchTests */ = {
 			isa = PBXGroup;
 			children = (
-				2BD3428327D7FD8C0042F33F /* AppStoreSearchTests.swift */,
+				2BD3428327D7FD8C0042F33F /* AppEntityTests.swift */,
 				2BD342B127D915560042F33F /* DataModelTests.swift */,
 			);
 			path = AppStoreSearchTests;
@@ -319,7 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BD3428427D7FD8C0042F33F /* AppStoreSearchTests.swift in Sources */,
+				2BD3428427D7FD8C0042F33F /* AppEntityTests.swift in Sources */,
 				2BD342B227D915560042F33F /* DataModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
