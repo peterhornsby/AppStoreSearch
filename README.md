@@ -43,7 +43,7 @@ I will start with the model and write unit tests and use TDD.
 **Tasks**
 - Model definition, basic setup ✅
 - Define data structure ✅ (will iterate)
-- write unit tests for search query string
+- write unit tests for search query string 
 - wire up Model to UI ✅
  
 
@@ -59,10 +59,12 @@ This a network service(http) that will make the actual http GET request. The dat
 
 
 **Tasks**
-- AppStore Service definition
-- URLSession setup, will use the default for first pass
+- AppStore Service definition ✅
+- URLSession setup, will use the `shared` for first pass
 - Define service return values
-- query builder method
+- query builder method ✅
+- handle lost connection
+- handle timeout
 
 
 
