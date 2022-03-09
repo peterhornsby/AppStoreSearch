@@ -77,10 +77,18 @@ This service handles file system requests. In our case the will a background ser
 - is performant 
 
 **Tasks**
-- Define service
-- method to save json for each ap pentity
-- directory structure for media assets
-- confirm image loading performance
+- Define service ✅
+- method to save json for each app entity ✅
+- directory structure for media assets ✅
+- confirm image\screenshots loading performance
 
 
+### User Interface
+Design here is a simple list/detail view setup. First will be the search view so that I can confirm `DataModel` and services are working with the `ui`
+
+
+**Tasks**
+- Build search view
+- wire up search view to data model.
+- confirm data entry and log results to console 
 
