@@ -25,7 +25,8 @@ public class AppEntity: NSManagedObject {
     
     func isFree() -> Bool {
         // pjh: need to handle trash values
-        guard price == "0.00" else { return false }
+        guard let number = Double(price) else { return false }
+        guard number == 0.0  else { return false }
         return true
     }
     

@@ -48,17 +48,20 @@ class AppStoreSearchTests: XCTestCase {
     }
     
     func testModelValidateAppEntityGoodParameters() throws {
-        let name = "Cool App"
-        let descripton = "App Description - text"
-        let category = "App Category"
-        let price = "7.00"
-        let size = "8783872"
         
-        let appEntity = DataModel.makeAppEntity(name,
-                                                descripton,
-                                                category,
-                                                price,
-                                                size)
+        let source: [String : Any] = [
+            "trackName": "Cool App",
+            "version": "7.7.0",
+            "artistName": "pjh",
+            "description": "App Description - text",
+            "primaryGenreName": "App Category",
+            "price": 7.00,
+            "fileSizeBytes": "8783872",
+            "artworkUrl512": "https://is3-ssl.mzstatic.com/image/thumb/Purple126/v4/1d/f1/4d/1df14d63-bd52-2fba-15cc-16707c8663a7/source/512x512bb.jpg",
+        ]
+        
+        
+        let appEntity = DataModel.makeAppEntityFromSource(source)
         
         XCTAssertNotNil(appEntity)
         
@@ -66,113 +69,113 @@ class AppStoreSearchTests: XCTestCase {
     
 
     func testModelValidateAppEntityBadName() throws {
-        let name = ""
-        let descripton = "App Description - text"
-        let category = "App Category"
-        let price = "7.00"
-        let size = "8783872"
+        let source: [String : Any] = [
+            "trackName": "",
+            "version": "7.7.0",
+            "artistName": "pjh",
+            "description": "App Description - text",
+            "primaryGenreName": "App Category",
+            "price": 7.00,
+            "fileSizeBytes": "8783872",
+            "artworkUrl512": "https://is3-ssl.mzstatic.com/image/thumb/Purple126/v4/1d/f1/4d/1df14d63-bd52-2fba-15cc-16707c8663a7/source/512x512bb.jpg",
+        ]
         
-        let appEntity = DataModel.makeAppEntity(name,
-                                                descripton,
-                                                category,
-                                                price,
-                                                size)
         
+        let appEntity = DataModel.makeAppEntityFromSource(source)
+
         XCTAssertNil(appEntity)
-        
+
     }
-    
+
     func testModelValidateAppEntityBadAppDesciption() throws {
-        let name = "Cool App"
-        let descripton = ""
-        let category = "App Category"
-        let price = "7.00"
-        let size = "8783872"
+        let source: [String : Any] = [
+            "trackName": "Cool App",
+            "version": "7.7.0",
+            "artistName": "pjh",
+            "description": "",
+            "primaryGenreName": "App Category",
+            "price": 7.00,
+            "fileSizeBytes": "8783872",
+            "artworkUrl512": "https://is3-ssl.mzstatic.com/image/thumb/Purple126/v4/1d/f1/4d/1df14d63-bd52-2fba-15cc-16707c8663a7/source/512x512bb.jpg",
+        ]
         
-        let appEntity = DataModel.makeAppEntity(name,
-                                                descripton,
-                                                category,
-                                                price,
-                                                size)
         
+        let appEntity = DataModel.makeAppEntityFromSource(source)
+
         XCTAssertNil(appEntity)
-        
+
     }
-    
+
     func testModelValidateAppEntityBadCatgory() throws {
-        let name = "Cool App"
-        let descripton = "App Description - text"
-        let category = ""
-        let price = "7.00"
-        let size = "8783872"
+        let source: [String : Any] = [
+            "trackName": "Cool App",
+            "version": "7.7.0",
+            "artistName": "pjh",
+            "description": "App Description - text",
+            "primaryGenreName": "",
+            "price": 7.00,
+            "fileSizeBytes": "8783872",
+            "artworkUrl512": "https://is3-ssl.mzstatic.com/image/thumb/Purple126/v4/1d/f1/4d/1df14d63-bd52-2fba-15cc-16707c8663a7/source/512x512bb.jpg",
+        ]
         
-        let appEntity = DataModel.makeAppEntity(name,
-                                                descripton,
-                                                category,
-                                                price,
-                                                size)
         
+        let appEntity = DataModel.makeAppEntityFromSource(source)
+
         XCTAssertNil(appEntity)
-        
+
     }
-    
+
     func testModelValidateAppEntityBadPrice() throws {
-        let name = "Cool App Number 1"
-        let descripton = "App Description - text"
-        let category = "App category"
-        let price = ""
-        let size = "8783872"
+        let source: [String : Any] = [
+            "trackName": "Cool App",
+            "version": "7.7.0",
+            "artistName": "pjh",
+            "description": "App Description - text",
+            "primaryGenreName": "App Category",
+            "price": "",
+            "fileSizeBytes": "8783872",
+            "artworkUrl512": "https://is3-ssl.mzstatic.com/image/thumb/Purple126/v4/1d/f1/4d/1df14d63-bd52-2fba-15cc-16707c8663a7/source/512x512bb.jpg",
+        ]
         
-        let appEntity = DataModel.makeAppEntity(name,
-                                                descripton,
-                                                category,
-                                                price,
-                                                size)
         
+        let appEntity = DataModel.makeAppEntityFromSource(source)
         XCTAssertNil(appEntity)
-        
+
     }
-    
+
     func testModelValidateAppEntityFreePrice() throws {
-        let name = "Cool App Number 2"
-        let descripton = "App Description - text"
-        let category = "App category"
-        let price = "0.00"
-        let size = "8783872"
+        let source: [String : Any] = [
+            "trackName": "Cool App",
+            "version": "7.7.0",
+            "artistName": "pjh",
+            "description": "App Description - text",
+            "primaryGenreName": "App Category",
+            "price": 0.00,
+            "fileSizeBytes": "8783872",
+            "artworkUrl512": "https://is3-ssl.mzstatic.com/image/thumb/Purple126/v4/1d/f1/4d/1df14d63-bd52-2fba-15cc-16707c8663a7/source/512x512bb.jpg",
+        ]
         
-        let appEntity = DataModel.makeAppEntity(name,
-                                                descripton,
-                                                category,
-                                                price,
-                                                size)
         
+        let appEntity = DataModel.makeAppEntityFromSource(source)
+
         XCTAssertEqual(appEntity?.isFree(), true)
     }
-    
+
     func testModelValidateAppEntityCostToPrice() throws {
-        let name = "Cool App Number 3"
-        let descripton = "App Description - text"
-        let category = "App category"
-        let price = "7.06"
-        let size = "8783872"
+        let source: [String : Any] = [
+            "trackName": "Cool App",
+            "version": "7.7.0",
+            "artistName": "pjh",
+            "description": "App Description - text",
+            "primaryGenreName": "App Category",
+            "price": 7.06,
+            "fileSizeBytes": "8783872",
+            "artworkUrl512": "https://is3-ssl.mzstatic.com/image/thumb/Purple126/v4/1d/f1/4d/1df14d63-bd52-2fba-15cc-16707c8663a7/source/512x512bb.jpg",
+        ]
         
-        let appEntity = DataModel.makeAppEntity(name,
-                                                descripton,
-                                                category,
-                                                price,
-                                                size)
         
+        let appEntity = DataModel.makeAppEntityFromSource(source)
+
         XCTAssertEqual(appEntity?.isFree(), false)
     }
-    
-
-    
-
-//    func testPerformanceExample() throws {
-//        // This is an example of a performance test case.
-//        self.measure {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
-
 }

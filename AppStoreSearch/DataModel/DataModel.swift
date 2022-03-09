@@ -17,49 +17,7 @@ struct DataModel {
     // A singleton for our entire app to use
     static let persistence = PersistenceController()
     
-    
-    static func queryForApps(term: String?, handle: @escaping([AppEntity], ApplicationErrorType) -> ()) -> (code:ApplicationErrorType, message:String) {
-        var message = "Search term is nil"
-        guard let text = term else {
-            handle([], .searchTermIsNilErrorCode)
-            return (code: .nilStringErrorCode, message: message)
-        }
-        
-        guard text.isEmpty == false else {
-            message = "Search term is empty"
-            handle([], .searchTermIsEmptyErrorCode)
-            return (code: .emptyStringErrorCode, message: message)
-        }
-        
-        guard let encoded = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
-            message = "Search term could not be url encoded!"
-            handle([], .urlEncodingErrorCode)
-            return (code: .urlEncodingErrorCode, message: message)
-        }
-        
-        logger.info("Query term is: \(encoded)")
-        logger.info("Data Model will Attempt to build http query and pass to network service")
-        
-        
-        message = "request made to AppStore service"
-
-        // pjh: call site for AppStore Service
-        Task {
-            do {
-                let results = try await AppStoreService.queryStore(term: encoded, makeAppEntity: DataModel.makeAppEntity)
-                handle(results.apps, .okayNoErrorCode)
-                print("appEntites count == \(results.apps.count)")
-                
-            } catch {
-                print("AppStore Service Failed: \(error)")
-            }
-        }
-        
-        return (code: .okayNoErrorCode, message: message)
-    }
-    
-    // pjh: used by AppStoreSearch service json -> coredata
-    static func makeAppEntity(dictionary: [String: Any]) -> AppEntity? {
+    static func makeAppEntityFromSource(_ dictionary: [String: Any]) -> AppEntity? {
         let viewContext = persistence.container.viewContext
         let appEntity = AppEntity(context: viewContext)
         for key in dictionary.keys {
@@ -100,67 +58,49 @@ struct DataModel {
         
         guard appEntity.isValid() == true else { return nil }
         appEntity.id = UUID()
-        persistence.save()
+        DataModel.persistence.save()
         return appEntity
     }
     
-    // pjh: non production
-    static func makeAppEntity(_ name: String,
-                              _ appDescription: String,
-                              _ category: String,
-                              _ price: String,
-                              _ size: String) -> AppEntity? {
-        
-        guard validateAppEntityParameters(name,
-                                          appDescription,
-                                          category,
-                                          price,
-                                          size) == true else {
-            logger.error("\(#function) - error: AppEntity parameters failed validation.")
-            return nil
+    // pjh: used by AppStoreSearch service json -> coredata
+    static func queryForApps(term: String?, handle: @escaping([AppEntity], ApplicationErrorType) -> ()) -> (code:ApplicationErrorType, message:String) {
+        var message = "Search term is nil"
+        guard let text = term else {
+            handle([], .searchTermIsNilErrorCode)
+            return (code: .nilStringErrorCode, message: message)
         }
         
-        let viewContext = persistence.container.viewContext
-        let appEntity = AppEntity(context: viewContext)
-        appEntity.name = name
-        appEntity.appDescription = appDescription
-        appEntity.category = category
-        appEntity.price = price
-        appEntity.size = size
+        guard text.isEmpty == false else {
+            message = "Search term is empty"
+            handle([], .searchTermIsEmptyErrorCode)
+            return (code: .emptyStringErrorCode, message: message)
+        }
+        
+        guard let encoded = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+            message = "Search term could not be url encoded!"
+            handle([], .urlEncodingErrorCode)
+            return (code: .urlEncodingErrorCode, message: message)
+        }
+        
+        logger.info("Query term is: \(encoded)")
+        logger.info("Data Model will Attempt to build http query and pass to network service")
+        
+        
+        message = "request made to AppStore service"
 
-        appEntity.id = UUID()
-        persistence.save()
-        return appEntity
-    }
-    
-    
-    static func validateAppEntityParameters(_ name: String,
-                                            _ appDescription: String,
-                                            _ category: String,
-                                            _ price: String,
-                                            _ size: String) -> Bool {
-        
-        guard name.isEmpty == false else {
-            logger.error("\(#function) - error: AppEntity name parameter failed validation.")
-            return false
+        // pjh: call site for AppStore Service
+        Task {
+            do {
+                let results = try await AppStoreService.queryStore(term: encoded, makeAppEntity: DataModel.makeAppEntityFromSource)
+                handle(results.apps, .okayNoErrorCode)
+                print("appEntites count == \(results.apps.count)")
+                
+            } catch {
+                print("AppStore Service Failed: \(error)")
+            }
         }
         
-        guard appDescription.isEmpty == false else {
-            logger.error("\(#function) - error: AppEntity appDescription parameter failed validation.")
-            return false
-        }
-        
-        guard category.isEmpty == false else {
-            logger.error("\(#function) - error: AppEntity category parameter failed validation.")
-            return false
-        }
-        
-        guard price.isEmpty == false else {
-            logger.error("\(#function) - error: AppEntity price parameter failed validation.")
-            return false
-        }
-        
-        return true
+        return (code: .okayNoErrorCode, message: message)
     }
     
 }
