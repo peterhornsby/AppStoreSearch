@@ -19,6 +19,7 @@
 		2BD342A227D801F10042F33F /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342A127D801F10042F33F /* DataModel.swift */; };
 		2BD342A527D8033E0042F33F /* AppStoreSearch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342A327D8033E0042F33F /* AppStoreSearch.xcdatamodeld */; };
 		2BD342A727D807130042F33F /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342A627D807130042F33F /* Entities.swift */; };
+		2BD342AB27D823BA0042F33F /* ApplicationErrorCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD342AA27D823BA0042F33F /* ApplicationErrorCodes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		2BD342A127D801F10042F33F /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		2BD342A427D8033E0042F33F /* AppStoreSearch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppStoreSearch.xcdatamodel; sourceTree = "<group>"; };
 		2BD342A627D807130042F33F /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
+		2BD342AA27D823BA0042F33F /* ApplicationErrorCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationErrorCodes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,8 @@
 		2BD3426B27D7FD8B0042F33F /* AppStoreSearch */ = {
 			isa = PBXGroup;
 			children = (
+				2BD342AA27D823BA0042F33F /* ApplicationErrorCodes.swift */,
+				2BD342A827D822880042F33F /* Service */,
 				2BD342A027D801C20042F33F /* DataModel */,
 				2BD3426C27D7FD8B0042F33F /* AppDelegate.swift */,
 				2BD3426E27D7FD8B0042F33F /* SceneDelegate.swift */,
@@ -146,6 +150,13 @@
 				2BD342A627D807130042F33F /* Entities.swift */,
 			);
 			path = DataModel;
+			sourceTree = "<group>";
+		};
+		2BD342A827D822880042F33F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +296,7 @@
 				2BD342A527D8033E0042F33F /* AppStoreSearch.xcdatamodeld in Sources */,
 				2BD3426D27D7FD8B0042F33F /* AppDelegate.swift in Sources */,
 				2BD3426F27D7FD8B0042F33F /* SceneDelegate.swift in Sources */,
+				2BD342AB27D823BA0042F33F /* ApplicationErrorCodes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
