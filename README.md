@@ -60,13 +60,27 @@ This a network service(http) that will make the actual http GET request. The dat
 
 **Tasks**
 - AppStore Service definition ✅
-- URLSession setup, will use the `shared` for first pass
+- URLSession setup, will use the `shared` for first pass ✅
 - Define service return values
 - query builder method ✅
 - handle lost connection
 - handle timeout
 
 
+### FileIO Service
+This service handles file system requests. In our case the will a background service that wil lhelp with saving json responses to file and saving screenshots once they have been downloaded. 
+
+**Contraints:**
+- save json response to  directory for app entity
+- can derive path to an app entity's resources - no guessing!
+- is ran in the background 
+- is performant 
+
+**Tasks**
+- Define service
+- method to save json for each ap pentity
+- directory structure for media assets
+- confirm image loading performance
 
 
 
