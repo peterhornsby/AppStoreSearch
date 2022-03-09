@@ -15,6 +15,7 @@ struct AppStoreServiceError: Error {
 
     enum ErrorType {
         case failedURLEncoding
+        case failedToDecodeHTTPResponse
         case queryTimedOut
     }
     
@@ -40,16 +41,33 @@ struct AppStoreService {
         Logger().info("AppStoreService: will use query: \(url.absoluteString)")
         
         let (rawData, rawResponse) = try await URLSession.shared.data(from: url)
+
+        do {
+            let json = try JSONSerialization.jsonObject(with: rawData, options: [])
+            if let dictionary = json as? [String: Any] {
+                if let items = dictionary["results"] as? [Any] {
+                    for item in items {
+                        print("item: \(item)")
+                    }
+                }
+            }
+            
+            
+        } catch {
+            let message = "AppStoreService: failed decode HTTP response"
+            throw AppStoreServiceError(type: .failedToDecodeHTTPResponse, text: message)
+        }
         
         
-        print("raw response: \(rawResponse)")
-        print("rawData: \(rawData)")
         
         return (apps:[], code: .okayNoErrorCode)
     }
     
     // pjh: would like to pass in limit from UI but will default to a value here for now
     private static func buildURLString(_ term: String, _ limit: Int = 1) -> String {
-        return "https://itunes.apple.com/search?\(term)=ibm&entity=software&limit=\(limit)"
+        return "https://itunes.apple.com/search?term=\(term)&entity=software&limit=\(limit)"
     }
+    
+   
+    
 }
