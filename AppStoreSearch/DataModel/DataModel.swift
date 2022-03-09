@@ -42,7 +42,19 @@ struct DataModel {
         
         
         message = "request made to AppStore service"
-        handle([], message)
+
+        // pjh: call site for AppStore Service
+        Task {
+            do {
+                let appEntities = try await AppStoreService.queryStore(term: encoded)
+                print("appEntites count == \(appEntities.0.count)")
+                
+            } catch {
+                print("AppStore Service Failed: \(error)")
+            }
+        }
+        
+        
         return (code: .okayNoErrorCode, message: message)
 
     }

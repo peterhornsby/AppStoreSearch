@@ -26,8 +26,7 @@ struct AppStoreServiceError: Error {
 
 
 struct AppStoreService {
-    
-    static func queryStore(term: String, limit: Int = 0) async throws -> ([AppEntity], Int) {
+    static func queryStore(term: String, limit: Int = 0) async throws -> (apps:[AppEntity], code: ApplicationErrorType) {
         var limitToUse = limit
         if limit <= 0 {
             limitToUse = numberOfResultsPerQuery
@@ -35,24 +34,18 @@ struct AppStoreService {
         
         guard let url = URL(string: AppStoreService.buildURLString(term, limitToUse)) else {
             let message = "AppStoreService: failed to create a URL object"
-            
             throw AppStoreServiceError(type: .failedURLEncoding, text: message)
         }
         
-        
-        
-        
-        
         Logger().info("AppStoreService: will use query: \(url.absoluteString)")
         
-        let (rawResponse, _) = try await URLSession.shared.data(from: url)
+        let (rawData, rawResponse) = try await URLSession.shared.data(from: url)
         
         
+        print("raw response: \(rawResponse)")
+        print("rawData: \(rawData)")
         
-        
-        
-        
-        return ([], 0)
+        return (apps:[], code: .okayNoErrorCode)
     }
     
     // pjh: would like to pass in limit from UI but will default to a value here for now
