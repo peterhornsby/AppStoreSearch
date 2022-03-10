@@ -88,8 +88,15 @@ Design here is a simple list/detail view setup. First will be the search view so
 
 
 **Tasks**
-- Build search view
-- wire up search view to data model.
+- fetch and load app icon image
+- rough out detail view
+- fetch and load app screen shot images
+- Confirm basic iPad support
+- UI suppoprt for errors
+- Progress indicator for endpoint calls
+- support Dark mode
+- add search view ✅
+- wire up search view to data model. ✅
 - confirm data entry and log results to console ✅
 - Subclass `UITableViewCell` for appEntity ✅
 - Add navigation controller ✅
@@ -97,3 +104,6 @@ Design here is a simple list/detail view setup. First will be the search view so
 - setup table view  delegates and datasource ✅
 - implement `update` method for tableview ✅
 
+**Bugs**
+- ipad: dark mode cells
+- coredata handle record deletion
