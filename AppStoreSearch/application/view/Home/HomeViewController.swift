@@ -9,6 +9,7 @@ import UIKit
 import os.log
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+
     
     @IBOutlet var emptyQueryView: UIView!
     @IBOutlet var appStoreSearchBar: UISearchBar!
@@ -18,6 +19,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     fileprivate let cellReuseId = "AppEntityReuseId"
     fileprivate var dataSource: [AppEntity] = []
+
 
     //MARK: -  UIViewController Methods
     override func viewDidLoad() {
@@ -63,6 +65,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return true
     }
     
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if let searchTerm = searchBar.text {
@@ -84,7 +87,32 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    fileprivate func requestMediaForAppEnitity(entity: AppEntity) {
+        Task {
+            do {
+                let results = try await MediaAssetsService.requestForAppIcon(url: entity.artworkURL,
+                                                                             appId: entity.id,
+                                                                             processAppIcon: { appId, icon in  self.processMediaRequest(appId, icon)})
+
+                print("results: \(results)")
+
+            } catch {
+                print("MediaAssets Service Failed: \(error)")
+            }
+        }
+    }
     
+    func processMediaRequest(_ appId: UUID,  _ icon:UIImage?) -> () {
+        
+        print("\(#function): made round trip for asset")
+        if FileSystemService.saveAppIcon(image: icon, appId: appId) == true {
+            DispatchQueue.main.async {
+                self.updateAppsListView(self.dataSource)
+            }
+        }
+        
+        
+    }
     
     
     //MARK: -  UITableView Methods
@@ -102,11 +130,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell: AppEntityTableViewCell = appsListView.dequeueReusableCell(withIdentifier: cellReuseId) as? AppEntityTableViewCell {
-            cell.title = dataSource[indexPath.row].name
-            cell.version = dataSource[indexPath.row].version
-            cell.size = dataSource[indexPath.row].size
-            cell.price = dataSource[indexPath.row].price
-            cell.appId = dataSource[indexPath.row].id
+            let appEntity = dataSource[indexPath.row]
+            
+            cell.title = appEntity.name
+            cell.version = appEntity.version
+            cell.size = appEntity.size
+            cell.price = appEntity.price
+            cell.appId = appEntity.id
+
+            if let icon = FileSystemService.appIcon(for: appEntity.id) {
+                cell.icon = icon
+            } else {
+                requestMediaForAppEnitity(entity: appEntity)
+            }
+            
             return cell
         }
         

@@ -17,7 +17,7 @@ class AppEntityTableViewCell: UITableViewCell {
         get { titleLabel.text ?? "" }
     }
     
-    var logo: UIImage {
+    var icon: UIImage {
         set { logoImageView.image = newValue }
         get { logoImageView.image ?? UIImage() }
     }

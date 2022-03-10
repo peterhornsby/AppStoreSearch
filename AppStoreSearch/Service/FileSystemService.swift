@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 struct FilesystemServiceError: Error {
 
@@ -49,5 +49,32 @@ struct FileSystemService {
                 return
             }
         }
+    }
+    
+    
+    static func saveAppIcon(image: UIImage?, appId: UUID) -> Bool {
+        guard let icon = image else { return false }
+        
+        let docsDir = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)
+        var filepathURL = docsDir[0].appendingPathComponent(appId.uuidString)
+        filepathURL = filepathURL.appendingPathComponent(resourcesDirName)
+        filepathURL = filepathURL.appendingPathComponent("app_icon.jpg")
+        
+        if let data = image?.jpegData(compressionQuality: 1) {
+            try? data.write(to: filepathURL)
+            return true
+        }
+        
+        return false
+    }
+    
+    
+    static func appIcon(for appId: UUID) -> UIImage? {
+        let docsDir = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)
+        var filepathURL = docsDir[0].appendingPathComponent(appId.uuidString)
+        filepathURL = filepathURL.appendingPathComponent(resourcesDirName)
+        filepathURL = filepathURL.appendingPathComponent("app_icon.jpg")
+        
+        return UIImage(contentsOfFile: filepathURL.path)
     }
 }

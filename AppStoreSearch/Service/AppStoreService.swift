@@ -26,7 +26,7 @@ struct AppStoreServiceError: Error {
 struct AppStoreService {
     
     
-    static var numberOfResultsPerQuery = 200 // 1 to 200 per API
+    static var numberOfResultsPerQuery = 25 // 1 to 200 per API
     
     static func queryStore(term: String, limit: Int = 0, makeAppEntity: ([String: Any]) -> AppEntity?) async throws -> (apps:[AppEntity], code: ApplicationErrorType) {
         var appEntities: [AppEntity] = []
@@ -36,12 +36,13 @@ struct AppStoreService {
         }
         
         guard let url = URL(string: AppStoreService.buildURLString(term, limitToUse)) else {
-            let message = "AppStoreService: failed to create a URL object"
+            let message = "AppStoreService: failed to create URL"
             throw AppStoreServiceError(type: .failedURLEncoding, text: message)
         }
         
         Logger().info("AppStoreService: will use query: \(url.absoluteString)")
         
+        // pjh: todo: check http response
         let (rawData, rawResponse) = try await URLSession.shared.data(from: url)
         
         do {
