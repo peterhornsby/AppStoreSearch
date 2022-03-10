@@ -69,6 +69,16 @@ class AppEntityTableViewCell: UITableViewCell {
         // Initialization code
     }
     
+    // MARK: - Update
+    func load(dataSource: AppEntity) {
+        title = dataSource.name
+        version = dataSource.version
+        size = dataSource.size
+        price = dataSource.price
+        appId = dataSource.id
+    }
+    
+    
     
     // MARK: - Reuse
     override public func prepareForReuse() {

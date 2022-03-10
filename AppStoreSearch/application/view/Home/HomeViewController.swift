@@ -40,6 +40,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
+    // MARK: - Search Query Updates
     fileprivate func updateAppsListView(_ newAppEntities: [AppEntity]) {
         dataSource = newAppEntities
         
@@ -109,15 +110,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func processMediaRequest(_ appId: UUID,  _ icon:UIImage?) -> () {
-        
-        print("\(#function): made round trip for asset")
         if FileSystemService.saveAppIcon(image: icon, appId: appId) == true {
             DispatchQueue.main.async {
                 self.updateAppsListView(self.dataSource)
             }
         }
-        
-        
     }
     
     
@@ -130,20 +127,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         appsListView.dataSource = self
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let appEntity = dataSource[indexPath.row]
         if let cell: AppEntityTableViewCell = appsListView.dequeueReusableCell(withIdentifier: cellReuseId) as? AppEntityTableViewCell {
-            let appEntity = dataSource[indexPath.row]
-            
-            cell.title = appEntity.name
-            cell.version = appEntity.version
-            cell.size = appEntity.size
-            cell.price = appEntity.price
-            cell.appId = appEntity.id
-
+            cell.load(dataSource: appEntity)
+            // pjh: check if local, other make request
             if let icon = FileSystemService.appIcon(for: appEntity.id) {
                 cell.icon = icon
             } else {
@@ -154,7 +147,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         let cell = AppEntityTableViewCell()
-        //cell.appLogoImageView.image = UIImage(named: "general-empty")
+        cell.load(dataSource: appEntity)
+        if let icon = FileSystemService.appIcon(for: appEntity.id) {
+            cell.icon = icon
+        } else {
+            requestMediaForAppEnitity(entity: appEntity)
+        }
         
         return cell
     }
@@ -166,6 +164,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return AppEntityTableViewCell.height
     }
     
+    
+    //pjh: navigate to detail view
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if appStoreSearchBar.isFirstResponder {
             appStoreSearchBar.resignFirstResponder()
@@ -175,6 +175,5 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         detailViewController.dataSource = dataSource[indexPath.row]
         navigationController?.pushViewController(detailViewController, animated: true)
     }
-    
 }
 
