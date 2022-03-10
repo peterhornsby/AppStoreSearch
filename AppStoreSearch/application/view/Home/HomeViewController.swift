@@ -30,6 +30,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        deselectCell()
+        
+    }
+    
+    fileprivate func deselectCell() {
+        guard let index = appsListView.indexPathForSelectedRow else { return }
+        appsListView.deselectRow(at: index, animated: false)
     }
     
     
