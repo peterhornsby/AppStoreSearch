@@ -106,6 +106,7 @@ Design here is a simple list/detail view setup. First will be the search view so
 
 **Tasks**
 - app icon(s), simple first iteration
+- accessability identifiers (UI tests)
 - fetch and load app icon image
 - rough out detail view
 - fetch and load app screen shot images

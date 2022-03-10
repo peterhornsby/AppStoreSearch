@@ -26,7 +26,7 @@ struct AppStoreServiceError: Error {
 struct AppStoreService {
     
     
-    static var numberOfResultsPerQuery = 25
+    static var numberOfResultsPerQuery = 200 // 1 to 200 per API
     
     static func queryStore(term: String, limit: Int = 0, makeAppEntity: ([String: Any]) -> AppEntity?) async throws -> (apps:[AppEntity], code: ApplicationErrorType) {
         var appEntities: [AppEntity] = []
