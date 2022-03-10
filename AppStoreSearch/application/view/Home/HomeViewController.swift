@@ -8,9 +8,10 @@
 import UIKit
 import os.log
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
-
+    @IBOutlet var appStoreSearchBar: UISearchBar!
+    
     @IBOutlet weak var appsListView: UITableView!
     
     fileprivate let cellReuseId = "AppEntityReuseId"
@@ -20,18 +21,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareAppListView()
+        prepareSearchBar()
     }
 
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        // pjh: testing ONLY
-        DataModel.queryForApps(term: "IBM", handle: {newAppEntities, _ in
-            DispatchQueue.main.async {
-                self.updateAppsListView(newAppEntities)
-            }
-        })
     }
     
     
@@ -39,6 +34,38 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         dataSource = newAppEntities
         appsListView.reloadData()
     }
+    
+    
+    //MARK: -  SearchBar Methods
+    fileprivate func prepareSearchBar() {
+        appStoreSearchBar.delegate = self
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if let searchTerm = searchBar.text {
+            DataModel.queryForApps(term: searchTerm, handle: {newAppEntities, _ in
+                DispatchQueue.main.async {
+                    searchBar.resignFirstResponder()
+                    self.updateAppsListView(newAppEntities)
+                }
+            })
+        } else {
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+                self.updateAppsListView([])
+            }
+        }
+    }
+    
     
     
     
@@ -76,6 +103,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         guard indexPath.row < dataSource.count else { return 0.0 }
         return AppEntityTableViewCell.height
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if appStoreSearchBar.isFirstResponder {
+            appStoreSearchBar.resignFirstResponder()
+        }
     }
     
 }
