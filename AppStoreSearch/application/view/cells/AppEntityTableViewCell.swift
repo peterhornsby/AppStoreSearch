@@ -105,6 +105,7 @@ class AppEntityTableViewCell: UITableViewCell {
         logoImageView.backgroundColor = UIColor.lightGray
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.clipsToBounds = true
+        logoImageView.layer.cornerRadius = 4
         
         contentView.addSubview(logoImageView)
     }
@@ -198,7 +199,7 @@ class AppEntityTableViewCell: UITableViewCell {
                                         toItem: contentView,
                                         attribute: .top,
                                         multiplier: 1,
-                                        constant: 2)
+                                        constant: 3)
         
         constraints.append(constraint)
         
@@ -209,7 +210,7 @@ class AppEntityTableViewCell: UITableViewCell {
                                         toItem: nil,
                                         attribute: .notAnAttribute,
                                         multiplier: 1,
-                                        constant: 76)
+                                        constant: 74)
         
         constraints.append(constraint)
         
@@ -219,7 +220,7 @@ class AppEntityTableViewCell: UITableViewCell {
                                         toItem: nil,
                                         attribute: .notAnAttribute,
                                         multiplier: 1,
-                                        constant: 76)
+                                        constant: 74)
         
         constraints.append(constraint)
         
