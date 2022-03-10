@@ -165,6 +165,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let detailViewController = storyboard.instantiateViewController(withIdentifier: "DetailView") as! AppDetailsViewController
+        detailViewController.dataSource = dataSource[indexPath.row]
         navigationController?.pushViewController(detailViewController, animated: true)
     }
     

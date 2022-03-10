@@ -41,7 +41,7 @@ struct MediaAssetsService {
         // pjh: todo: check http response
         let (rawData, rawResponse) = try await URLSession.shared.data(from: url)
         
-        Logger().info("MediaAssetsService: got http response: \(rawResponse)")
+        //Logger().info("MediaAssetsService: got http response: \(rawResponse)")
         let image = UIImage(data: rawData)
         processAppIcon(appId, image)
         

@@ -9,10 +9,16 @@ import UIKit
 
 class AppDetailsViewController: UIViewController {
 
+    var dataSource: AppEntity!
+    var appIcon = UIImage(named: "general-no-image")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
+        prepareBackNavigationItem()
+        print("App entity: \(dataSource)")
+        self.title = "App"
     }
     
 
@@ -26,4 +32,14 @@ class AppDetailsViewController: UIViewController {
     }
     */
 
+    
+    fileprivate func prepareBackNavigationItem() {
+        let backItem = UIBarButtonItem(image: UIImage(named: "general-back-button"),
+                                      style: .plain,
+                                      target: navigationController,
+                                      action: #selector(UINavigationController.popViewController(animated:)))
+        navigationItem.leftBarButtonItem = backItem
+
+    }
+    
 }
