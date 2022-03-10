@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var appsListView: UITableView!
     
     fileprivate let cellReuseId = "AppEntityReuseId"
-    fileprivate var datasource: [AppEntity] = []
+    fileprivate var dataSource: [AppEntity] = []
 
     //MARK: -  UIViewController Methods
     override func viewDidLoad() {
@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     fileprivate func updateAppsListView(_ newAppEntities: [AppEntity]) {
-        datasource = newAppEntities
+        dataSource = newAppEntities
         appsListView.reloadData()
     }
     
@@ -45,20 +45,36 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: -  UITableView Methods
     fileprivate func prepareAppListView() {
         // pjh: temp until custom cell
-        appsListView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
+        appsListView.register(AppEntityTableViewCell.self, forCellReuseIdentifier: cellReuseId)
         
         appsListView.delegate = self
         appsListView.dataSource = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datasource.count
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = appsListView.dequeueReusableCell(withIdentifier: cellReuseId)! as UITableViewCell
+        if let cell: AppEntityTableViewCell = appsListView.dequeueReusableCell(withIdentifier: cellReuseId) as? AppEntityTableViewCell {
+            cell.title = dataSource[indexPath.row].name
+            cell.version = dataSource[indexPath.row].version
+            cell.size = dataSource[indexPath.row].size
+            cell.price = dataSource[indexPath.row].price
+            return cell
+        }
+        
+        let cell = AppEntityTableViewCell()
+        //cell.appLogoImageView.image = UIImage(named: "general-empty")
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        guard indexPath.row < dataSource.count else { return 0.0 }
+        return AppEntityTableViewCell.height
     }
     
 }

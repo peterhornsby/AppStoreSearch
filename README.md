@@ -90,5 +90,10 @@ Design here is a simple list/detail view setup. First will be the search view so
 **Tasks**
 - Build search view
 - wire up search view to data model.
-- confirm data entry and log results to console 
+- confirm data entry and log results to console ✅
+- Subclass `UITableViewCell` for appEntity ✅
+- Add navigation controller ✅
+- add `UITableView` to viewcontroller ✅
+- setup table view  delegates and datasource ✅
+- implement `update` method for tableview ✅
 
