@@ -32,7 +32,7 @@ each app’s details, including app name, app icon, description, all screen shot
 
 
 ### Design
-The app wil lbe based of the MVC design pattern. There will be a data model for handling search queries and a view controller for handling the UI. Note that in Apple's UIKit that the view and controller are somewhat more coupled than the design pattern.
+The app wil lbe based of the MVC design pattern. There will be a data model for handling search queries and a view controller for handling the UI. Note that in Apple's UIKit that the view and controller are somewhat more coupled than the design pattern suggests.
 
 
 ### Data Model
@@ -103,12 +103,13 @@ This service handles fetching remote images so that they can be stored locally.
 ### User Interface
 Design here is a simple list/detail view setup. First will be the search view so that I can confirm `DataModel` and services are working with the `ui`
 
+List view will be a UITableView. The detail view wil lbe a simple card view with reuired elements.
 
 **Tasks**
 - this app's icon(s), simple first iteration 
 - accessability identifiers (UI tests)
 - fetch and load app icon image ✅
-- rough out detail view
+- Detail view: initial pass
 - fetch and load app screen shot images
 - Confirm basic iPad support
 - UI suppoprt for errors
