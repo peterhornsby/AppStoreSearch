@@ -96,6 +96,21 @@
             </objects>
             <point key="canvasLocation" x="-381.15942028985512" y="34.821428571428569"/>
         </scene>
+        <!--App Details View Controller-->
+        <scene sceneID="c37-6b-Fx2">
+            <objects>
+                <viewController storyboardIdentifier="DetailView" id="763-Sf-Jbb" customClass="AppDetailsViewController" customModule="AppStoreSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hkX-hu-WBx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="RhT-VF-JTP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Zf-B5-v9c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="532" y="35"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">

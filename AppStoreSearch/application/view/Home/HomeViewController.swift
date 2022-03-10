@@ -20,7 +20,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     fileprivate let cellReuseId = "AppEntityReuseId"
     fileprivate var dataSource: [AppEntity] = []
 
-
     //MARK: -  UIViewController Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,6 +163,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if appStoreSearchBar.isFirstResponder {
             appStoreSearchBar.resignFirstResponder()
         }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let detailViewController = storyboard.instantiateViewController(withIdentifier: "DetailView") as! AppDetailsViewController
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
     
 }
