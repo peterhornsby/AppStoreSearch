@@ -122,6 +122,10 @@ Design here is a simple list/detail view setup. First will be the search view so
 - setup table view  delegates and datasource ✅
 - implement `update` method for tableview ✅
 
-**Bugs**
+
+
+
+### Bugs
 - ipad: dark mode cells
 - coredata handle record deletion
+- first responder on selecting a cell while search text is empty

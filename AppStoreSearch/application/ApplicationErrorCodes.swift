@@ -25,6 +25,8 @@ enum ApplicationErrorType {
     case searchTermIsNilErrorCode
     // Filesystem Service
     case fileSystemServiceErrorCode
+    // Media Assets Service
+    case mediaAssetsServiceErrorCode
     
 }
 
