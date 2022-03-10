@@ -10,8 +10,10 @@ import os.log
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
+    @IBOutlet var emptyQueryView: UIView!
     @IBOutlet var appStoreSearchBar: UISearchBar!
     
+    @IBOutlet var emptySearchQueryResultLabel: UILabel!
     @IBOutlet weak var appsListView: UITableView!
     
     fileprivate let cellReuseId = "AppEntityReuseId"
@@ -32,9 +34,21 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     fileprivate func updateAppsListView(_ newAppEntities: [AppEntity]) {
         dataSource = newAppEntities
+        
+        if dataSource.count == 0 {
+            UIView.animate(withDuration: 0.3) {
+                self.emptyQueryView.alpha = 1.0
+            }
+        } else {
+            UIView.animate(withDuration: 0.1) {
+                self.emptyQueryView.alpha = 0.0
+            }
+        }
+        
         appsListView.reloadData()
     }
     
+
     
     //MARK: -  SearchBar Methods
     fileprivate func prepareSearchBar() {
@@ -52,17 +66,21 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if let searchTerm = searchBar.text {
-            DataModel.queryForApps(term: searchTerm, handle: {newAppEntities, _ in
+            // pjh: ToDo: check return values
+            guard searchTerm.isEmpty == false else {
+                DispatchQueue.main.async {
+                    searchBar.resignFirstResponder()
+                    self.updateAppsListView([])
+                }
+                return
+            }
+            
+            let _ = DataModel.queryForApps(term: searchTerm, handle: {newAppEntities, _ in
                 DispatchQueue.main.async {
                     searchBar.resignFirstResponder()
                     self.updateAppsListView(newAppEntities)
                 }
             })
-        } else {
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
-                self.updateAppsListView([])
-            }
         }
     }
     

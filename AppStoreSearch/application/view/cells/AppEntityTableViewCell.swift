@@ -28,7 +28,7 @@ class AppEntityTableViewCell: UITableViewCell {
     }
     
     var size: String {
-        set { sizeLabel.text = "size: \(newValue)MB" }
+        set { sizeLabel.text = "size: \(newValue) Bytes" }
         get { sizeLabel.text ?? "" }
     }
     
