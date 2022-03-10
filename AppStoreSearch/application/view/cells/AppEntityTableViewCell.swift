@@ -37,6 +37,8 @@ class AppEntityTableViewCell: UITableViewCell {
         get { priceLabel.text ?? "" }
     }
     
+    var appId: UUID?
+    
     private var shouldApplyConstraints = true
 
     private var logoImageView = UIImageView(frame: CGRect.zero)
@@ -47,22 +49,17 @@ class AppEntityTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setup()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         setup()
     }
     
@@ -76,6 +73,7 @@ class AppEntityTableViewCell: UITableViewCell {
     // MARK: - Reuse
     override public func prepareForReuse() {
         super.prepareForReuse()
+        appId = nil
         title = ""
         version = ""
         size = ""
@@ -123,7 +121,6 @@ class AppEntityTableViewCell: UITableViewCell {
         titleLabel.minimumScaleFactor = 0.7
         
         contentView.addSubview(titleLabel)
-        
     }
     
     private func setupVersionLabel() {
@@ -152,7 +149,6 @@ class AppEntityTableViewCell: UITableViewCell {
         sizeLabel.translatesAutoresizingMaskIntoConstraints = false
         sizeLabel.minimumScaleFactor = 0.7
         contentView.addSubview(sizeLabel)
-        
     }
     
     private func setupPriceLabel() {

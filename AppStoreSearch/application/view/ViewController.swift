@@ -61,6 +61,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.version = dataSource[indexPath.row].version
             cell.size = dataSource[indexPath.row].size
             cell.price = dataSource[indexPath.row].price
+            cell.appId = dataSource[indexPath.row].id
             return cell
         }
         
