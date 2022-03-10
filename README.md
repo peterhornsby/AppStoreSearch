@@ -83,7 +83,7 @@ This service handles file system requests. In our case the will a background ser
 - confirm image\screenshots loading performance
 
 
-### ImageAssets Service
+### MediaAssets Service
 This service handles fetching remote images so that they can be stored locally. 
 
 **Contraints:**
