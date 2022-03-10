@@ -8,7 +8,7 @@
 import UIKit
 import os.log
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
 
     @IBOutlet weak var appsListView: UITableView!
