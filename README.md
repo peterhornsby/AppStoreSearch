@@ -68,7 +68,7 @@ This a network service(http) that will make the actual http GET request. The dat
 
 
 ### FileSystem Service
-This service handles file system requests. In our case the will a background service that wil lhelp with saving json responses to file and saving screenshots once they have been downloaded. 
+This service handles file system requests. In our case the will a background service that will help with saving json responses to file and saving screenshots once they have been downloaded. 
 
 **Contraints:**
 - save json response to  directory for app entity
@@ -81,6 +81,23 @@ This service handles file system requests. In our case the will a background ser
 - method to save json for each app entity ✅
 - directory structure for media assets ✅
 - confirm image\screenshots loading performance
+
+
+### ImageAssets Service
+This service handles fetching remote images so that they can be stored locally. 
+
+**Contraints:**
+- background service
+- required to notify `UI` of updates
+- is performant
+- uses `FileSystem` service to store images locally
+- path can be derived 
+- async behavior 
+
+**Tasks**
+- Define service 
+- fetch image from url 
+- store image using app entity id
 
 
 ### User Interface
