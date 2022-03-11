@@ -148,6 +148,7 @@ List view will be a UITableView. The detail view wil lbe a simple card view with
 
 
 ### Bugs
+- format app file size
 - ipad: dark mode cells
 - coredata handle record deletion
 - first responder on selecting a cell while search text is empty ✅
