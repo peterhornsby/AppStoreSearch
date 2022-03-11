@@ -115,6 +115,7 @@ class AppDescriptionTableViewCell: UITableViewCell {
     private func setupAppDescriptionView() {
         textView.isEditable = false
         textView.isSelectable = false
+        textView.font = UIFont.systemFont(ofSize: 13)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.clipsToBounds = true
         textView.textColor = UIColor.black
