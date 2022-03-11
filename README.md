@@ -87,7 +87,11 @@ This service handles file system requests. In our case the will a background ser
 
 
 ### MediaAssets Service
-This service handles fetching remote images so that they can be stored locally. 
+This service handles fetching remote images so that they can be stored locally. Assets are stored in the documents directory with the following path:
+
+```<documents-directory>/<AppEntity:UUID>/Resourses/<media-name>.<extension>```
+
+There are no persistence requires for the app but it would be good to reuse where possible.
 
 **Contraints:**
 - background service
@@ -107,6 +111,12 @@ This service handles fetching remote images so that they can be stored locally.
 Design here is a simple list/detail view setup. First will be the search view so that I can confirm `DataModel` and services are working with the `ui`
 
 List view will be a UITableView. The detail view wil lbe a simple card view with reuired elements.
+
+#### Component Views
+- `Home`, root of the navigation stack and search
+- `Detail` , Detailed listing of an AppStore app 
+- `filter`, options to apply to a search results
+
 
 **Tasks**
 - this app's icon(s), simple first iteration 
