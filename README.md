@@ -34,11 +34,14 @@ each app’s details, including app name, app icon, description, all screen shot
 ### Design
 The app wil lbe based of the MVC design pattern. There will be a data model for handling search queries and a view controller for handling the UI. Note that in Apple's UIKit that the view and controller are somewhat more coupled than the design pattern suggests.
 
+### Error Handling
+Application error codes are defined in `ApplicationErrorCodes`. Each `service` defines it's own error with a code that maps to an application error code as well as providing the `type` of service error. For example the `AppStoreService` errored because it failed to correctly encode the url.
 
 ### Data Model
-A simple model that can be queried for apps in Apple's App Store. The data model will require storage for screenshots and logos
+A simple model that can be queried for apps in Apple's App Store. The data model will require storage support for screenshots and logos
 
 I will start with the model and write unit tests and use TDD.
+
 
 **Tasks**
 - Model definition, basic setup ✅
@@ -109,7 +112,7 @@ List view will be a UITableView. The detail view wil lbe a simple card view with
 - this app's icon(s), simple first iteration 
 - accessability identifiers (UI tests)
 - fetch and load app icon image ✅
-- Detail view: initial pass
+- Detail view: second pass
 - fetch and load app screen shot images
 - Confirm basic iPad support
 - UI suppoprt for errors
@@ -130,4 +133,4 @@ List view will be a UITableView. The detail view wil lbe a simple card view with
 ### Bugs
 - ipad: dark mode cells
 - coredata handle record deletion
-- first responder on selecting a cell while search text is empty
+- first responder on selecting a cell while search text is empty ✅
