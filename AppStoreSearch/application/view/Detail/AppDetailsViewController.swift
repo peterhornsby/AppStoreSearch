@@ -12,6 +12,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
     var dataSource: AppEntity!
     
     fileprivate let appNameCellReuseId = "AppNameReuseId"
+    fileprivate let appDescriptionCellReuseId = "AppDescriptionReuseId"
     
     @IBOutlet var detailListView: UITableView!
     var appIcon = UIImage(named: "general-no-image")
@@ -54,6 +55,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
     fileprivate func prepareDetailListView() {
         // pjh: temp until custom cell
         detailListView.register(AppEntityNameTableViewCell.self, forCellReuseIdentifier: appNameCellReuseId)
+        detailListView.register(AppDescriptionTableViewCell.self, forCellReuseIdentifier: appDescriptionCellReuseId)
         
         detailListView.delegate = self
         detailListView.dataSource = self
@@ -61,21 +63,31 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell: AppEntityNameTableViewCell = detailListView.dequeueReusableCell(withIdentifier: appNameCellReuseId) as? AppEntityNameTableViewCell {
-            cell.load(dataSource: dataSource)
-            // pjh: check if local, other make request
-            if let icon = FileSystemService.appIcon(for: dataSource.id) {
-                cell.icon = icon
-            } else {
-                requestMediaForAppEnitity(entity: dataSource)
+        
+        switch indexPath.row {
+        case 1:
+            if let cell: AppDescriptionTableViewCell = detailListView.dequeueReusableCell(withIdentifier: appDescriptionCellReuseId) as? AppDescriptionTableViewCell {
+                cell.load(dataSource: dataSource)
+                return cell
             }
-            
-            return cell
+        case 2:
+            print(" 3 cell")
+        default:
+            if let cell: AppEntityNameTableViewCell = detailListView.dequeueReusableCell(withIdentifier: appNameCellReuseId) as? AppEntityNameTableViewCell {
+                cell.load(dataSource: dataSource)
+                // pjh: check if local, other make request
+                if let icon = FileSystemService.appIcon(for: dataSource.id) {
+                    cell.icon = icon
+                } else {
+                    requestMediaForAppEnitity(entity: dataSource)
+                }
+                return cell
+            }
         }
 
         return UITableViewCell()
@@ -85,7 +97,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 1:
-            return 100.0
+            return 300.0
         case 2:
             return 300.0
         default:

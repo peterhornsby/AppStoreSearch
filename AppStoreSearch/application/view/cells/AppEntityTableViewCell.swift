@@ -7,7 +7,7 @@
 
 import UIKit
 
-@objc(AppEntityTableViewCell)
+
 class AppEntityTableViewCell: UITableViewCell {
 
     static let height: CGFloat = 88.0
