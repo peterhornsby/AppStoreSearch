@@ -37,6 +37,9 @@ The app wil lbe based of the MVC design pattern. There will be a data model for 
 #### Search functionality
 Since the requirements are search are quite open the decision was made to back the search with core data entities. There are many reasons to do this. Performance, error handling and recovery AND future search feature work has a solid foundation.
 
+**improvement:** Cache search results and reuse while fetching new results
+
+
 
 ### Error Handling
 Application error codes are defined in `ApplicationErrorCodes`. Each `service` defines it's own error with a code that maps to an application error code as well as providing the `type` of service error. For example the `AppStoreService` errored because it failed to correctly encode the url.
