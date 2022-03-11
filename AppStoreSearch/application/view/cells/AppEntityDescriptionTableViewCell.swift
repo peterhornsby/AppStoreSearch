@@ -9,6 +9,8 @@ import UIKit
 
 class AppDescriptionTableViewCell: UITableViewCell {
 
+    static let height: CGFloat = 420.0
+    
     var developer: String {
         set { developerLabel.text = "Developer:    \(newValue)" }
         get { developerLabel.text ?? "" }
