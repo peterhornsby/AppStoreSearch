@@ -87,6 +87,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             let _ = DataModel.queryForApps(term: searchTerm, handle: {newAppEntities, _ in
                 DispatchQueue.main.async {
+                    self.updateAppsListView([])
                     searchBar.resignFirstResponder()
                     self.updateAppsListView(newAppEntities)
                 }
