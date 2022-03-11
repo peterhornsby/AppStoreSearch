@@ -46,4 +46,11 @@ struct MediaAssetsService {
         
         return (appId, .okayNoErrorCode)
     }
+    
+    static func screenshotURLs(for appId: String, term: String) -> [URL] {
+        guard let urls = FileSystemService.screenshotURLSFromJSONFile(for: appId, term: term) else {
+            return []
+        }
+        return urls
+    }
 }

@@ -116,9 +116,9 @@
 		2BB7152D27D963FD000F6DF1 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				2BB7154127DBCCBC000F6DF1 /* Screenshots */,
-				2BB7153A27DA855E000F6DF1 /* Detail */,
 				2BB7153727D99CE5000F6DF1 /* Home */,
+				2BB7153A27DA855E000F6DF1 /* Detail */,
+				2BB7154127DBCCBC000F6DF1 /* Screenshots */,
 				2BB7152E27D9654C000F6DF1 /* cells */,
 			);
 			path = view;

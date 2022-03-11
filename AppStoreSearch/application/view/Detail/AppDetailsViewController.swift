@@ -34,9 +34,6 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
                 let results = try await MediaAssetsService.requestForAppIcon(url: entity.artworkURL,
                                                                              appId: entity.id,
                                                                              processAppIcon: { appId, icon in  self.processMediaRequest(appId, icon)})
-
-                print("results: \(results)")
-
             } catch {
                 print("MediaAssets Service Failed: \(error)")
             }
@@ -54,6 +51,8 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
 
     @objc func didRequestToViewScreenhots() {
         print("Well, go and get the screen shots!!")
+        let screenshotURLs = MediaAssetsService.screenshotURLs(for: dataSource.id.uuidString, term: searchTerm)
+        print("screenShot URLs: \(screenshotURLs)")
     }
     
     
@@ -76,7 +75,6 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         button.frame = frame
         button.addTarget(self, action: #selector(self.didRequestToViewScreenhots), for: .touchUpInside)
         button.center = containerView.center
-//        button.setTitleColor(UIColor.darkText, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
         button.setTitle("Screenshots", for: .normal)
         containerView.addSubview(button)

@@ -87,6 +87,21 @@ struct FileSystemService {
         let filepathURL = worker.iconPath(appId: appId.uuidString, term: term)
         return UIImage(contentsOfFile: filepathURL.path)
     }
+    
+    static func screenshotURLSFromJSONFile(for appId: String, term: String) -> [URL]? {
+        let url = worker.resoursePath(with: appId, term: term).appendingPathComponent(jsonFilename)
+        if let data = try? Data(contentsOf: url) {
+            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                
+                // pjh: todo: check what device the app is running on and look for screenshots
+                if let array = json["screenshotUrls"] as? [String] {
+                    return array.compactMap { URL(string: $0)}
+                }
+            }
+        }
+        
+        return nil
+    }
 }
 
 
