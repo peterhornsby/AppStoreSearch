@@ -119,7 +119,7 @@ class AppDescriptionTableViewCell: UITableViewCell {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.clipsToBounds = true
         textView.textColor = UIColor.black
-        textView.backgroundColor = UIColor.white
+        textView.backgroundColor = UIColor.clear
         contentView.addSubview(textView)
         textView.text = "LOOK HERE!!"
     }
