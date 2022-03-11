@@ -50,6 +50,11 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+
+    @objc func didRequestToViewScreenhots() {
+        print("Well, go and get the screen shots!!")
+    }
+    
     
     //MARK: -  UITableView Methods
     fileprivate func prepareDetailListView() {
@@ -59,6 +64,24 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         detailListView.allowsSelection = false
         detailListView.delegate = self
         detailListView.dataSource = self
+        detailListView.tableFooterView = footerForDetailsListView()
+    }
+    
+    func footerForDetailsListView() -> UIView {
+        var frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 60)
+        let containerView = UIView(frame: frame)
+        frame.size.width = containerView.frame.size.width - 120.0
+        let button = UIButton(type: .system)
+        button.frame = frame
+        button.addTarget(self, action: #selector(self.didRequestToViewScreenhots), for: .touchUpInside)
+        button.center = containerView.center
+//        button.setTitleColor(UIColor.darkText, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
+        button.setTitle("Screenshots", for: .normal)
+        containerView.addSubview(button)
+        containerView.backgroundColor = UIColor.white
+        
+        return containerView
     }
     
     
