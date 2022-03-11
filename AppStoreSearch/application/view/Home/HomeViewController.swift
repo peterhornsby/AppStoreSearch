@@ -99,9 +99,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     fileprivate func requestMediaForAppEnitity(entity: AppEntity) {
         Task {
             do {
+                let term = appStoreSearchBar.text ?? ""
                 let results = try await MediaAssetsService.requestForAppIcon(url: entity.artworkURL,
                                                                              appId: entity.id,
-                                                                             processAppIcon: { appId, icon in  self.processMediaRequest(appId, icon)})
+                                                                             processAppIcon: { appId, icon in  self.processMediaRequest(appId, icon, term)})
 
                 print("results: \(results)")
 
@@ -111,8 +112,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func processMediaRequest(_ appId: UUID,  _ icon:UIImage?) -> () {
-        if FileSystemService.saveAppIcon(image: icon, appId: appId) == true {
+    func processMediaRequest(_ appId: UUID,  _ data: Data?, _ term: String) -> () {
+        if FileSystemService.saveAppIcon(rawData: data, appId: appId, term: term) == true {
             DispatchQueue.main.async {
                 self.updateAppsListView(self.dataSource)
             }
@@ -136,10 +137,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let appEntity = dataSource[indexPath.row]
+        let searchTerm = appStoreSearchBar.text ?? ""
         if let cell: AppEntityTableViewCell = appsListView.dequeueReusableCell(withIdentifier: cellReuseId) as? AppEntityTableViewCell {
             cell.load(dataSource: appEntity)
             // pjh: check if local, other make request
-            if let icon = FileSystemService.appIcon(for: appEntity.id) {
+            if let icon = FileSystemService.appIcon(for: appEntity.id, term: searchTerm) {
                 cell.icon = icon
             } else {
                 requestMediaForAppEnitity(entity: appEntity)
@@ -150,7 +152,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let cell = AppEntityTableViewCell()
         cell.load(dataSource: appEntity)
-        if let icon = FileSystemService.appIcon(for: appEntity.id) {
+        if let icon = FileSystemService.appIcon(for: appEntity.id, term: searchTerm) {
             cell.icon = icon
         } else {
             requestMediaForAppEnitity(entity: appEntity)
@@ -175,6 +177,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let detailViewController = storyboard.instantiateViewController(withIdentifier: "DetailView") as! AppDetailsViewController
         detailViewController.dataSource = dataSource[indexPath.row]
+        detailViewController.searchTerm = appStoreSearchBar.text ?? ""
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

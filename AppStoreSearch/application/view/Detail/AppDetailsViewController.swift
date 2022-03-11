@@ -16,6 +16,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet var detailListView: UITableView!
     var appIcon = UIImage(named: "general-no-image")
+    var searchTerm = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +43,8 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func processMediaRequest(_ appId: UUID,  _ icon:UIImage?) -> () {
-        if FileSystemService.saveAppIcon(image: icon, appId: appId) == true {
+    func processMediaRequest(_ appId: UUID,  _ rawData: Data?) -> () {
+        if FileSystemService.saveAppIcon(rawData: rawData, appId: appId, term: searchTerm) == true {
             DispatchQueue.main.async {
                 self.detailListView.reloadData()
             }
@@ -104,7 +105,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
             if let cell: AppEntityNameTableViewCell = detailListView.dequeueReusableCell(withIdentifier: appNameCellReuseId) as? AppEntityNameTableViewCell {
                 cell.load(dataSource: dataSource)
                 // pjh: check if local, other make request
-                if let icon = FileSystemService.appIcon(for: dataSource.id) {
+                if let icon = FileSystemService.appIcon(for: dataSource.id, term: searchTerm) {
                     cell.icon = icon
                 } else {
                     requestMediaForAppEnitity(entity: dataSource)

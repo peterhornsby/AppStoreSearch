@@ -22,26 +22,56 @@ struct FilesystemServiceError: Error {
 }
 
 let jsonFilename = "http_response.json"
+let appIconFilename = "app_icon.jpg"
 let resourcesDirName = "Resources"
 let queueName = "FileSystemServiceQueue"
+
+
 
 struct FileSystemService {
     
     private static let queue = DispatchQueue(label: queueName, qos: .background)
     
+    
+    fileprivate func docsDirURL() -> URL {
+        let docsDir = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)
+        return docsDir[0]
+    }
+    
+    fileprivate func resoursePath(with appId: String, term: String) -> URL {
+        let docsDir = worker.docsDirURL()
+        let termURL = docsDir.appendingPathComponent(term, isDirectory: true)
+        let filepathURL = termURL.appendingPathComponent(appId, isDirectory: true)
+        let resourcesURL = filepathURL.appendingPathComponent(resourcesDirName)
+        do {
+//            try FileManager.default.createDirectory(at: termURL, withIntermediateDirectories: false)
+//            try FileManager.default.createDirectory(at: filepathURL, withIntermediateDirectories: false)
+            try FileManager.default.createDirectory(at: resourcesURL, withIntermediateDirectories: true)
+        } catch {
+            return resourcesURL
+        }
+        
+        
+        
+        return resourcesURL
+    }
+    
+    fileprivate func iconPath(appId: String, term: String) -> URL {
+        let resourcesURL = worker.resoursePath(with: appId, term: term)
+        return resourcesURL.appendingPathComponent(appIconFilename)
+    }
+    
+    
     // pjh: write and forget
-    static func saveJSONResponse(source: [String: Any]?, path: String?) {
+    static func saveJSONResponse(source: [String: Any]?, appId: String, term: String) {
         queue.async {
             guard let content: [String: Any] = source else { return }
-            guard let _path = path else { return }
-            
-            let docsDir = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)
-            var filepathURL = docsDir[0].appendingPathComponent(_path)
-            let resourcesURL = filepathURL.appendingPathComponent(resourcesDirName)
+            print("saveJSONResponse: \(term) << search item")
+//            let docsDir = worker.docsDirURL()
+//            var filepathURL = docsDir.appendingPathComponent(appId)
+//            let resourcesURL = worker.resoursePath(with: appId, term: term)
             do {
-                try FileManager.default.createDirectory(at: filepathURL, withIntermediateDirectories: false)
-                try FileManager.default.createDirectory(at: resourcesURL, withIntermediateDirectories: false)
-                filepathURL = filepathURL.appendingPathComponent(jsonFilename)
+                let filepathURL = worker.resoursePath(with: appId, term: term).appendingPathComponent(jsonFilename)
                 let json = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
                 try json.write(to: filepathURL)
 
@@ -52,29 +82,25 @@ struct FileSystemService {
     }
     
     
-    static func saveAppIcon(image: UIImage?, appId: UUID) -> Bool {
-        guard let icon = image else { return false }
-        
-        let docsDir = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)
-        var filepathURL = docsDir[0].appendingPathComponent(appId.uuidString)
-        filepathURL = filepathURL.appendingPathComponent(resourcesDirName)
-        filepathURL = filepathURL.appendingPathComponent("app_icon.jpg")
-        
-        if let data = image?.jpegData(compressionQuality: 1) {
-            try? data.write(to: filepathURL)
-            return true
+    static func saveAppIcon(rawData: Data?, appId: UUID, term: String) -> Bool {
+        let filepathURL = worker.iconPath(appId: appId.uuidString, term: term)
+        if let data = rawData {
+            if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
+                try? image.write(to: filepathURL)
+                return true
+            }
         }
-        
+
         return false
     }
     
     
-    static func appIcon(for appId: UUID) -> UIImage? {
-        let docsDir = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)
-        var filepathURL = docsDir[0].appendingPathComponent(appId.uuidString)
-        filepathURL = filepathURL.appendingPathComponent(resourcesDirName)
-        filepathURL = filepathURL.appendingPathComponent("app_icon.jpg")
-        
+    static func appIcon(for appId: UUID, term: String) -> UIImage? {
+        let docsDir = worker.docsDirURL()
+        var filepathURL = worker.iconPath(appId: appId.uuidString, term: term)
         return UIImage(contentsOfFile: filepathURL.path)
     }
 }
+
+
+let worker = FileSystemService()

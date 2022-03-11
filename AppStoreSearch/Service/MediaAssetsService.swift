@@ -29,7 +29,7 @@ struct MediaAssetsService {
     
     static func requestForAppIcon(url: String,
                                   appId: UUID,
-                                  processAppIcon:(UUID, UIImage?) -> ()
+                                  processAppIcon:(UUID, Data?) -> ()
                                     ) async throws -> (UUID, ApplicationErrorType) {
         
         guard let url = URL(string: url) else {
@@ -42,8 +42,7 @@ struct MediaAssetsService {
         let (rawData, rawResponse) = try await URLSession.shared.data(from: url)
         
         //Logger().info("MediaAssetsService: got http response: \(rawResponse)")
-        let image = UIImage(data: rawData)
-        processAppIcon(appId, image)
+        processAppIcon(appId, rawData)
         
         return (appId, .okayNoErrorCode)
     }

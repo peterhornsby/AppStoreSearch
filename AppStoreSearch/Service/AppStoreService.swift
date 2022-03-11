@@ -26,7 +26,7 @@ struct AppStoreServiceError: Error {
 struct AppStoreService {
     
     
-    static var numberOfResultsPerQuery = 25 // 1 to 200 per API
+    static var numberOfResultsPerQuery = 1 // 1 to 200 per API
     
     static func queryStore(term: String, limit: Int = 0, makeAppEntity: ([String: Any]) -> AppEntity?) async throws -> (apps:[AppEntity], code: ApplicationErrorType) {
         var appEntities: [AppEntity] = []
@@ -53,7 +53,7 @@ struct AppStoreService {
                         if let dict = item as? [String: Any] {
                             if let entity = makeAppEntity(dict) {
                                 appEntities.append(entity)
-                                FileSystemService.saveJSONResponse(source: dict, path: entity.id.uuidString)
+                                FileSystemService.saveJSONResponse(source: dict, appId: entity.id.uuidString, term: term)
                             } else {
                                 // pjh: decide if should throw error here
                                 print("NO ENTITY CREATED")
