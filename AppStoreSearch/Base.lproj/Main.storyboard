@@ -122,11 +122,28 @@
                     <navigationItem key="navigationItem" id="dDY-GF-P9H"/>
                     <connections>
                         <outlet property="detailListView" destination="RYN-QR-w4s" id="DJh-Xt-jaI"/>
+                        <segue destination="JM5-kc-F97" kind="show" id="M8q-nh-TxE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Zf-B5-v9c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="532" y="35"/>
+        </scene>
+        <!--Screeshots Gallery View Controller-->
+        <scene sceneID="STj-Su-lDl">
+            <objects>
+                <viewController storyboardIdentifier="ScreenshotsView" id="JM5-kc-F97" customClass="ScreeshotsGalleryViewController" customModule="AppStoreSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Svt-9c-Rce">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="SiN-dX-uir"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Mqe-5n-tgh"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LdN-Ly-aQu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1323" y="35"/>
         </scene>
     </scenes>
     <resources>

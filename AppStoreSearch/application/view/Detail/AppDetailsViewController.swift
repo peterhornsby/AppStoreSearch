@@ -53,6 +53,12 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         print("Well, go and get the screen shots!!")
         let screenshotURLs = MediaAssetsService.screenshotURLs(for: dataSource.id.uuidString, term: searchTerm)
         print("screenShot URLs: \(screenshotURLs)")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let screenshotViewController = storyboard.instantiateViewController(withIdentifier: "ScreenshotsView") as! ScreeshotsGalleryViewController
+//        detailViewController.dataSource = dataSource[indexPath.row]
+//        detailViewController.searchTerm = appStoreSearchBar.text ?? ""
+        navigationController?.pushViewController(screenshotViewController, animated: true)
     }
     
     
