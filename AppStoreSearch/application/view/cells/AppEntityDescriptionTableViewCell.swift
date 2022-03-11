@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppDescriptionTableViewCell: UITableViewCell {
+class AppEntityDescriptionTableViewCell: UITableViewCell {
 
     static let height: CGFloat = 420.0
     
@@ -17,17 +17,14 @@ class AppDescriptionTableViewCell: UITableViewCell {
     }
     
     var appDescription: String {
-        set {
-        
-            textView.text = newValue
-            
-        }
+        set { textView.text = newValue }
         get { textView.text ?? "" }
     }
     
     private let developerLabel = UILabel(frame: CGRect.zero)
     private let descriptionLabel = UILabel(frame: CGRect.zero)
-    var textView = UITextView(frame: CGRect.zero, textContainer: nil)
+    private let textView = UITextView(frame: CGRect.zero, textContainer: nil)
+    
     private var shouldApplyConstraints = true
 
     

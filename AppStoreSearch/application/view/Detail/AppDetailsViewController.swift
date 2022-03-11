@@ -55,7 +55,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
     fileprivate func prepareDetailListView() {
         // pjh: temp until custom cell
         detailListView.register(AppEntityNameTableViewCell.self, forCellReuseIdentifier: appNameCellReuseId)
-        detailListView.register(AppDescriptionTableViewCell.self, forCellReuseIdentifier: appDescriptionCellReuseId)
+        detailListView.register(AppEntityDescriptionTableViewCell.self, forCellReuseIdentifier: appDescriptionCellReuseId)
         detailListView.allowsSelection = false
         detailListView.delegate = self
         detailListView.dataSource = self
@@ -71,7 +71,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         
         switch indexPath.row {
         case 1:
-            if let cell: AppDescriptionTableViewCell = detailListView.dequeueReusableCell(withIdentifier: appDescriptionCellReuseId) as? AppDescriptionTableViewCell {
+            if let cell: AppEntityDescriptionTableViewCell = detailListView.dequeueReusableCell(withIdentifier: appDescriptionCellReuseId) as? AppEntityDescriptionTableViewCell {
                 cell.load(dataSource: dataSource)
                 return cell
             }
@@ -96,12 +96,10 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
-        case 1:
-            return 300.0
-        case 2:
-            return 300.0
+        case 0:
+            return AppEntityNameTableViewCell.height
         default:
-            return 200.0
+            return AppEntityDescriptionTableViewCell.height
         }
     }
     
