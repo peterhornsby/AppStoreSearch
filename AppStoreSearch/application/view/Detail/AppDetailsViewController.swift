@@ -56,7 +56,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         // pjh: temp until custom cell
         detailListView.register(AppEntityNameTableViewCell.self, forCellReuseIdentifier: appNameCellReuseId)
         detailListView.register(AppDescriptionTableViewCell.self, forCellReuseIdentifier: appDescriptionCellReuseId)
-        
+        detailListView.allowsSelection = false
         detailListView.delegate = self
         detailListView.dataSource = self
     }
