@@ -1,16 +1,15 @@
 //
-//  AppEntityTableViewCell.swift
+//  AppEntityNameTableViewCell.swift
 //  AppStoreSearch
 //
-//  Created by Peter hornsby on 3/9/22.
+//  Created by Peter hornsby on 3/10/22.
 //
 
 import UIKit
 
-@objc(AppEntityTableViewCell)
-class AppEntityTableViewCell: UITableViewCell {
-
-    static let height: CGFloat = 88.0
+class AppEntityNameTableViewCell: UITableViewCell {
+    
+    static let height: CGFloat = 200.0
     
     var title: String {
         set { titleLabel.text = newValue }
@@ -27,21 +26,31 @@ class AppEntityTableViewCell: UITableViewCell {
         get { versionLabel.text ?? "" }
     }
     
-
     
-    var appId: UUID?
+    var size: String {
+        set { sizeLabel.text = "size: \(newValue) Bytes" }
+        get { sizeLabel.text ?? "" }
+    }
     
-    private var shouldApplyConstraints = true
-
+    var price: String {
+        set {
+            if newValue == "0.0" {
+                priceLabel.text = "price: FREE"
+            } else {
+                priceLabel.text = "price: $\(newValue)"
+            }
+        }
+        get { priceLabel.text ?? "" }
+    }
+    
+    
     private var logoImageView = UIImageView(frame: CGRect.zero)
     private let titleLabel = UILabel(frame: CGRect.zero)
     private let versionLabel = UILabel(frame: CGRect.zero)
+    private let sizeLabel = UILabel(frame: CGRect.zero)
+    private let priceLabel = UILabel(frame: CGRect.zero)
+    private var shouldApplyConstraints = true
 
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
     
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -54,17 +63,24 @@ class AppEntityTableViewCell: UITableViewCell {
         setup()
     }
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
     
     // MARK: - Update
     func load(dataSource: AppEntity) {
         title = dataSource.name
         version = dataSource.version
-        appId = dataSource.id
+        price = dataSource.price
+        size = dataSource.size
     }
     
     
@@ -72,7 +88,6 @@ class AppEntityTableViewCell: UITableViewCell {
     // MARK: - Reuse
     override public func prepareForReuse() {
         super.prepareForReuse()
-        appId = nil
         title = ""
         version = ""
         logoImageView.image = UIImage(named: "general-no-image")
@@ -91,6 +106,8 @@ class AppEntityTableViewCell: UITableViewCell {
         setupLogoImageView()
         setupTitleLabel()
         setupVersionLabel()
+        setupSizeLabel()
+        setupPriceLabel()
         setNeedsUpdateConstraints()
     }
     
@@ -100,17 +117,17 @@ class AppEntityTableViewCell: UITableViewCell {
         logoImageView.backgroundColor = UIColor.lightGray
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.clipsToBounds = true
-        logoImageView.layer.cornerRadius = 4
+        logoImageView.layer.cornerRadius = 8
         
         contentView.addSubview(logoImageView)
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 25)
         titleLabel.backgroundColor = UIColor.clear
         titleLabel.clipsToBounds = true
         titleLabel.lineBreakMode = .byTruncatingTail
-        titleLabel.numberOfLines = 1
+        titleLabel.numberOfLines = 2
         titleLabel.preferredMaxLayoutWidth = 240.0
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.adjustsFontSizeToFitWidth = true
@@ -120,7 +137,7 @@ class AppEntityTableViewCell: UITableViewCell {
     }
     
     private func setupVersionLabel() {
-        versionLabel.font = UIFont.systemFont(ofSize: 15)
+        versionLabel.font = UIFont.systemFont(ofSize: 23)
         versionLabel.backgroundColor = UIColor.clear
         versionLabel.clipsToBounds = true
         versionLabel.textColor = UIColor.black
@@ -133,6 +150,32 @@ class AppEntityTableViewCell: UITableViewCell {
         contentView.addSubview(versionLabel)
     }
     
+    private func setupSizeLabel() {
+        sizeLabel.font = UIFont.systemFont(ofSize: 14)
+        sizeLabel.backgroundColor = UIColor.clear
+        sizeLabel.clipsToBounds = true
+        sizeLabel.textColor = UIColor.black
+        sizeLabel.lineBreakMode = .byTruncatingTail
+        sizeLabel.numberOfLines = 1
+        sizeLabel.preferredMaxLayoutWidth = 240.0
+        sizeLabel.translatesAutoresizingMaskIntoConstraints = false
+        sizeLabel.minimumScaleFactor = 0.7
+        contentView.addSubview(sizeLabel)
+    }
+    
+    private func setupPriceLabel() {
+        priceLabel.font = UIFont.systemFont(ofSize: 13)
+        priceLabel.backgroundColor = UIColor.clear
+        priceLabel.clipsToBounds = true
+        priceLabel.textColor = UIColor.lightGray
+        priceLabel.lineBreakMode = .byTruncatingTail
+        priceLabel.numberOfLines = 1
+        priceLabel.preferredMaxLayoutWidth = 240.0
+        priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        priceLabel.minimumScaleFactor = 0.7
+        contentView.addSubview(priceLabel)
+    }
+
     
     
     
@@ -142,6 +185,8 @@ class AppEntityTableViewCell: UITableViewCell {
             logoImageViewContraints()
             titleLabelContraints()
             versionLabelContraints()
+            sizeLabelContraints()
+            priceLabelContraints()
             shouldApplyConstraints = false
         }
         
@@ -166,7 +211,7 @@ class AppEntityTableViewCell: UITableViewCell {
                                         toItem: contentView,
                                         attribute: .top,
                                         multiplier: 1,
-                                        constant: 8)
+                                        constant: 40)
         
         constraints.append(constraint)
         
@@ -177,7 +222,7 @@ class AppEntityTableViewCell: UITableViewCell {
                                         toItem: nil,
                                         attribute: .notAnAttribute,
                                         multiplier: 1,
-                                        constant: 74)
+                                        constant: 120)
         
         constraints.append(constraint)
         
@@ -187,7 +232,7 @@ class AppEntityTableViewCell: UITableViewCell {
                                         toItem: nil,
                                         attribute: .notAnAttribute,
                                         multiplier: 1,
-                                        constant: 74)
+                                        constant: 120)
         
         constraints.append(constraint)
         
@@ -207,12 +252,12 @@ class AppEntityTableViewCell: UITableViewCell {
         constraints.append(constraint)
         
         constraint = NSLayoutConstraint(item: titleLabel,
-                                        attribute: .centerY,
+                                        attribute: .top,
                                         relatedBy: .equal,
                                         toItem: logoImageView,
-                                        attribute: .centerY,
+                                        attribute: .top,
                                         multiplier: 1,
-                                        constant: -20)
+                                        constant: -4)
         
         constraints.append(constraint)
         
@@ -249,6 +294,54 @@ class AppEntityTableViewCell: UITableViewCell {
                                         attribute: .bottom,
                                         multiplier: 1,
                                         constant: 0)
+        
+        constraints.append(constraint)
+        addConstraints(constraints)
+    }
+    
+    private func sizeLabelContraints() {
+        var constraints = [NSLayoutConstraint]()
+        var constraint = NSLayoutConstraint(item: sizeLabel,
+                                            attribute: .leading,
+                                            relatedBy: .equal,
+                                            toItem: logoImageView,
+                                            attribute: .trailing,
+                                            multiplier: 1,
+                                            constant: 8)
+        
+        constraints.append(constraint)
+        
+        constraint = NSLayoutConstraint(item: sizeLabel,
+                                        attribute: .top,
+                                        relatedBy: .equal,
+                                        toItem: versionLabel,
+                                        attribute: .bottom,
+                                        multiplier: 1,
+                                        constant: 0)
+        
+        constraints.append(constraint)
+        addConstraints(constraints)
+    }
+    
+    private func priceLabelContraints() {
+        var constraints = [NSLayoutConstraint]()
+        var constraint = NSLayoutConstraint(item: priceLabel,
+                                            attribute: .leading,
+                                            relatedBy: .equal,
+                                            toItem: logoImageView,
+                                            attribute: .trailing,
+                                            multiplier: 1,
+                                            constant: 8)
+        
+        constraints.append(constraint)
+        
+        constraint = NSLayoutConstraint(item: priceLabel,
+                                        attribute: .top,
+                                        relatedBy: .equal,
+                                        toItem: sizeLabel,
+                                        attribute: .bottom,
+                                        multiplier: 1,
+                                        constant: 3)
         
         constraints.append(constraint)
         addConstraints(constraints)

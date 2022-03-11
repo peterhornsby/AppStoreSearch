@@ -94,6 +94,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    // MARK: - MediaAsset Service Request
     fileprivate func requestMediaForAppEnitity(entity: AppEntity) {
         Task {
             do {
