@@ -13,7 +13,7 @@ class ScreeshotsGalleryViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Screen Shots"
         prepareBackNavigationItem() 
-        // Do any additional setup after loading the view.
+
     }
     
 
@@ -26,14 +26,4 @@ class ScreeshotsGalleryViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
-    
-    fileprivate func prepareBackNavigationItem() {
-        let backItem = UIBarButtonItem(image: UIImage(named: "general-back-button"),
-                                      style: .plain,
-                                      target: navigationController,
-                                      action: #selector(UINavigationController.popViewController(animated:)))
-        navigationItem.leftBarButtonItem = backItem
-
-    }
 }
