@@ -97,6 +97,38 @@
             </objects>
             <point key="canvasLocation" x="-381.15942028985512" y="34.821428571428569"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="I1s-Lg-5Bb">
+            <objects>
+                <navigationController storyboardIdentifier="FilterOptionsNavigation" id="wHo-tq-GTk" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v21-S3-NOP">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Nky-aS-tGz" kind="relationship" relationship="rootViewController" id="UqL-4r-5mM"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="chv-Ta-OXB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1220" y="-670"/>
+        </scene>
+        <!--Filter Options View Controller-->
+        <scene sceneID="vE1-bh-meO">
+            <objects>
+                <viewController storyboardIdentifier="FilterOptionsView" id="Nky-aS-tGz" customClass="FilterOptionsViewController" customModule="AppStoreSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2sY-nZ-7a2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Taq-bK-fFe"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="X6B-z4-Jg0"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CbN-xa-nTC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-381" y="-670"/>
+        </scene>
         <!--App Details View Controller-->
         <scene sceneID="c37-6b-Fx2">
             <objects>

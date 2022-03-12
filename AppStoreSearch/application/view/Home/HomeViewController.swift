@@ -19,6 +19,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     fileprivate let cellReuseId = "AppEntityReuseId"
     fileprivate var dataSource: [AppEntity] = []
+    
+
+
 
     //MARK: -  UIViewController Methods
     override func viewDidLoad() {
@@ -32,11 +35,33 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewWillAppear(animated)
         deselectCell()
         
+        // pjh: prep work for filters
+        addRightNavigationItem()
     }
     
     fileprivate func deselectCell() {
         guard let index = appsListView.indexPathForSelectedRow else { return }
         appsListView.deselectRow(at: index, animated: false)
+    }
+    
+    // MARK:- Filtering
+    // pjh: Work in Progress
+    fileprivate func  addRightNavigationItem() {
+        let image =  UIImage(named: "filter-active-button")
+        let button = UIBarButtonItem(image: image,
+                                     style: .plain,
+                                     target: self,
+                                     action: #selector(self.showFilters))
+        
+        navigationItem.setRightBarButton(button, animated: true)
+    }
+    
+    @objc func showFilters() {
+        print("Show filters!!")
+        let filterNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterOptionsNavigation") as! UINavigationController
+        
+        
+        self.present(filterNavigationController, animated: true, completion: nil)
     }
     
     
@@ -56,7 +81,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         appsListView.reloadData()
     }
-    
 
     
     //MARK: -  SearchBar Methods

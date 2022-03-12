@@ -9,10 +9,14 @@ import UIKit
 
 class FilterOptionsViewController: UIViewController {
 
+    fileprivate(set) var filterIsActive = false
+    // pjh: Work in Progress
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.title = "Search Filter Options"
+        addRightNavigationItem()
     }
     
 
@@ -25,5 +29,17 @@ class FilterOptionsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    fileprivate func  addRightNavigationItem() {
+        let button = UIBarButtonItem.init(barButtonSystemItem: .done,
+                                          target: self,
+                                          action: #selector(self.doneWithFilterSelection))
+        
+        navigationItem.setRightBarButton(button, animated: true)
+    }
 
+    @objc func doneWithFilterSelection() {
+        parent?.dismiss(animated: true)
+        
+    }
 }

@@ -138,7 +138,11 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    fileprivate func prepareBackNavigationItem() {
+}
+
+
+public extension UIViewController {
+    public func prepareBackNavigationItem() {
         let backItem = UIBarButtonItem(image: UIImage(named: "general-back-button"),
                                       style: .plain,
                                       target: navigationController,
@@ -146,5 +150,4 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         navigationItem.leftBarButtonItem = backItem
 
     }
-    
 }
