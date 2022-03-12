@@ -28,15 +28,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         prepareAppListView()
         prepareSearchBar()
+        // pjh: prep work for filters
+        addFilterNavigationItem()
     }
-
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         deselectCell()
-        
-        // pjh: prep work for filters
-        addRightNavigationItem()
     }
     
     fileprivate func deselectCell() {
@@ -46,7 +44,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK:- Filtering
     // pjh: Work in Progress
-    fileprivate func  addRightNavigationItem() {
+    fileprivate func  addFilterNavigationItem() {
         let image =  UIImage(named: "filter-active-button")
         let button = UIBarButtonItem(image: image,
                                      style: .plain,
@@ -68,7 +66,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Search Query Updates
     fileprivate func updateAppsListView(_ newAppEntities: [AppEntity]) {
         dataSource = newAppEntities
-        
         if dataSource.count == 0 {
             UIView.animate(withDuration: 0.3) {
                 self.emptyQueryView.alpha = 1.0
@@ -98,7 +95,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
         if let searchTerm = searchBar.text {
             // pjh: ToDo: check return values
             guard searchTerm.isEmpty == false else {

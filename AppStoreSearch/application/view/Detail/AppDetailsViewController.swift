@@ -141,13 +141,3 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
 }
 
 
-public extension UIViewController {
-    public func prepareBackNavigationItem() {
-        let backItem = UIBarButtonItem(image: UIImage(named: "general-back-button"),
-                                      style: .plain,
-                                      target: navigationController,
-                                      action: #selector(UINavigationController.popViewController(animated:)))
-        navigationItem.leftBarButtonItem = backItem
-
-    }
-}

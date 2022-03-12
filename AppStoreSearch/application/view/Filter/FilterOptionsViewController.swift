@@ -14,9 +14,8 @@ class FilterOptionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.title = "Search Filter Options"
-        addRightNavigationItem()
+        addRightNavigationItem(action: #selector(self.doneWithFilterSelection))
     }
     
 
@@ -30,16 +29,8 @@ class FilterOptionsViewController: UIViewController {
     }
     */
     
-    fileprivate func  addRightNavigationItem() {
-        let button = UIBarButtonItem.init(barButtonSystemItem: .done,
-                                          target: self,
-                                          action: #selector(self.doneWithFilterSelection))
-        
-        navigationItem.setRightBarButton(button, animated: true)
-    }
 
     @objc func doneWithFilterSelection() {
         parent?.dismiss(animated: true)
-        
     }
 }
