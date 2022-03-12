@@ -15,6 +15,7 @@ struct MediaAssetsServiceError: Error {
         case failedURLEncoding
         case failedToDecodeHTTPResponse
         case queryTimedOut
+        case failedToSaveScreenshotToFile
     }
     
     let code = ApplicationErrorType.mediaAssetsServiceErrorCode
@@ -52,5 +53,42 @@ struct MediaAssetsService {
             return []
         }
         return urls
+    }
+    
+    
+    
+    static func requestForAllScreenshots(appId: UUID,
+                                         urls: [URL],
+                                         term: String,
+                                         process:(UUID, String, Int, ApplicationErrorType) -> ()) async throws -> ApplicationErrorType {
+        guard urls.count > 0 else { return .okayNoErrorCode }
+        for (index, url) in urls.enumerated() {
+            let result = try await MediaAssetsService.requestForScreenshot(appId: appId,
+                                                          url: url,
+                                                          term: term,
+                                                          index: index,
+                                                          process: process)
+        }
+        
+        return .okayNoErrorCode
+    }
+    
+    
+    
+    
+    
+    static func requestForScreenshot(appId: UUID,
+                                     url: URL,
+                                     term: String,
+                                     index: Int,
+                                     process:(UUID, String, Int, ApplicationErrorType) -> ()
+                                    ) async throws -> ApplicationErrorType {
+
+        Logger().info("MediaAssetsService: will fetch screenshot: \(url.absoluteString)")
+        // pjh: todo: check http response
+        let (rawData, rawResponse) = try await URLSession.shared.data(from: url)
+        FileSystemService.saveScreenshot(rawData, appId, term, index)
+        process(appId, term, index, .okayNoErrorCode)
+        return .okayNoErrorCode
     }
 }

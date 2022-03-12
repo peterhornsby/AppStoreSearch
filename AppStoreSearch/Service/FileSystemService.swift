@@ -24,11 +24,13 @@ struct FilesystemServiceError: Error {
 let jsonFilename = "http_response.json"
 let appIconFilename = "app_icon.jpg"
 let resourcesDirName = "Resources"
-let queueName = "FileSystemServiceQueue"
-
+let jsonQueueName = "jsonQueue"
+let iconQueueName = "iconQueue"
+let screenshotQueueName = "screenshotQueue"
 struct FileSystemService {
-    
-    private static let queue = DispatchQueue(label: queueName, qos: .background)
+    private static let jsonQueue = DispatchQueue(label: jsonQueueName, qos: .background)
+    private static let iconQueue = DispatchQueue(label: iconQueueName, qos: .background)
+    private static let screenshotQueue = DispatchQueue(label: screenshotQueueName, qos: .background)
     
     fileprivate func docsDirURL() -> URL {
         let docsDir = FileManager.default.urls(for: .documentDirectory,in: .userDomainMask)
@@ -54,10 +56,15 @@ struct FileSystemService {
         return resourcesURL.appendingPathComponent(appIconFilename)
     }
     
+    fileprivate func screenshotPath(appId: String, term: String, index: Int) -> URL {
+        let resourcesURL = worker.resoursePath(with: appId, term: term)
+        return resourcesURL.appendingPathComponent("screenshot_\(index).jpg")
+    }
+    
     
     // pjh: write and forget
     static func saveJSONResponse(source: [String: Any]?, appId: String, term: String) {
-        queue.async {
+        jsonQueue.async {
             guard let content: [String: Any] = source else { return }
             do {
                 let filepathURL = worker.resoursePath(with: appId, term: term).appendingPathComponent(jsonFilename)
@@ -70,16 +77,15 @@ struct FileSystemService {
     }
     
     
-    static func saveAppIcon(rawData: Data?, appId: UUID, term: String) -> Bool {
-        let filepathURL = worker.iconPath(appId: appId.uuidString, term: term)
-        if let data = rawData {
-            if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
-                try? image.write(to: filepathURL)
-                return true
+    static func saveAppIcon(rawData: Data?, appId: UUID, term: String) {
+        iconQueue.async {
+            let filepathURL = worker.iconPath(appId: appId.uuidString, term: term)
+            if let data = rawData {
+                if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
+                    try? image.write(to: filepathURL)
+                }
             }
         }
-
-        return false
     }
     
     
@@ -101,6 +107,20 @@ struct FileSystemService {
         }
         
         return nil
+    }
+    
+    
+    static func saveScreenshot(_ rawData: Data?, _ appId: UUID, _ term: String, _ index: Int) {
+        screenshotQueue.async {
+            let filepathURL = worker.screenshotPath(appId: appId.uuidString, term: term, index: index)
+            if let data = rawData {
+                if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
+                    try? image.write(to: filepathURL)
+                    return
+                }
+            }
+        }
+
     }
 }
 

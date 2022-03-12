@@ -35,16 +35,16 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
                                                                              appId: entity.id,
                                                                              processAppIcon: { appId, icon in  self.processMediaRequest(appId, icon)})
             } catch {
+                // pjh: ToDo: handle errors in ui
                 print("MediaAssets Service Failed: \(error)")
             }
         }
     }
     
     func processMediaRequest(_ appId: UUID,  _ rawData: Data?) -> () {
-        if FileSystemService.saveAppIcon(rawData: rawData, appId: appId, term: searchTerm) == true {
-            DispatchQueue.main.async {
-                self.detailListView.reloadData()
-            }
+        FileSystemService.saveAppIcon(rawData: rawData, appId: appId, term: searchTerm)
+        DispatchQueue.main.async {
+            self.detailListView.reloadData()
         }
     }
     
@@ -56,8 +56,10 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let screenshotViewController = storyboard.instantiateViewController(withIdentifier: "ScreenshotsView") as! ScreeshotsGalleryViewController
-//        detailViewController.dataSource = dataSource[indexPath.row]
-//        detailViewController.searchTerm = appStoreSearchBar.text ?? ""
+        screenshotViewController.appEntity = dataSource
+        screenshotViewController.searchTerm = searchTerm
+        screenshotViewController.dataSource = screenshotURLs
+        
         navigationController?.pushViewController(screenshotViewController, animated: true)
     }
     

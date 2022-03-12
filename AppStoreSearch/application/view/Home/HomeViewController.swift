@@ -95,6 +95,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+
         if let searchTerm = searchBar.text {
             // pjh: ToDo: check return values
             guard searchTerm.isEmpty == false else {
@@ -132,11 +133,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func processMediaRequest(_ appId: UUID,  _ data: Data?, _ term: String) -> () {
-        if FileSystemService.saveAppIcon(rawData: data, appId: appId, term: term) == true {
-            DispatchQueue.main.async {
-                self.updateAppsListView(self.dataSource)
-            }
+    func processMediaRequest(_ appId: UUID,  _ data: Data?, _ term: String) {
+        FileSystemService.saveAppIcon(rawData: data, appId: appId, term: term)
+        DispatchQueue.main.async {
+            self.updateAppsListView(self.dataSource)
         }
     }
     
