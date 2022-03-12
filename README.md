@@ -117,12 +117,13 @@ There are no persistence requires for the app but it would be good to reuse wher
 ### User Interface
 Design here is a simple list/detail view setup. First will be the search view so that I can confirm `DataModel` and services are working with the `ui`
 
-List view will be a UITableView. The detail view wil lbe a simple card view with reuired elements.
+List view will be a UITableView. The detail view will be a simple card view with required elements.
 
 #### Component Views
 - `Home`, root of the navigation stack and search
 - `Detail` , Detailed listing of an AppStore app 
 - `filter`, options to apply to a search results
+- `Sceenshots`, gallery for viewing app screenshots
 
 
 **Tasks**
