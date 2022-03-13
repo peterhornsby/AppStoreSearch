@@ -148,6 +148,9 @@ List view will be a UITableView. The detail view will be a simple card view with
 - localization
 - create error handling view for messaging user
 - build out and map errors and error codes
+- filter on app price
+- filter on genre
+- filter on app price and genre
 - filter: add ability to set number of search results per query (helps with debugging) ✅
 - confirm `ui` on supported operating systems and devices
 
