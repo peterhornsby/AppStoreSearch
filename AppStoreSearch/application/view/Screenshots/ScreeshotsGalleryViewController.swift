@@ -21,7 +21,7 @@ class ScreeshotsGalleryViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Screen Shots"
         prepareBackNavigationItem() 
-
+        addTapGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,13 +40,16 @@ class ScreeshotsGalleryViewController: UIViewController {
         nextScreenshotButton.setTitle(text, for: .normal)
     }
     
+    fileprivate func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(self.didRequestNextScreenshot(_:)))
+    
+        screenshotView.addGestureRecognizer(tapGesture)
+        screenshotView.isUserInteractionEnabled = true
+    }
+    
     
     @IBAction func didRequestNextScreenshot(_ sender: Any) {
-
-        let currentIndex = selectedIndex
-        
-        
-        
         if selectedIndex == dataSource.count - 1 {
             selectedIndex = 0
         } else {
