@@ -95,11 +95,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
+    
         if let searchTerm = searchBar.text {
             // pjh: ToDo: check return values
+
             guard searchTerm.isEmpty == false else {
                 DispatchQueue.main.async {
+                    DataModel.deleteALLPreviousSearchResults()
                     searchBar.resignFirstResponder()
                     self.updateAppsListView([])
                 }
@@ -108,6 +110,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             let _ = DataModel.queryForApps(term: searchTerm, handle: {newAppEntities, _ in
                 DispatchQueue.main.async {
+                    DataModel.deleteALLPreviousSearchResults() 
                     self.updateAppsListView([])
                     searchBar.resignFirstResponder()
                     self.updateAppsListView(newAppEntities)

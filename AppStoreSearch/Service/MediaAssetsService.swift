@@ -62,6 +62,7 @@ struct MediaAssetsService {
                                          term: String,
                                          process:@escaping (UUID, String, Int, ApplicationErrorType) -> ()) async throws -> ApplicationErrorType {
         guard urls.count > 0 else { return .okayNoErrorCode }
+        
         for (index, url) in urls.enumerated() {
             let result = try await MediaAssetsService.requestForScreenshot(appId: appId,
                                                           url: url,

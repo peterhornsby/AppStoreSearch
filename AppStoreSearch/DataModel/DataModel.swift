@@ -116,6 +116,40 @@ struct DataModel {
         return true
     }
     
+    // pjh: Persistence model has not been locked down. Right now just  REMOVE everything and start a new search
+    static func deleteALLPreviousSearchResults() {
+        deleteALLSearchResults()
+    }
+    
+    
+    private static func deleteALLSearchResults() {
+        deleteALLAppEntities()
+        removeALLMediaAssets()
+    }
+    
+    
+    private static func deleteALLAppEntities() {
+        let viewContext = persistence.container.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "AppEntity")
+        let batchRequest = NSBatchDeleteRequest(fetchRequest: request)
+        
+        do {
+            try viewContext.execute(batchRequest)
+            
+        } catch {
+            Logger().error("\(#function) failed to delete all app entities")
+            
+        }
+        
+
+        persistence.save()
+    }
+    
+    
+    private static func removeALLMediaAssets() {
+        FileSystemService.removeALLMediaAssets()
+    }
+    
 }
 
 

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import os.log
 
 struct FilesystemServiceError: Error {
 
@@ -59,6 +60,22 @@ struct FileSystemService {
     fileprivate func screenshotPath(appId: String, term: String, index: Int) -> URL {
         let resourcesURL = worker.resoursePath(with: appId, term: term)
         return resourcesURL.appendingPathComponent("screenshot_\(index).jpg")
+    }
+    
+    
+    static func removeALLMediaAssets() {
+        let docsURL = worker.docsDirURL()
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: docsURL,
+                                                                           includingPropertiesForKeys: nil,
+                                                                           options: .skipsHiddenFiles)
+            for url in fileURLs {
+                try FileManager.default.removeItem(at: url)
+            }
+            
+        } catch {
+            Logger().info("\(#function): unable to remove all media assets")
+        }
     }
     
     
