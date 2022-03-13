@@ -168,17 +168,46 @@
                     <view key="view" contentMode="scaleToFill" id="Svt-9c-Rce">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="general-no-image" translatesAutoresizingMaskIntoConstraints="NO" id="1pJ-9t-VIr">
+                                <rect key="frame" x="0.0" y="40" width="414" height="856"/>
+                            </imageView>
+                            <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfr-6i-IQ0">
+                                <rect key="frame" x="97" y="831" width="220" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="220" id="qpK-2P-6P9"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Screenshot (1/7)"/>
+                                <connections>
+                                    <action selector="didRequestNextScreenshot:" destination="JM5-kc-F97" eventType="touchUpInside" id="cg5-hW-HXM"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="SiN-dX-uir"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1pJ-9t-VIr" firstAttribute="centerX" secondItem="Svt-9c-Rce" secondAttribute="centerX" id="5YQ-H0-c39"/>
+                            <constraint firstItem="Mfr-6i-IQ0" firstAttribute="centerX" secondItem="SiN-dX-uir" secondAttribute="centerX" id="DMU-1j-msT"/>
+                            <constraint firstItem="SiN-dX-uir" firstAttribute="bottom" secondItem="Mfr-6i-IQ0" secondAttribute="bottom" id="HPf-Zf-MH7"/>
+                            <constraint firstItem="1pJ-9t-VIr" firstAttribute="top" secondItem="Svt-9c-Rce" secondAttribute="topMargin" constant="-48" id="Jtd-py-SRR"/>
+                            <constraint firstItem="1pJ-9t-VIr" firstAttribute="leading" secondItem="SiN-dX-uir" secondAttribute="leading" id="QgN-eV-5nA"/>
+                            <constraint firstItem="1pJ-9t-VIr" firstAttribute="centerY" secondItem="Svt-9c-Rce" secondAttribute="centerY" constant="20" id="ReB-15-ixI"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Mqe-5n-tgh"/>
+                    <connections>
+                        <outlet property="nextScreenshotButton" destination="Mfr-6i-IQ0" id="6JQ-zC-pvF"/>
+                        <outlet property="screenshotView" destination="1pJ-9t-VIr" id="Os6-we-pym"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LdN-Ly-aQu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1323" y="35"/>
+            <point key="canvasLocation" x="1321.7391304347827" y="34.821428571428569"/>
         </scene>
     </scenes>
     <resources>
+        <image name="general-no-image" width="300" height="300"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -9,11 +9,14 @@ import UIKit
 import os.log
 
 class ScreeshotsGalleryViewController: UIViewController {
+
+    @IBOutlet var nextScreenshotButton: UIButton!
+    @IBOutlet var screenshotView: UIImageView!
     var searchTerm = ""
     var appEntity: AppEntity!
     var dataSource: [URL] = []
     fileprivate var isProcessAssetRequest = false
-    
+    fileprivate var selectedIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Screen Shots"
@@ -24,12 +27,60 @@ class ScreeshotsGalleryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let _ = appEntity else { return }
+        loadScreenshotButton()
         fetchAssets()
     }
     
     // MARK: - UI
+    fileprivate func loadScreenshotButton() {
+        var text = "Screenshot \(selectedIndex + 1) of \(dataSource.count)"
+        if dataSource.count == 0 {
+            text = "No Screenshots!"
+        }
+        nextScreenshotButton.setTitle(text, for: .normal)
+    }
     
+    
+    @IBAction func didRequestNextScreenshot(_ sender: Any) {
 
+        let currentIndex = selectedIndex
+        
+        
+        
+        if selectedIndex == dataSource.count - 1 {
+            selectedIndex = 0
+        } else {
+            let newIndex = selectedIndex + 1
+            if newIndex < dataSource.count {
+                selectedIndex = newIndex
+            } else {
+                selectedIndex = 0
+            }
+        }
+        
+        
+
+        
+        var image = FileSystemService.sceenshot(for: appEntity.id,
+                                                   term: searchTerm,
+                                                   index: selectedIndex)
+        if image == nil {
+            image = UIImage(named:"general-no-image")
+        }
+
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       options: .transitionCrossDissolve,
+                       animations: {
+                            self.screenshotView.image = image
+                        },
+                       completion: { result in })
+        
+        
+        let text = "Screenshot \(selectedIndex + 1) of \(dataSource.count)"
+        nextScreenshotButton.setTitle(text, for: .normal)
+    }
+    
     // MARK: - MediaAssetService
     func fetchAssets() {
         // pjh: Limit the number of asset requests
@@ -70,6 +121,13 @@ class ScreeshotsGalleryViewController: UIViewController {
             } else {
                 self.isProcessAssetRequest = true
             }
+            
+            guard self.selectedIndex == index else { return }
+            guard let screenshot = FileSystemService.sceenshot(for: appId,
+                                                                  term: term,
+                                                                  index: index) else { return }
+            
+            self.screenshotView.image = screenshot
         }
     }
 }

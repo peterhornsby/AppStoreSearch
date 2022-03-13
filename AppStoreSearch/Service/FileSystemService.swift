@@ -110,17 +110,30 @@ struct FileSystemService {
     }
     
     
-    static func saveScreenshot(_ rawData: Data?, _ appId: UUID, _ term: String, _ index: Int) {
+    static func sceenshot(for appId: UUID, term: String, index: Int) -> UIImage? {
+        let url = worker.screenshotPath(appId: appId.uuidString,
+                                        term: term,
+                                        index: index + 1)
+        
+        print("url path: \(url.path)")
+        
+        return UIImage(contentsOfFile: url.path)
+    }
+    
+    static func saveScreenshot(_ rawData: Data?,
+                               _ appId: UUID,
+                               _ term: String,
+                               _ index: Int,
+                               _ process: @escaping(UUID, String, Int, ApplicationErrorType) -> ()) {
         screenshotQueue.async {
-            let filepathURL = worker.screenshotPath(appId: appId.uuidString, term: term, index: index)
+            let filepathURL = worker.screenshotPath(appId: appId.uuidString, term: term, index: index + 1)
             if let data = rawData {
                 if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
                     try? image.write(to: filepathURL)
-                    return
+                    process(appId, term, index, .okayNoErrorCode)
                 }
             }
         }
-
     }
 }
 

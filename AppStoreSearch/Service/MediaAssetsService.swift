@@ -60,7 +60,7 @@ struct MediaAssetsService {
     static func requestForAllScreenshots(appId: UUID,
                                          urls: [URL],
                                          term: String,
-                                         process:(UUID, String, Int, ApplicationErrorType) -> ()) async throws -> ApplicationErrorType {
+                                         process:@escaping (UUID, String, Int, ApplicationErrorType) -> ()) async throws -> ApplicationErrorType {
         guard urls.count > 0 else { return .okayNoErrorCode }
         for (index, url) in urls.enumerated() {
             let result = try await MediaAssetsService.requestForScreenshot(appId: appId,
@@ -81,14 +81,14 @@ struct MediaAssetsService {
                                      url: URL,
                                      term: String,
                                      index: Int,
-                                     process:(UUID, String, Int, ApplicationErrorType) -> ()
+                                     process:@escaping (UUID, String, Int, ApplicationErrorType) -> ()
                                     ) async throws -> ApplicationErrorType {
 
         Logger().info("MediaAssetsService: will fetch screenshot: \(url.absoluteString)")
         // pjh: todo: check http response
         let (rawData, rawResponse) = try await URLSession.shared.data(from: url)
-        FileSystemService.saveScreenshot(rawData, appId, term, index)
-        process(appId, term, index, .okayNoErrorCode)
+
+        FileSystemService.saveScreenshot(rawData, appId, term, index, process)
         return .okayNoErrorCode
     }
 }
