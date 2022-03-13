@@ -19,11 +19,16 @@ struct DataModel {
     static let viewContext = persistence.container.viewContext
     
     static func makeAppEntityFromSource(_ dictionary: [String: Any]) -> AppEntity? {
-        let appEntity = AppEntity(context: viewContext)
+        var appEntity = AppEntity(context: viewContext)
         for key in dictionary.keys {
             if key == "trackId" {
                 if let id = dictionary["trackId"] as? Int64 {
-                    appEntity.id = id
+                    if let existingAppEntity = entity(with: id) {
+                        appEntity = existingAppEntity
+                        break
+                    } else {
+                        appEntity.id = id
+                    }
                 }
             } else if key == "description" {
                 if let text = dictionary["description"] as? String {
@@ -121,6 +126,15 @@ struct DataModel {
         
         return true
     }
+    
+    
+    static func entity(with id: Int64) -> AppEntity? {
+        let fetchRequest =  NSFetchRequest<AppEntity>(entityName: "AppEntity")
+        fetchRequest.predicate = NSPredicate(format: "id == %lld", id)
+        let entity = try? viewContext.fetch(fetchRequest).first
+        return entity
+    }
+    
     
     // pjh: Persistence model has not been locked down. Right now just  REMOVE everything and start a new search
     static func deleteALLPreviousSearchResults() {
