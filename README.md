@@ -127,7 +127,7 @@ List view will be a UITableView. The detail view will be a simple card view with
 
 
 **Tasks**
-- this app's icon(s), simple first iteration 
+- this app's icon(s), simple first iteration ✅
 - accessability identifiers (UI tests)
 - fetch and load app icon image ✅
 - Detail view: second pass ✅
@@ -145,7 +145,7 @@ List view will be a UITableView. The detail view will be a simple card view with
 - setup table view  delegates and datasource ✅
 - implement `update` method for tableview ✅
 - handle networking errors 
-
+- localization
 
 
 ### Bugs
