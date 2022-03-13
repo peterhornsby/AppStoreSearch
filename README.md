@@ -146,7 +146,7 @@ List view will be a UITableView. The detail view will be a simple card view with
 - implement `update` method for tableview ✅
 - handle networking errors 
 - localization
-
+- create error handling view for messaging user
 
 ### Bugs
 
