@@ -45,7 +45,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK:- Filtering
     // pjh: Work in Progress
     fileprivate func  addFilterNavigationItem() {
-        let image =  UIImage(named: "filter-active-button")
+        let image =  UIImage(named: "filter-inactive-button")
         let button = UIBarButtonItem(image: image,
                                      style: .plain,
                                      target: self,
