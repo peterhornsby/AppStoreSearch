@@ -111,7 +111,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
             if let cell: AppEntityNameTableViewCell = detailListView.dequeueReusableCell(withIdentifier: appNameCellReuseId) as? AppEntityNameTableViewCell {
                 cell.load(dataSource: dataSource)
                 // pjh: check if local, other make request
-                if let icon = FileSystemService.appIcon(for: dataSource.id, term: searchTerm) {
+                if let icon = FileSystemService.appIcon(for: dataSource.id) {
                     cell.icon = icon
                 } else {
                     requestMediaForAppEnitity(entity: dataSource)

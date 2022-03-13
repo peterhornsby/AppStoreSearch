@@ -101,7 +101,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
             guard searchTerm.isEmpty == false else {
                 DispatchQueue.main.async {
-                    DataModel.deleteALLPreviousSearchResults()
                     searchBar.resignFirstResponder()
                     self.updateAppsListView([])
                 }
@@ -110,7 +109,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             let _ = DataModel.queryForApps(term: searchTerm, handle: {newAppEntities, _ in
                 DispatchQueue.main.async {
-                    DataModel.deleteALLPreviousSearchResults() 
                     self.updateAppsListView([])
                     searchBar.resignFirstResponder()
                     self.updateAppsListView(newAppEntities)
@@ -164,7 +162,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let cell: AppEntityTableViewCell = appsListView.dequeueReusableCell(withIdentifier: cellReuseId) as? AppEntityTableViewCell {
             cell.load(dataSource: appEntity)
             // pjh: check if local, other make request
-            if let icon = FileSystemService.appIcon(for: appEntity.id, term: searchTerm) {
+            if let icon = FileSystemService.appIcon(for: appEntity.id) {
                 cell.icon = icon
             } else {
                 requestMediaForAppEnitity(entity: appEntity)
@@ -175,7 +173,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let cell = AppEntityTableViewCell()
         cell.load(dataSource: appEntity)
-        if let icon = FileSystemService.appIcon(for: appEntity.id, term: searchTerm) {
+        if let icon = FileSystemService.appIcon(for: appEntity.id) {
             cell.icon = icon
         } else {
             requestMediaForAppEnitity(entity: appEntity)
