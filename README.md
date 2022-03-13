@@ -148,6 +148,7 @@ List view will be a UITableView. The detail view will be a simple card view with
 - localization
 - create error handling view for messaging user
 - build out and map errors and error codes
+- filter build out `FilterOptionsViewController` for filtering `ui`
 - filter on app price
 - filter on genre
 - filter on app price and genre
@@ -162,5 +163,8 @@ List view will be a UITableView. The detail view will be a simple card view with
 - coredata handle record deletion
 - first responder on selecting a cell while search text is empty ✅
 
+
+## TODO
+The next iteration would be focused on application hardening and error handling. Part of this work would include what I loodsely refer to as an application dialog view. It is a view that handles some of the generic issues with apps such as lost network connection, etc. 
 
 
