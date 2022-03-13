@@ -21,7 +21,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     fileprivate var dataSource: [AppEntity] = []
     fileprivate var filterOnFreeApps = false
 
-
+    fileprivate var originalDataSource: [AppEntity] = []
 
     //MARK: -  UIViewController Methods
     override func viewDidLoad() {
@@ -75,13 +75,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         addFilterNavigationItem(image: filterIcon)
-        
+        updateAppsListView(originalDataSource)
     }
     
     
     // MARK: - Search Query Updates
     fileprivate func updateAppsListView(_ newAppEntities: [AppEntity]) {
-        dataSource = newAppEntities
+        originalDataSource = newAppEntities
+        if filterOnFreeApps {
+            dataSource = originalDataSource.filter({ $0.isFree() == true })
+        } else {
+            dataSource = originalDataSource
+        }
+
         if dataSource.count == 0 {
             UIView.animate(withDuration: 0.3) {
                 self.emptyQueryView.alpha = 1.0
