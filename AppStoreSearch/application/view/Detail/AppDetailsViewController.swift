@@ -41,7 +41,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func processMediaRequest(_ appId: UUID,  _ rawData: Data?) -> () {
+    func processMediaRequest(_ appId: Int64,  _ rawData: Data?) -> () {
         FileSystemService.saveAppIcon(rawData: rawData, appId: appId, term: searchTerm)
         DispatchQueue.main.async {
             self.detailListView.reloadData()
@@ -51,7 +51,7 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
 
     @objc func didRequestToViewScreenhots() {
         print("Well, go and get the screen shots!!")
-        let screenshotURLs = MediaAssetsService.screenshotURLs(for: dataSource.id.uuidString, term: searchTerm)
+        let screenshotURLs = MediaAssetsService.screenshotURLs(for: dataSource.id, term: searchTerm)
         print("screenShot URLs: \(screenshotURLs)")
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

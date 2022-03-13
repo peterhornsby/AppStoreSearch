@@ -136,7 +136,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    func processMediaRequest(_ appId: UUID,  _ data: Data?, _ term: String) {
+    func processMediaRequest(_ appId: Int64,  _ data: Data?, _ term: String) {
         FileSystemService.saveAppIcon(rawData: data, appId: appId, term: term)
         DispatchQueue.main.async {
             self.updateAppsListView(self.dataSource)

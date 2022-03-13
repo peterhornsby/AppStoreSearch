@@ -113,7 +113,7 @@ class ScreeshotsGalleryViewController: UIViewController {
         
     }
 
-    func processMediaRequest(_ appId: UUID,
+    func processMediaRequest(_ appId: Int64,
                              _ term: String,
                              _ index: Int,
                              _ applicationErrorType: ApplicationErrorType) -> () {

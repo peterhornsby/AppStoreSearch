@@ -29,7 +29,7 @@ class AppEntityTableViewCell: UITableViewCell {
     
 
     
-    var appId: UUID?
+    var appId: Int64?
     
     private var shouldApplyConstraints = true
 
