@@ -9,11 +9,12 @@ import UIKit
 
 class FilterOptionsViewController: UIViewController {
 
+    @IBOutlet var freeAppsSwitch: UISwitch!
     @IBOutlet var searchResultsLimitLabel: UILabel!
     @IBOutlet var resultsLimitSlider: UISlider!
     var userSelectedSearchLimit = 1
+    var filterOnFreeApps = false
     fileprivate(set) var filterIsActive = false
-    fileprivate(set) var filterOnFreePrice = false
     fileprivate(set) var filterOnCategory = ""
     // pjh: Work in Progress
     
@@ -27,6 +28,7 @@ class FilterOptionsViewController: UIViewController {
         super.viewWillAppear(animated)
         resultsLimitSlider.value = Float(userSelectedSearchLimit)
         searchResultsLimitLabel.text = "\(userSelectedSearchLimit)"
+        freeAppsSwitch.setOn(filterOnFreeApps, animated: false)
     }
     
     
@@ -52,7 +54,6 @@ class FilterOptionsViewController: UIViewController {
     
     // MARK: - Slider
     
-    
     @IBAction func sliderValueDidChange(_ sender: UISlider) {
         let newValue = Int(sender.value)
         searchResultsLimitLabel.text = "\(newValue)"
@@ -60,6 +61,9 @@ class FilterOptionsViewController: UIViewController {
         
     }
     
+
+    
+    // MARK: -navigation
     @objc func doneWithFilterSelection() {
         parent?.dismiss(animated: true)
     }

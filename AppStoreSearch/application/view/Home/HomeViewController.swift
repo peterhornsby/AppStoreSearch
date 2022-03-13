@@ -19,7 +19,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     fileprivate let cellReuseId = "AppEntityReuseId"
     fileprivate var dataSource: [AppEntity] = []
-    
+    fileprivate var filterOnFreeApps = false
 
 
 
@@ -29,7 +29,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         prepareAppListView()
         prepareSearchBar()
         // pjh: prep work for filters
-        addFilterNavigationItem()
+        addFilterNavigationItem(image: UIImage(named: "filter-inactive-button"))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,8 +44,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK:- Filtering
     // pjh: Work in Progress
-    fileprivate func  addFilterNavigationItem() {
-        let image =  UIImage(named: "filter-inactive-button")
+    fileprivate func  addFilterNavigationItem(image: UIImage?) {
         let button = UIBarButtonItem(image: image,
                                      style: .plain,
                                      target: self,
@@ -60,6 +59,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let viewController = filterNavigationController.viewControllers.first as? FilterOptionsViewController {
             viewController.processFilterSelections = self.didSelectFilterOptions(viewController:)
             viewController.userSelectedSearchLimit = AppStoreService.numberOfResultsPerQuery
+            viewController.filterOnFreeApps = filterOnFreeApps
         }
         
         self.present(filterNavigationController, animated: true, completion: nil)
@@ -68,6 +68,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func didSelectFilterOptions(viewController: FilterOptionsViewController) {
         AppStoreService.numberOfResultsPerQuery = viewController.userSelectedSearchLimit
+        var filterIcon = UIImage(named: "filter-inactive-button")
+        filterOnFreeApps = viewController.freeAppsSwitch.isOn
+        if filterOnFreeApps == true {
+            filterIcon = UIImage(named: "filter-active-button")
+        }
+        
+        addFilterNavigationItem(image: filterIcon)
+        
     }
     
     

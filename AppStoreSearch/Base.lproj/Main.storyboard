@@ -146,18 +146,27 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Search Result Limit:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIF-tt-OL1">
-                                        <rect key="frame" x="27" y="241" width="161" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6l-bW-imE">
                                         <rect key="frame" x="183" y="238" width="11.5" height="27.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                         <color key="textColor" name="AccentColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Search Result Limit:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIF-tt-OL1">
+                                        <rect key="frame" x="27" y="241" width="161" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Free Apps Only:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOA-Oz-BSN">
+                                        <rect key="frame" x="27" y="186" width="124.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RGC-OW-qI8">
+                                        <rect key="frame" x="297" y="181" width="51" height="31"/>
+                                    </switch>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="MVV-GR-jsV" firstAttribute="top" secondItem="P6l-bW-imE" secondAttribute="bottom" constant="3.5" id="3fj-9p-rjC"/>
@@ -167,9 +176,11 @@
                                     <constraint firstAttribute="bottom" secondItem="MVV-GR-jsV" secondAttribute="bottom" id="KQr-JK-fGb"/>
                                     <constraint firstItem="Z1R-HU-HzA" firstAttribute="centerY" secondItem="MVV-GR-jsV" secondAttribute="centerY" id="SQI-ZC-mCs"/>
                                     <constraint firstItem="MvR-uI-JcL" firstAttribute="centerY" secondItem="MVV-GR-jsV" secondAttribute="centerY" id="Sof-6B-KYb"/>
+                                    <constraint firstItem="Z1R-HU-HzA" firstAttribute="top" secondItem="RGC-OW-qI8" secondAttribute="bottom" constant="58" id="TGl-sw-EQH"/>
                                     <constraint firstItem="MVV-GR-jsV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MvR-uI-JcL" secondAttribute="trailing" constant="8" symbolic="YES" id="Vo2-Mp-rgA"/>
                                     <constraint firstItem="uIF-tt-OL1" firstAttribute="bottom" secondItem="MVV-GR-jsV" secondAttribute="bottom" constant="-36" id="dt7-4n-8SX"/>
                                     <constraint firstItem="MVV-GR-jsV" firstAttribute="leading" secondItem="v7o-9t-Q54" secondAttribute="leading" constant="54" id="f9r-JU-nL1"/>
+                                    <constraint firstItem="P6l-bW-imE" firstAttribute="top" secondItem="dOA-Oz-BSN" secondAttribute="bottom" constant="31" id="g7p-vV-RiQ"/>
                                     <constraint firstAttribute="trailing" secondItem="MVV-GR-jsV" secondAttribute="trailing" constant="54" id="sGa-2O-Reo"/>
                                     <constraint firstItem="Z1R-HU-HzA" firstAttribute="leading" secondItem="MVV-GR-jsV" secondAttribute="trailing" constant="9" id="xHR-Xk-e8q"/>
                                     <constraint firstItem="P6l-bW-imE" firstAttribute="leading" secondItem="uIF-tt-OL1" secondAttribute="trailing" constant="-5" id="yyx-0N-EpL"/>
@@ -179,15 +190,18 @@
                         <viewLayoutGuide key="safeArea" id="Taq-bK-fFe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Taq-bK-fFe" firstAttribute="trailing" secondItem="RGC-OW-qI8" secondAttribute="trailing" constant="38" id="DFW-2I-eqU"/>
                             <constraint firstItem="Taq-bK-fFe" firstAttribute="trailing" secondItem="uIF-tt-OL1" secondAttribute="trailing" constant="196" id="FLi-4h-gas"/>
                             <constraint firstItem="Taq-bK-fFe" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Z1R-HU-HzA" secondAttribute="trailing" id="Snp-PH-BBD"/>
                             <constraint firstItem="v7o-9t-Q54" firstAttribute="centerY" secondItem="Taq-bK-fFe" secondAttribute="centerY" constant="-100" id="hXb-Pg-9Yd"/>
                             <constraint firstItem="MvR-uI-JcL" firstAttribute="leading" secondItem="Taq-bK-fFe" secondAttribute="leading" constant="57" id="jeO-N1-7TR"/>
                             <constraint firstItem="v7o-9t-Q54" firstAttribute="centerX" secondItem="Taq-bK-fFe" secondAttribute="centerX" id="mDU-MD-ncr"/>
+                            <constraint firstItem="dOA-Oz-BSN" firstAttribute="leading" secondItem="Taq-bK-fFe" secondAttribute="leading" constant="57" id="u1s-mZ-W7r"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="X6B-z4-Jg0"/>
                     <connections>
+                        <outlet property="freeAppsSwitch" destination="RGC-OW-qI8" id="1BO-xJ-Sw7"/>
                         <outlet property="resultsLimitSlider" destination="MVV-GR-jsV" id="PAB-kN-s17"/>
                         <outlet property="searchResultsLimitLabel" destination="P6l-bW-imE" id="rWH-3A-9zB"/>
                     </connections>
