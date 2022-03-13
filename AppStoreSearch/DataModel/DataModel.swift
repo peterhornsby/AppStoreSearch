@@ -216,7 +216,7 @@ struct PersistenceController {
             logger.critical("Critical Error with: \(#function) - \(error.localizedDescription)")
             
             /// pjh: remove when time to release
-            fatalError()
+            //fatalError()
         }
     }
     
