@@ -38,10 +38,10 @@ struct FileSystemService {
         return docsDir[0]
     }
     
-    fileprivate func resoursePath(with appId: String, term: String) -> URL {
+    fileprivate func resoursePath(with appId: Int64) -> URL {
         let docsDir = worker.docsDirURL()
-        let termURL = docsDir.appendingPathComponent(term, isDirectory: true)
-        let filepathURL = termURL.appendingPathComponent(appId, isDirectory: true)
+        let appsDir = docsDir.appendingPathComponent("Apps", isDirectory: true)
+        let filepathURL = appsDir.appendingPathComponent(String(appId), isDirectory: true)
         let resourcesURL = filepathURL.appendingPathComponent(resourcesDirName)
         do {
             try FileManager.default.createDirectory(at: resourcesURL, withIntermediateDirectories: true)
@@ -52,13 +52,13 @@ struct FileSystemService {
         return resourcesURL
     }
     
-    fileprivate func iconPath(appId: String, term: String) -> URL {
-        let resourcesURL = worker.resoursePath(with: appId, term: term)
+    fileprivate func iconPath(appId: Int64) -> URL {
+        let resourcesURL = worker.resoursePath(with: appId)
         return resourcesURL.appendingPathComponent(appIconFilename)
     }
     
-    fileprivate func screenshotPath(appId: String, term: String, index: Int) -> URL {
-        let resourcesURL = worker.resoursePath(with: appId, term: term)
+    fileprivate func screenshotPath(appId: Int64, index: Int) -> URL {
+        let resourcesURL = worker.resoursePath(with: appId)
         return resourcesURL.appendingPathComponent("screenshot_\(index).jpg")
     }
     
@@ -80,7 +80,7 @@ struct FileSystemService {
     
     
     // pjh: write and forget
-    static func saveJSONResponse(source: [String: Any]?, appId: String, term: String) {
+    static func saveJSONResponse(source: [String: Any]?, appId: Int64, term: String) {
         jsonQueue.async {
             guard let content: [String: Any] = source else { return }
             do {
@@ -94,9 +94,9 @@ struct FileSystemService {
     }
     
     
-    static func saveAppIcon(rawData: Data?, appId: UUID, term: String) {
+    static func saveAppIcon(rawData: Data?, appId: Int64, term: String) {
         iconQueue.async {
-            let filepathURL = worker.iconPath(appId: appId.uuidString, term: term)
+            let filepathURL = worker.iconPath(appId: appId, term: term)
             if let data = rawData {
                 if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
                     try? image.write(to: filepathURL)
@@ -106,12 +106,12 @@ struct FileSystemService {
     }
     
     
-    static func appIcon(for appId: UUID, term: String) -> UIImage? {
-        let filepathURL = worker.iconPath(appId: appId.uuidString, term: term)
+    static func appIcon(for appId: Int64, term: String) -> UIImage? {
+        let filepathURL = worker.iconPath(appId: appId, term: term)
         return UIImage(contentsOfFile: filepathURL.path)
     }
     
-    static func screenshotURLSFromJSONFile(for appId: String, term: String) -> [URL]? {
+    static func screenshotURLSFromJSONFile(for appId: Int64, term: String) -> [URL]? {
         let url = worker.resoursePath(with: appId, term: term).appendingPathComponent(jsonFilename)
         if let data = try? Data(contentsOf: url) {
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
@@ -127,8 +127,8 @@ struct FileSystemService {
     }
     
     
-    static func sceenshot(for appId: UUID, term: String, index: Int) -> UIImage? {
-        let url = worker.screenshotPath(appId: appId.uuidString,
+    static func sceenshot(for appId: Int64, term: String, index: Int) -> UIImage? {
+        let url = worker.screenshotPath(appId: appId,
                                         term: term,
                                         index: index + 1)
         
@@ -138,12 +138,12 @@ struct FileSystemService {
     }
     
     static func saveScreenshot(_ rawData: Data?,
-                               _ appId: UUID,
+                               _ appId: Int64,
                                _ term: String,
                                _ index: Int,
-                               _ process: @escaping(UUID, String, Int, ApplicationErrorType) -> ()) {
+                               _ process: @escaping(Int64, String, Int, ApplicationErrorType) -> ()) {
         screenshotQueue.async {
-            let filepathURL = worker.screenshotPath(appId: appId.uuidString, term: term, index: index + 1)
+            let filepathURL = worker.screenshotPath(appId: appId, term: term, index: index + 1)
             if let data = rawData {
                 if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
                     try? image.write(to: filepathURL)

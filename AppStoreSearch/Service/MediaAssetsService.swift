@@ -29,9 +29,9 @@ let serviceName = "MediaAssetsService"
 struct MediaAssetsService {
     
     static func requestForAppIcon(url: String,
-                                  appId: UUID,
-                                  processAppIcon:(UUID, Data?) -> ()
-                                    ) async throws -> (UUID, ApplicationErrorType) {
+                                  appId: Int64,
+                                  processAppIcon:(Int64, Data?) -> ()
+                                    ) async throws -> (Int64, ApplicationErrorType) {
         
         guard let url = URL(string: url) else {
             let message = "MediaAssetsService: failed to create URL"
@@ -48,7 +48,7 @@ struct MediaAssetsService {
         return (appId, .okayNoErrorCode)
     }
     
-    static func screenshotURLs(for appId: String, term: String) -> [URL] {
+    static func screenshotURLs(for appId: Int64, term: String) -> [URL] {
         guard let urls = FileSystemService.screenshotURLSFromJSONFile(for: appId, term: term) else {
             return []
         }
@@ -57,10 +57,10 @@ struct MediaAssetsService {
     
     
     
-    static func requestForAllScreenshots(appId: UUID,
+    static func requestForAllScreenshots(appId: Int64,
                                          urls: [URL],
                                          term: String,
-                                         process:@escaping (UUID, String, Int, ApplicationErrorType) -> ()) async throws -> ApplicationErrorType {
+                                         process:@escaping (Int64, String, Int, ApplicationErrorType) -> ()) async throws -> ApplicationErrorType {
         guard urls.count > 0 else { return .okayNoErrorCode }
         
         for (index, url) in urls.enumerated() {
@@ -78,11 +78,11 @@ struct MediaAssetsService {
     
     
     
-    static func requestForScreenshot(appId: UUID,
+    static func requestForScreenshot(appId: Int64,
                                      url: URL,
                                      term: String,
                                      index: Int,
-                                     process:@escaping (UUID, String, Int, ApplicationErrorType) -> ()
+                                     process:@escaping (Int64, String, Int, ApplicationErrorType) -> ()
                                     ) async throws -> ApplicationErrorType {
 
         Logger().info("MediaAssetsService: will fetch screenshot: \(url.absoluteString)")
