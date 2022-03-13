@@ -131,8 +131,15 @@ struct DataModel {
     static func entity(with id: Int64) -> AppEntity? {
         let fetchRequest =  NSFetchRequest<AppEntity>(entityName: "AppEntity")
         fetchRequest.predicate = NSPredicate(format: "id == %lld", id)
-        let entity = try? viewContext.fetch(fetchRequest).first
-        return entity
+        
+        do {
+            let entity = try viewContext.fetch(fetchRequest).first
+            return entity
+        } catch {
+            Logger().info("\(#function) is unable to fetch local entity")
+        }
+        
+        return nil
     }
     
     
