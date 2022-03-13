@@ -21,7 +21,11 @@ struct DataModel {
     static func makeAppEntityFromSource(_ dictionary: [String: Any]) -> AppEntity? {
         let appEntity = AppEntity(context: viewContext)
         for key in dictionary.keys {
-            if key == "description" {
+            if key == "trackId" {
+                if let id = dictionary["trackId"] as? Int64 {
+                    appEntity.id = id
+                }
+            } else if key == "description" {
                 if let text = dictionary["description"] as? String {
                     appEntity.appDescription = text
                 }
@@ -57,7 +61,6 @@ struct DataModel {
         }
         
         guard isAppEntityValid(appEntity) == true else { return nil }
-        appEntity.id = UUID()
         return appEntity
     }
     
@@ -104,6 +107,9 @@ struct DataModel {
     }
     
     static func isAppEntityValid(_ entity: AppEntity?) -> Bool {
+        
+        guard let id = entity?.id, id != 0  else { return false }
+        
         guard entity?.name.isEmpty == false,
               entity?.version.isEmpty == false,
               entity?.developer.isEmpty == false,

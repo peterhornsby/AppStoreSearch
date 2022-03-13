@@ -12,7 +12,7 @@ import os.log
 
 @objc(AppEntity)
 public class AppEntity: NSManagedObject {
-    @NSManaged public var id: UUID
+    @NSManaged public var id: Int64
     @NSManaged public var name: String
     @NSManaged public var version: String
     @NSManaged public var developer: String
