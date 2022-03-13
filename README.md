@@ -147,6 +147,10 @@ List view will be a UITableView. The detail view will be a simple card view with
 - handle networking errors 
 - localization
 - create error handling view for messaging user
+- build out and map errors and error codes
+- filter: add ability to set number of search results per query (helps with debugging) ✅
+- confirm `ui` on supported operating systems and devices
+
 
 ### Bugs
 
@@ -154,3 +158,6 @@ List view will be a UITableView. The detail view will be a simple card view with
 - ipad: dark mode cells
 - coredata handle record deletion
 - first responder on selecting a cell while search text is empty ✅
+
+
+
