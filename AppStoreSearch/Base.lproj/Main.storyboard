@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -120,14 +121,80 @@
                     <view key="view" contentMode="scaleToFill" id="2sY-nZ-7a2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v7o-9t-Q54">
+                                <rect key="frame" x="30" y="226" width="354" height="298"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="MVV-GR-jsV">
+                                        <rect key="frame" x="52" y="269" width="250" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="29" id="pbL-Ng-LE3"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="sliderValueDidChange:" destination="Nky-aS-tGz" eventType="valueChanged" id="WRv-dc-pfv"/>
+                                        </connections>
+                                    </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MvR-uI-JcL">
+                                        <rect key="frame" x="27" y="270" width="11" height="27.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z1R-HU-HzA">
+                                        <rect key="frame" x="309" y="270" width="44.5" height="27.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Search Result Limit:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIF-tt-OL1">
+                                        <rect key="frame" x="27" y="241" width="161" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6l-bW-imE">
+                                        <rect key="frame" x="183" y="238" width="11.5" height="27.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                        <color key="textColor" name="AccentColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="MVV-GR-jsV" firstAttribute="top" secondItem="P6l-bW-imE" secondAttribute="bottom" constant="3.5" id="3fj-9p-rjC"/>
+                                    <constraint firstItem="uIF-tt-OL1" firstAttribute="leading" secondItem="MvR-uI-JcL" secondAttribute="trailing" constant="-11" id="46Z-pg-9SG"/>
+                                    <constraint firstAttribute="width" constant="354" id="5nJ-0X-Ebi"/>
+                                    <constraint firstAttribute="height" constant="298" id="IFi-uR-Qu1"/>
+                                    <constraint firstAttribute="bottom" secondItem="MVV-GR-jsV" secondAttribute="bottom" id="KQr-JK-fGb"/>
+                                    <constraint firstItem="Z1R-HU-HzA" firstAttribute="centerY" secondItem="MVV-GR-jsV" secondAttribute="centerY" id="SQI-ZC-mCs"/>
+                                    <constraint firstItem="MvR-uI-JcL" firstAttribute="centerY" secondItem="MVV-GR-jsV" secondAttribute="centerY" id="Sof-6B-KYb"/>
+                                    <constraint firstItem="MVV-GR-jsV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MvR-uI-JcL" secondAttribute="trailing" constant="8" symbolic="YES" id="Vo2-Mp-rgA"/>
+                                    <constraint firstItem="uIF-tt-OL1" firstAttribute="bottom" secondItem="MVV-GR-jsV" secondAttribute="bottom" constant="-36" id="dt7-4n-8SX"/>
+                                    <constraint firstItem="MVV-GR-jsV" firstAttribute="leading" secondItem="v7o-9t-Q54" secondAttribute="leading" constant="54" id="f9r-JU-nL1"/>
+                                    <constraint firstAttribute="trailing" secondItem="MVV-GR-jsV" secondAttribute="trailing" constant="54" id="sGa-2O-Reo"/>
+                                    <constraint firstItem="Z1R-HU-HzA" firstAttribute="leading" secondItem="MVV-GR-jsV" secondAttribute="trailing" constant="9" id="xHR-Xk-e8q"/>
+                                    <constraint firstItem="P6l-bW-imE" firstAttribute="leading" secondItem="uIF-tt-OL1" secondAttribute="trailing" constant="-5" id="yyx-0N-EpL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Taq-bK-fFe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Taq-bK-fFe" firstAttribute="trailing" secondItem="uIF-tt-OL1" secondAttribute="trailing" constant="196" id="FLi-4h-gas"/>
+                            <constraint firstItem="Taq-bK-fFe" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Z1R-HU-HzA" secondAttribute="trailing" id="Snp-PH-BBD"/>
+                            <constraint firstItem="v7o-9t-Q54" firstAttribute="centerY" secondItem="Taq-bK-fFe" secondAttribute="centerY" constant="-100" id="hXb-Pg-9Yd"/>
+                            <constraint firstItem="MvR-uI-JcL" firstAttribute="leading" secondItem="Taq-bK-fFe" secondAttribute="leading" constant="57" id="jeO-N1-7TR"/>
+                            <constraint firstItem="v7o-9t-Q54" firstAttribute="centerX" secondItem="Taq-bK-fFe" secondAttribute="centerX" id="mDU-MD-ncr"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="X6B-z4-Jg0"/>
+                    <connections>
+                        <outlet property="resultsLimitSlider" destination="MVV-GR-jsV" id="PAB-kN-s17"/>
+                        <outlet property="searchResultsLimitLabel" destination="P6l-bW-imE" id="rWH-3A-9zB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CbN-xa-nTC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-381" y="-670"/>
+            <point key="canvasLocation" x="-381.15942028985512" y="-670.3125"/>
         </scene>
         <!--App Details View Controller-->
         <scene sceneID="c37-6b-Fx2">
@@ -208,6 +275,9 @@
     </scenes>
     <resources>
         <image name="general-no-image" width="300" height="300"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

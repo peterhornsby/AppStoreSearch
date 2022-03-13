@@ -57,9 +57,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @objc func showFilters() {
         print("Show filters!!")
         let filterNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterOptionsNavigation") as! UINavigationController
-        
+        if let viewController = filterNavigationController.viewControllers.first as? FilterOptionsViewController {
+            viewController.processFilterSelections = self.didSelectFilterOptions(viewController:)
+            viewController.userSelectedSearchLimit = AppStoreService.numberOfResultsPerQuery
+        }
         
         self.present(filterNavigationController, animated: true, completion: nil)
+    }
+    
+    
+    func didSelectFilterOptions(viewController: FilterOptionsViewController) {
+        AppStoreService.numberOfResultsPerQuery = viewController.userSelectedSearchLimit
     }
     
     

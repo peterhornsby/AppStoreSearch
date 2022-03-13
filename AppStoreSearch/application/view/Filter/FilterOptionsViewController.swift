@@ -9,7 +9,12 @@ import UIKit
 
 class FilterOptionsViewController: UIViewController {
 
+    @IBOutlet var searchResultsLimitLabel: UILabel!
+    @IBOutlet var resultsLimitSlider: UISlider!
+    var userSelectedSearchLimit = 1
     fileprivate(set) var filterIsActive = false
+    fileprivate(set) var filterOnFreePrice = false
+    fileprivate(set) var filterOnCategory = ""
     // pjh: Work in Progress
     
     override func viewDidLoad() {
@@ -17,6 +22,22 @@ class FilterOptionsViewController: UIViewController {
         self.title = "Search Filter Options"
         addRightNavigationItem(action: #selector(self.doneWithFilterSelection))
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        resultsLimitSlider.value = Float(userSelectedSearchLimit)
+        searchResultsLimitLabel.text = "\(userSelectedSearchLimit)"
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        processFilterSelections?(self)
+    }
+    
+    
+    var processFilterSelections: ((FilterOptionsViewController) -> ())?
+    
     
 
     /*
@@ -29,7 +50,16 @@ class FilterOptionsViewController: UIViewController {
     }
     */
     
-
+    // MARK: - Slider
+    
+    
+    @IBAction func sliderValueDidChange(_ sender: UISlider) {
+        let newValue = Int(sender.value)
+        searchResultsLimitLabel.text = "\(newValue)"
+        userSelectedSearchLimit = newValue
+        
+    }
+    
     @objc func doneWithFilterSelection() {
         parent?.dismiss(animated: true)
     }
