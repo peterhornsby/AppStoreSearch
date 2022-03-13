@@ -80,11 +80,11 @@ struct FileSystemService {
     
     
     // pjh: write and forget
-    static func saveJSONResponse(source: [String: Any]?, appId: Int64, term: String) {
+    static func saveJSONResponse(source: [String: Any]?, appId: Int64) {
         jsonQueue.async {
             guard let content: [String: Any] = source else { return }
             do {
-                let filepathURL = worker.resoursePath(with: appId, term: term).appendingPathComponent(jsonFilename)
+                let filepathURL = worker.resoursePath(with: appId).appendingPathComponent(jsonFilename)
                 let json = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
                 try json.write(to: filepathURL)
             } catch {
@@ -96,7 +96,7 @@ struct FileSystemService {
     
     static func saveAppIcon(rawData: Data?, appId: Int64, term: String) {
         iconQueue.async {
-            let filepathURL = worker.iconPath(appId: appId, term: term)
+            let filepathURL = worker.iconPath(appId: appId)
             if let data = rawData {
                 if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
                     try? image.write(to: filepathURL)
@@ -106,13 +106,13 @@ struct FileSystemService {
     }
     
     
-    static func appIcon(for appId: Int64, term: String) -> UIImage? {
-        let filepathURL = worker.iconPath(appId: appId, term: term)
+    static func appIcon(for appId: Int64) -> UIImage? {
+        let filepathURL = worker.iconPath(appId: appId)
         return UIImage(contentsOfFile: filepathURL.path)
     }
     
-    static func screenshotURLSFromJSONFile(for appId: Int64, term: String) -> [URL]? {
-        let url = worker.resoursePath(with: appId, term: term).appendingPathComponent(jsonFilename)
+    static func screenshotURLSFromJSONFile(for appId: Int64) -> [URL]? {
+        let url = worker.resoursePath(with: appId).appendingPathComponent(jsonFilename)
         if let data = try? Data(contentsOf: url) {
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 
@@ -129,7 +129,6 @@ struct FileSystemService {
     
     static func sceenshot(for appId: Int64, term: String, index: Int) -> UIImage? {
         let url = worker.screenshotPath(appId: appId,
-                                        term: term,
                                         index: index + 1)
         
         print("url path: \(url.path)")
@@ -143,7 +142,7 @@ struct FileSystemService {
                                _ index: Int,
                                _ process: @escaping(Int64, String, Int, ApplicationErrorType) -> ()) {
         screenshotQueue.async {
-            let filepathURL = worker.screenshotPath(appId: appId, term: term, index: index + 1)
+            let filepathURL = worker.screenshotPath(appId: appId, index: index + 1)
             if let data = rawData {
                 if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
                     try? image.write(to: filepathURL)
