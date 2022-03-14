@@ -91,6 +91,7 @@
                         <outlet property="EmptyQueryView" destination="IH1-sn-rtl" id="bRr-Qt-Vw3"/>
                         <outlet property="appStoreSearchBar" destination="nID-wN-gfA" id="gxc-st-80B"/>
                         <outlet property="emptySearchQueryResultLabel" destination="sEL-dC-ciA" id="Q2S-uO-wOu"/>
+                        <outlet property="queryMessageLabel" destination="beH-rC-bg3" id="xYP-3q-afa"/>
                         <segue destination="763-Sf-Jbb" kind="show" id="142-WM-Wnz"/>
                     </connections>
                 </viewController>

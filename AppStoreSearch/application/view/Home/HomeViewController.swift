@@ -10,6 +10,7 @@ import os.log
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
+    @IBOutlet var queryMessageLabel: UILabel!
     
     @IBOutlet var emptyQueryView: UIView!
     @IBOutlet var appStoreSearchBar: UISearchBar!
@@ -23,6 +24,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     fileprivate var dataSource: [AppEntity] = []
     fileprivate var originalDataSource: [AppEntity] = []
+    fileprivate var startSearchMessage = "Enter a search term"
+    fileprivate var emptySearchMessage = "No results for query :("
 
     //MARK: -  UIViewController Methods
     override func viewDidLoad() {
@@ -36,6 +39,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         deselectCell()
+        self.queryMessageLabel.text = startSearchMessage
     }
     
     fileprivate func deselectCell() {
@@ -107,6 +111,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if dataSource.count == 0 {
             UIView.animate(withDuration: 0.3) {
                 self.emptyQueryView.alpha = 1.0
+                self.queryMessageLabel.text = self.emptySearchMessage
             }
         } else {
             UIView.animate(withDuration: 0.1) {
