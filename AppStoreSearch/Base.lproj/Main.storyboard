@@ -159,15 +159,15 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RGC-OW-qI8">
-                                        <rect key="frame" x="285" y="23" width="51" height="31"/>
-                                    </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P6l-bW-imE">
                                         <rect key="frame" x="178" y="80" width="11.5" height="27.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                         <color key="textColor" name="AccentColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RGC-OW-qI8">
+                                        <rect key="frame" x="281" y="23" width="51" height="31"/>
+                                    </switch>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="MVV-GR-jsV" firstAttribute="top" secondItem="P6l-bW-imE" secondAttribute="bottom" constant="3.5" id="3fj-9p-rjC"/>
@@ -179,7 +179,7 @@
                                     <constraint firstItem="MvR-uI-JcL" firstAttribute="centerY" secondItem="MVV-GR-jsV" secondAttribute="centerY" id="Sof-6B-KYb"/>
                                     <constraint firstItem="Z1R-HU-HzA" firstAttribute="top" secondItem="RGC-OW-qI8" secondAttribute="bottom" constant="58" id="TGl-sw-EQH"/>
                                     <constraint firstItem="uIF-tt-OL1" firstAttribute="bottom" secondItem="MVV-GR-jsV" secondAttribute="bottom" constant="-36" id="dt7-4n-8SX"/>
-                                    <constraint firstItem="RGC-OW-qI8" firstAttribute="leading" secondItem="dOA-Oz-BSN" secondAttribute="trailing" constant="145.5" id="eUu-K9-9kX"/>
+                                    <constraint firstItem="RGC-OW-qI8" firstAttribute="leading" secondItem="dOA-Oz-BSN" secondAttribute="trailing" constant="141.5" id="eUu-K9-9kX"/>
                                     <constraint firstItem="MVV-GR-jsV" firstAttribute="leading" secondItem="v7o-9t-Q54" secondAttribute="leading" constant="54" id="f9r-JU-nL1"/>
                                     <constraint firstItem="P6l-bW-imE" firstAttribute="top" secondItem="dOA-Oz-BSN" secondAttribute="bottom" constant="31" id="g7p-vV-RiQ"/>
                                     <constraint firstAttribute="trailing" secondItem="MVV-GR-jsV" secondAttribute="trailing" constant="54" id="sGa-2O-Reo"/>
@@ -200,12 +200,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dlq-Bh-Vjc">
+                                <rect key="frame" x="323" y="115" width="51" height="31"/>
+                                <connections>
+                                    <action selector="didSelectGenreFilter:" destination="Nky-aS-tGz" eventType="valueChanged" id="wNd-Xd-g3f"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Taq-bK-fFe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Dlq-Bh-Vjc" firstAttribute="leading" secondItem="y4X-dZ-nVt" secondAttribute="trailing" constant="228" id="3YL-io-hGt"/>
                             <constraint firstItem="wHG-rz-Zue" firstAttribute="top" secondItem="y4X-dZ-nVt" secondAttribute="bottom" constant="14" id="9lb-kO-MFB"/>
                             <constraint firstItem="Taq-bK-fFe" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Z1R-HU-HzA" secondAttribute="trailing" id="Snp-PH-BBD"/>
+                            <constraint firstItem="wHG-rz-Zue" firstAttribute="top" secondItem="Dlq-Bh-Vjc" secondAttribute="bottom" constant="9" id="YRE-FR-j81"/>
                             <constraint firstItem="wHG-rz-Zue" firstAttribute="leading" secondItem="Taq-bK-fFe" secondAttribute="leading" constant="42" id="a51-bd-0wb"/>
                             <constraint firstItem="wHG-rz-Zue" firstAttribute="leading" secondItem="y4X-dZ-nVt" secondAttribute="leading" id="dRm-1J-gA9"/>
                             <constraint firstItem="v7o-9t-Q54" firstAttribute="centerY" secondItem="Taq-bK-fFe" secondAttribute="centerY" constant="60" id="hXb-Pg-9Yd"/>
@@ -219,6 +227,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="X6B-z4-Jg0"/>
                     <connections>
+                        <outlet property="filterOnGenreSwitch" destination="Dlq-Bh-Vjc" id="WM3-qu-aVO"/>
                         <outlet property="freeAppsSwitch" destination="RGC-OW-qI8" id="1BO-xJ-Sw7"/>
                         <outlet property="genreListView" destination="wHG-rz-Zue" id="92y-7E-o0E"/>
                         <outlet property="resultsLimitSlider" destination="MVV-GR-jsV" id="PAB-kN-s17"/>

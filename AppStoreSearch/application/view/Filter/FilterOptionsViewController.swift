@@ -11,6 +11,7 @@ class FilterOptionsViewController: UIViewController, UITableViewDelegate, UITabl
     
 
     @IBOutlet var genreListView: UITableView!
+    @IBOutlet var filterOnGenreSwitch: UISwitch!
     @IBOutlet var freeAppsSwitch: UISwitch!
     @IBOutlet var searchResultsLimitLabel: UILabel!
     @IBOutlet var resultsLimitSlider: UISlider!
@@ -18,8 +19,9 @@ class FilterOptionsViewController: UIViewController, UITableViewDelegate, UITabl
     var genreDataSource: [String] = []
     var userSelectedSearchLimit = 1
     var filterOnFreeApps = false
+    var filterOnGenre = false
     fileprivate(set) var filterIsActive = false
-    fileprivate(set) var filterOnGenre = ""
+    fileprivate(set) var filterOnGenreTerm = ""
     fileprivate var cellReuseId = "GenreTableViewCellId"
     // pjh: Work in Progress
     
@@ -34,6 +36,15 @@ class FilterOptionsViewController: UIViewController, UITableViewDelegate, UITabl
         resultsLimitSlider.value = Float(userSelectedSearchLimit)
         searchResultsLimitLabel.text = "\(userSelectedSearchLimit)"
         freeAppsSwitch.setOn(filterOnFreeApps, animated: false)
+        filterOnGenreSwitch.setOn(filterOnFreeApps, animated: false)
+        if genreDataSource.count == 0 {
+            genreListView.isUserInteractionEnabled = false
+            filterOnGenreSwitch.setOn(false, animated: false)
+            filterOnGenreSwitch.isUserInteractionEnabled = false
+        }
+        
+        filterOnGenreSwitch.setOn(false, animated: false)
+        
         prepareGenreListView()
         genreListView.reloadData()
     }
@@ -48,7 +59,25 @@ class FilterOptionsViewController: UIViewController, UITableViewDelegate, UITabl
     var processFilterSelections: ((FilterOptionsViewController) -> ())?
     
     
+    @IBAction func didSelectGenreFilter(_ sender: UISwitch) {
+        if sender.isOn == true {
+            genreListView.isUserInteractionEnabled = true
+        } else {
+            filterOnGenre = false
+            filterOnGenreTerm = ""
+        }
 
+        let message = "pjh: filtering on genre is a WORK in Progress. Please read the readme with the app code."
+        let alert = UIAlertController(title: "Work In Progress", message: message, preferredStyle: .alert)
+                                      
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            //pjh: message?
+            self.filterOnGenreSwitch.setOn(false, animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
+        genreListView.reloadData()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -101,14 +130,32 @@ class FilterOptionsViewController: UIViewController, UITableViewDelegate, UITabl
         
         cell.textLabel?.text = genreDataSource[indexPath.row]
         cell.contentView.backgroundColor = tableView.backgroundColor
+        if let text = cell.textLabel?.text {
+            if text == filterOnGenreTerm {
+                cell.contentView.backgroundColor = UIColor.systemBlue
+            }
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("get row text and set genre to filter on...")
         if let cell = tableView.cellForRow(at: indexPath) {
-            filterOnGenre = cell.textLabel?.text  ?? ""
+            filterOnGenreTerm = cell.textLabel?.text  ?? ""
             cell.contentView.backgroundColor = UIColor.systemBlue
+            filterOnGenreSwitch.setOn(true, animated: true)
+            genreListView.reloadData()
+            let message = "pjh: filtering on genre is a WORK in Progress. Please read the readme with the app code."
+            let alert = UIAlertController(title: "Work In Progress", message: message, preferredStyle: .alert)
+                                          
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                //pjh: message?
+                self.filterOnGenreSwitch.setOn(false, animated: true)
+                self.filterOnGenreTerm = ""
+                self.genreListView.reloadData()
+            }))
+            self.present(alert, animated: true, completion: nil)
         }
 
     }

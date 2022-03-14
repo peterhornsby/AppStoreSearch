@@ -18,9 +18,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var appsListView: UITableView!
     
     fileprivate let cellReuseId = "AppEntityReuseId"
-    fileprivate var dataSource: [AppEntity] = []
+
     fileprivate var filterOnFreeApps = false
 
+    fileprivate var dataSource: [AppEntity] = []
     fileprivate var originalDataSource: [AppEntity] = []
 
     //MARK: -  UIViewController Methods
@@ -54,12 +55,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @objc func showFilters() {
-        print("Show filters!!")
         let filterNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FilterOptionsNavigation") as! UINavigationController
         if let viewController = filterNavigationController.viewControllers.first as? FilterOptionsViewController {
             viewController.processFilterSelections = self.didSelectFilterOptions(viewController:)
             viewController.userSelectedSearchLimit = AppStoreService.numberOfResultsPerQuery
             viewController.filterOnFreeApps = filterOnFreeApps
+            viewController.filterOnGenre = false
             viewController.genreDataSource = DataModel.genres(from: originalDataSource)
         }
         
@@ -77,18 +78,32 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         addFilterNavigationItem(image: filterIcon)
         updateAppsListView(originalDataSource)
+        
+        
+//        if viewController.filterOnGenreTerm.isEmpty == false {
+//            updateAppsListView(originalDataSource, viewController)
+//        } else {
+//            updateAppsListView(originalDataSource)
+//        }
     }
     
     
     // MARK: - Search Query Updates
-    fileprivate func updateAppsListView(_ newAppEntities: [AppEntity]) {
+    fileprivate func updateAppsListView(_ newAppEntities: [AppEntity], _ viewController: FilterOptionsViewController? = nil) {
         originalDataSource = newAppEntities
+        var filtered: [AppEntity] = []
         if filterOnFreeApps {
-            dataSource = originalDataSource.filter({ $0.isFree() == true })
+            filtered = originalDataSource.filter({ $0.isFree() == true })
         } else {
-            dataSource = originalDataSource
+            filtered = originalDataSource
         }
-
+        
+        if let viewController = viewController {
+            filtered = filtered.filter({ $0.category == viewController.filterOnGenreTerm })
+        }
+        
+        dataSource = filtered
+        
         if dataSource.count == 0 {
             UIView.animate(withDuration: 0.3) {
                 self.emptyQueryView.alpha = 1.0

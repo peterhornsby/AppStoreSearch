@@ -165,6 +165,8 @@ List view will be a UITableView. The detail view will be a simple card view with
 
 
 ## TODO
-The next iteration would be focused on application hardening and error handling. Part of this work would include what I loodsely refer to as an application dialog view. It is a view that handles some of the generic issues with apps such as lost network connection, etc. 
+The next iteration would be focused on application hardening and error handling. Part of this work would include what I loodsely refer to as an application dialog view. It is a view that handles some of the generic issues with apps such as lost network connection, etc. After that `ui` polishing is required.
 
+
+To recap the next steps are, `harderning` (error handling, ui, tests), `ui refinement`, `app polishing` and **more** `unit tests`!  
 
