@@ -143,6 +143,14 @@ struct DataModel {
     }
     
     
+    
+    static func genres(from dataSource: [AppEntity]) -> [String] {
+        let results = Set(dataSource.map { $0.category })
+        return Array(results)
+    }
+    
+    
+    
     // pjh: Persistence model has not been locked down. Right now just  REMOVE everything and start a new search
     static func deleteALLPreviousSearchResults() {
         deleteALLSearchResults()

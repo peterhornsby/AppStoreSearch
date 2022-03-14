@@ -7,15 +7,20 @@
 
 import UIKit
 
-class FilterOptionsViewController: UIViewController {
+class FilterOptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
 
+    @IBOutlet var genreListView: UITableView!
     @IBOutlet var freeAppsSwitch: UISwitch!
     @IBOutlet var searchResultsLimitLabel: UILabel!
     @IBOutlet var resultsLimitSlider: UISlider!
+    
+    var genreDataSource: [String] = []
     var userSelectedSearchLimit = 1
     var filterOnFreeApps = false
     fileprivate(set) var filterIsActive = false
-    fileprivate(set) var filterOnCategory = ""
+    fileprivate(set) var filterOnGenre = ""
+    fileprivate var cellReuseId = "GenreTableViewCellId"
     // pjh: Work in Progress
     
     override func viewDidLoad() {
@@ -29,6 +34,8 @@ class FilterOptionsViewController: UIViewController {
         resultsLimitSlider.value = Float(userSelectedSearchLimit)
         searchResultsLimitLabel.text = "\(userSelectedSearchLimit)"
         freeAppsSwitch.setOn(filterOnFreeApps, animated: false)
+        prepareGenreListView()
+        genreListView.reloadData()
     }
     
     
@@ -63,8 +70,46 @@ class FilterOptionsViewController: UIViewController {
     
 
     
-    // MARK: -navigation
+    // MARK: - navigation
     @objc func doneWithFilterSelection() {
         parent?.dismiss(animated: true)
+    }
+    
+    
+    // MARK: - Genre List view
+    fileprivate func prepareGenreListView() {
+        genreListView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseId)
+        genreListView.delegate = self
+        genreListView.dataSource = self
+        genreListView.layer.cornerRadius = 8
+        genreListView.clipsToBounds = true
+    }
+
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if genreDataSource.count == 0 {
+            genreListView.isUserInteractionEnabled = false
+        } else {
+            genreListView.isUserInteractionEnabled = true
+        }
+        
+        return genreDataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseId, for: indexPath)
+        
+        cell.textLabel?.text = genreDataSource[indexPath.row]
+        cell.contentView.backgroundColor = tableView.backgroundColor
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("get row text and set genre to filter on...")
+        if let cell = tableView.cellForRow(at: indexPath) {
+            filterOnGenre = cell.textLabel?.text  ?? ""
+            cell.contentView.backgroundColor = UIColor.systemBlue
+        }
+
     }
 }

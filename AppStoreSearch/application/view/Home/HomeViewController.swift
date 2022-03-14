@@ -60,6 +60,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             viewController.processFilterSelections = self.didSelectFilterOptions(viewController:)
             viewController.userSelectedSearchLimit = AppStoreService.numberOfResultsPerQuery
             viewController.filterOnFreeApps = filterOnFreeApps
+            viewController.genreDataSource = DataModel.genres(from: originalDataSource)
         }
         
         self.present(filterNavigationController, animated: true, completion: nil)

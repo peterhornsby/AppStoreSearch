@@ -123,7 +123,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v7o-9t-Q54">
-                                <rect key="frame" x="42" y="413" width="330" height="140"/>
+                                <rect key="frame" x="42" y="465" width="330" height="140"/>
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="MVV-GR-jsV">
                                         <rect key="frame" x="52" y="111" width="226" height="30"/>
@@ -179,6 +179,7 @@
                                     <constraint firstItem="MvR-uI-JcL" firstAttribute="centerY" secondItem="MVV-GR-jsV" secondAttribute="centerY" id="Sof-6B-KYb"/>
                                     <constraint firstItem="Z1R-HU-HzA" firstAttribute="top" secondItem="RGC-OW-qI8" secondAttribute="bottom" constant="58" id="TGl-sw-EQH"/>
                                     <constraint firstItem="uIF-tt-OL1" firstAttribute="bottom" secondItem="MVV-GR-jsV" secondAttribute="bottom" constant="-36" id="dt7-4n-8SX"/>
+                                    <constraint firstItem="RGC-OW-qI8" firstAttribute="leading" secondItem="dOA-Oz-BSN" secondAttribute="trailing" constant="145.5" id="eUu-K9-9kX"/>
                                     <constraint firstItem="MVV-GR-jsV" firstAttribute="leading" secondItem="v7o-9t-Q54" secondAttribute="leading" constant="54" id="f9r-JU-nL1"/>
                                     <constraint firstItem="P6l-bW-imE" firstAttribute="top" secondItem="dOA-Oz-BSN" secondAttribute="bottom" constant="31" id="g7p-vV-RiQ"/>
                                     <constraint firstAttribute="trailing" secondItem="MVV-GR-jsV" secondAttribute="trailing" constant="54" id="sGa-2O-Reo"/>
@@ -186,21 +187,40 @@
                                     <constraint firstItem="P6l-bW-imE" firstAttribute="leading" secondItem="uIF-tt-OL1" secondAttribute="trailing" constant="8" id="yyx-0N-EpL"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wHG-rz-Zue">
+                                <rect key="frame" x="42" y="155" width="330" height="294"/>
+                                <color key="backgroundColor" systemColor="systemGray3Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="294" id="fbn-Y6-RFd"/>
+                                </constraints>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4X-dZ-nVt">
+                                <rect key="frame" x="42" y="120" width="53" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Taq-bK-fFe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Taq-bK-fFe" firstAttribute="trailing" secondItem="RGC-OW-qI8" secondAttribute="trailing" constant="38" id="DFW-2I-eqU"/>
+                            <constraint firstItem="wHG-rz-Zue" firstAttribute="top" secondItem="y4X-dZ-nVt" secondAttribute="bottom" constant="14" id="9lb-kO-MFB"/>
                             <constraint firstItem="Taq-bK-fFe" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Z1R-HU-HzA" secondAttribute="trailing" id="Snp-PH-BBD"/>
-                            <constraint firstItem="v7o-9t-Q54" firstAttribute="centerY" secondItem="Taq-bK-fFe" secondAttribute="centerY" constant="8" id="hXb-Pg-9Yd"/>
+                            <constraint firstItem="wHG-rz-Zue" firstAttribute="leading" secondItem="Taq-bK-fFe" secondAttribute="leading" constant="42" id="a51-bd-0wb"/>
+                            <constraint firstItem="wHG-rz-Zue" firstAttribute="leading" secondItem="y4X-dZ-nVt" secondAttribute="leading" id="dRm-1J-gA9"/>
+                            <constraint firstItem="v7o-9t-Q54" firstAttribute="centerY" secondItem="Taq-bK-fFe" secondAttribute="centerY" constant="60" id="hXb-Pg-9Yd"/>
                             <constraint firstItem="MvR-uI-JcL" firstAttribute="leading" secondItem="Taq-bK-fFe" secondAttribute="leading" constant="57" id="jeO-N1-7TR"/>
                             <constraint firstItem="v7o-9t-Q54" firstAttribute="centerX" secondItem="Taq-bK-fFe" secondAttribute="centerX" id="mDU-MD-ncr"/>
+                            <constraint firstItem="v7o-9t-Q54" firstAttribute="top" secondItem="wHG-rz-Zue" secondAttribute="bottom" constant="16" id="mMa-SC-uRA"/>
                             <constraint firstItem="dOA-Oz-BSN" firstAttribute="leading" secondItem="Taq-bK-fFe" secondAttribute="leading" constant="57" id="u1s-mZ-W7r"/>
+                            <constraint firstItem="wHG-rz-Zue" firstAttribute="centerX" secondItem="Taq-bK-fFe" secondAttribute="centerX" id="xoR-jz-UXW"/>
+                            <constraint firstItem="Taq-bK-fFe" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y4X-dZ-nVt" secondAttribute="trailing" symbolic="YES" id="zZh-ff-QvM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="X6B-z4-Jg0"/>
                     <connections>
                         <outlet property="freeAppsSwitch" destination="RGC-OW-qI8" id="1BO-xJ-Sw7"/>
+                        <outlet property="genreListView" destination="wHG-rz-Zue" id="92y-7E-o0E"/>
                         <outlet property="resultsLimitSlider" destination="MVV-GR-jsV" id="PAB-kN-s17"/>
                         <outlet property="searchResultsLimitLabel" destination="P6l-bW-imE" id="rWH-3A-9zB"/>
                     </connections>
@@ -293,6 +313,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
