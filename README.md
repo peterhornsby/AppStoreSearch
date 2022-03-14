@@ -96,7 +96,7 @@ This service handles file system requests. In our case the will a background ser
 ### MediaAssets Service
 This service handles fetching remote images so that they can be stored locally. Assets are stored in the documents directory with the following path:
 
-```<documents-directory>/<AppEntity:UUID>/Resourses/<media-name>.<extension>```
+```<documents-directory>/Apps/<AppEntity:id>/Resourses/<media-name>.<extension>```
 
 There are no persistence requires for the app but it would be good to reuse where possible.
 
@@ -168,5 +168,5 @@ List view will be a UITableView. The detail view will be a simple card view with
 The next iteration would be focused on application hardening and error handling. Part of this work would include what I loodsely refer to as an application dialog view. It is a view that handles some of the generic issues with apps such as lost network connection, etc. After that `ui` polishing is required.
 
 
-To recap the next steps are, `harderning` (error handling, ui, tests), `ui refinement`, `app polishing` and **more** `unit tests`!  
+To recap the next steps are, `hardening` (error handling, ui, tests), `ui refinement`, `app polishing` and **more** `unit tests`!  
 
