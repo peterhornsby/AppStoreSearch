@@ -116,7 +116,7 @@ class ScreeshotsGalleryViewController: UIViewController {
     func processMediaRequest(_ appId: Int64,
                              _ term: String,
                              _ index: Int,
-                             _ applicationErrorType: ApplicationErrorType) -> () {
+                             _ ApplicationErrorCode: AppCode) -> () {
         DispatchQueue.main.async {
             print("Screenshot at index: \(index) is ready to display!!")
             if self.dataSource.count == 0 || (self.dataSource.count - 1) == index {

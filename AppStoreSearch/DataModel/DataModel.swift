@@ -70,23 +70,23 @@ struct DataModel {
     }
     
     // pjh: used by AppStoreSearch service json -> coredata
-    static func queryForApps(term: String?, handle: @escaping([AppEntity], ApplicationErrorType) -> ()) -> (code:ApplicationErrorType, message:String) {
+    static func queryForApps(term: String?, handle: @escaping([AppEntity], AppCode) -> ()) -> (code:AppCode, message:String) {
         var message = "Search term is nil"
         guard let text = term else {
-            handle([], .searchTermIsNilErrorCode)
+            handle([], AppCode.searchTermIsNilErrorCode)
             return (code: .nilStringErrorCode, message: message)
         }
         
         guard text.isEmpty == false else {
             message = "Search term is empty"
-            handle([], .searchTermIsEmptyErrorCode)
-            return (code: .emptyStringErrorCode, message: message)
+            handle([], AppCode.searchTermIsEmptyErrorCode)
+            return (code: AppCode.emptyStringErrorCode, message: message)
         }
         
         guard let encoded = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
             message = "Search term could not be url encoded!"
-            handle([], .urlEncodingErrorCode)
-            return (code: .urlEncodingErrorCode, message: message)
+            handle([], AppCode.urlEncodingErrorCode)
+            return (code: AppCode.urlEncodingErrorCode, message: message)
         }
         
         logger.info("Query term is: \(encoded)")
@@ -100,7 +100,7 @@ struct DataModel {
             do {
                 let results = try await AppStoreService.queryStore(term: encoded, makeAppEntity: DataModel.makeAppEntityFromSource)
                 persistence.save()
-                handle(results.apps, .okayNoErrorCode)
+                handle(results.apps, AppCode.okayNoErrorCode)
                 print("appEntites count == \(results.apps.count)")
                 
             } catch {
