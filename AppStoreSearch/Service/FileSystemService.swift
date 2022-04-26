@@ -16,7 +16,7 @@ struct FilesystemServiceError: Error {
         case failedToSaveJSONResponse
     }
     
-    let code = ApplicationErrorType.fileSystemServiceErrorCode
+    let code = AppCode.fileSystemServiceErrorCode
     let type: ErrorType
     let text: String
 
@@ -140,13 +140,13 @@ struct FileSystemService {
                                _ appId: Int64,
                                _ term: String,
                                _ index: Int,
-                               _ process: @escaping(Int64, String, Int, ApplicationErrorType) -> ()) {
+                               _ process: @escaping(Int64, String, Int, AppCode) -> ()) {
         screenshotQueue.async {
             let filepathURL = worker.screenshotPath(appId: appId, index: index + 1)
             if let data = rawData {
                 if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
                     try? image.write(to: filepathURL)
-                    process(appId, term, index, .okayNoErrorCode)
+                    process(appId, term, index, AppCode.okayNoErrorCode)
                 }
             }
         }

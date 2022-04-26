@@ -8,19 +8,7 @@
 import Foundation
 import os.log
 
-struct AppStoreServiceError: Error {
 
-    enum ErrorType {
-        case failedURLEncoding
-        case failedToDecodeHTTPResponse
-        case queryTimedOut
-    }
-    
-    let code = ApplicationErrorType.appStoreServiceErrorCode
-    let type: ErrorType
-    let text: String
-
-}
 
 
 struct AppStoreService {
@@ -28,7 +16,7 @@ struct AppStoreService {
     
     static var numberOfResultsPerQuery = 30 // 1 to 200 per API
     
-    static func queryStore(term: String, limit: Int = 0, makeAppEntity: ([String: Any]) -> AppEntity?) async throws -> (apps:[AppEntity], code: ApplicationErrorType) {
+    static func queryStore(term: String, limit: Int = 0, makeAppEntity: ([String: Any]) -> AppEntity?) async throws -> (apps:[AppEntity], code: AppCode) {
         var appEntities: [AppEntity] = []
         var limitToUse = limit
         if limit <= 0 {
@@ -37,7 +25,8 @@ struct AppStoreService {
         
         guard let url = URL(string: AppStoreService.buildURLString(term, limitToUse)) else {
             let message = "AppStoreService: failed to create URL"
-            throw AppStoreServiceError(type: .failedURLEncoding, text: message)
+            throw AppError.application(code: .appStoreServiceErrorCode, message: message)
+
         }
         
         Logger().info("AppStoreService: will use query: \(url.absoluteString)")
@@ -65,7 +54,7 @@ struct AppStoreService {
             
         } catch {
             let message = "AppStoreService: failed decode HTTP response"
-            throw AppStoreServiceError(type: .failedToDecodeHTTPResponse, text: message)
+            throw AppError.application(code: .appStoreServiceErrorCode, message: message)
         }
         
         
