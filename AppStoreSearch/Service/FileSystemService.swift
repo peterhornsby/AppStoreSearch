@@ -94,12 +94,13 @@ struct FileSystemService {
     }
     
     
-    static func saveAppIcon(rawData: Data?, appId: Int64, term: String) {
+    static func saveAppIcon(rawData: Data?, appId: Int64, term: String, completion: @escaping ()-> ()) {
         iconQueue.async {
             let filepathURL = worker.iconPath(appId: appId)
             if let data = rawData {
                 if let image = UIImage(data: data)?.jpegData(compressionQuality: 1) {
                     try? image.write(to: filepathURL)
+                    completion()
                 }
             }
         }

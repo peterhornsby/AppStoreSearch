@@ -42,10 +42,17 @@ class AppDetailsViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func processMediaRequest(_ appId: Int64,  _ rawData: Data?) -> () {
-        FileSystemService.saveAppIcon(rawData: rawData, appId: appId, term: searchTerm)
-        DispatchQueue.main.async {
-            self.detailListView.reloadData()
+        
+        let process = {
+            DispatchQueue.main.async {
+                self.detailListView.reloadData()
+            }
         }
+        
+        FileSystemService.saveAppIcon(rawData: rawData,
+                                      appId: appId,
+                                      term: searchTerm,
+                                      completion: process)
     }
     
 
