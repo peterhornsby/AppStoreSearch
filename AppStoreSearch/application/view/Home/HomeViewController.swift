@@ -178,7 +178,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func processMediaRequest(_ appId: Int64,  _ data: Data?, _ term: String) {
-        
         let updateUI = {
             DispatchQueue.main.async {
                 if let cells = self.appsListView.visibleCells as? [AppEntityTableViewCell] {
@@ -197,7 +196,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                       appId: appId,
                                       term: term,
                                       completion: updateUI)
-
     }
     
     
